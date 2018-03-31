@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>聚奇酷 jqk6.com</title>
+    
+    <!-- <link rel="stylesheet" type="text/css" href="../css/jqk6.css" /> -->
+
+    <style type="text/css">
+        li {
+            auto;
+            /*solid;*/
+        }
+        a:hover {
+            color: Red;
+        }
+        span:hover {
+            color: Red;
+            background-color: Yellow;
+        }        
+    </style>    
+
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>    
+    
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="../bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+        Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+    
+    <!-- Javascript get URL parameters //-->
+    <script language="javascript">
+    function GetUrlRequest() 
+    {
+      //获取当前URL中"?"符后的字串
+      var url = location.search; 
+       var theRequest = new Object();
+       if (url.indexOf("?") != -1) 
+       {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for(var i = 0; i < strs.length; i ++) 
+          {
+             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+          }
+       }
+       return theRequest;
+    }
+    </script>    
+    
+    <!-- CHANGE COLOR -->
+    <script language="javascript">
+    function FuncChangeColor (obj_id) 
+    {
+        var TheNewUrl = Bmob.Object.extend("WebLinks");
+        var tQuery = new Bmob.Query(TheNewUrl);
+        tQuery.equalTo("objectId", obj_id);
+
+        tQuery.find({
+            success: function(results) 
+            {
+                for (var i = 0; i < results.length; i++) 
+                {
+                    var object = results[i];
+                    var strStarColor = object.get('StarColor');
+                    
+                    if (strStarColor)
+                    {
+                        strStarColor = "";
+                        document.getElementById("aid_" + obj_id).style.background = "#FFFFFF";
+                        document.getElementById("cid_" + obj_id).style.background = "#FFFFFF";
+                        document.getElementById("did_" + obj_id).style.background = "#FFFFFF";
+                        document.getElementById("eid_" + obj_id).style.background = "#FFFFFF";
+                    }
+                    else 
+                    {
+                        strStarColor = "Yellow";
+                        document.getElementById("aid_" + obj_id).style.background = "#FFFF00";
+                        document.getElementById("cid_" + obj_id).style.background = "#FFFF00";
+                        document.getElementById("did_" + obj_id).style.background = "#FFFF00";
+                        document.getElementById("eid_" + obj_id).style.background = "#FFFF00"; 
+                    }
+
+                    object.fetchWhenSave(true);
+                    object.set('StarColor', strStarColor);
+                    object.save(null, null);
+                }
+            },
+            error: function(error) 
+            {
+                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+            }
+        });
+
+        // RELOAD ALL ROWS
+        // FuncShowTheNewUrl ();
+        // 这样做不好用, 不能更新当前当前的颜色, 只能等更新下一个时,才能显示上一个的更新效果,奇怪,为什么会这样?
+        // 不自动刷新了,还是手工刷新更新吧.手工刷新,可以在更新多个记录的颜色后, 只手工刷新一次,这样节省网络交互.
+        // F5或CTRL+R,或COMMAND+R
+    }
+    </script>
+
+    <!-- Bmob Show URL //-->
+    <script type="text/javascript">
+    
+    var strHomePageLink
+    var strNextPageLink
+
+    function FuncShowTheNewUrl () 
+    {
+        var TheNewUrl = Bmob.Object.extend("WebLinks");
+        var tQuery = new Bmob.Query(TheNewUrl);
+
+        // 获取当前URL参数
+        var tUrlRequest = new Object();
+        tUrlRequest = GetUrlRequest();
+        
+        var iSkip = tUrlRequest["skip"];
+        if (typeof(iSkip) == "undefined" || iSkip == "" || iSkip<1)
+        {
+            iSkip = 1;  // 最新一页
+        }
+        
+        var iRowCountInPage = tUrlRequest["rowcount"];
+        if (!iRowCountInPage || iRowCountInPage<1){
+            iRowCountInPage = 40;
+            
+            // 手机只取一半数量
+            if (window.screen.width < window.screen.height) {
+                iRowCountInPage = iRowCountInPage / 2
+                // iRowCountInPage = iRowCountInPage + 1
+            }
+        }
+ 
+        // 一页内的URL记录数
+        var iPageUrlCount = iRowCountInPage; 
+        
+        // NEXT PAGE LINK
+        strHomePageLink = "./js_links.html?skip=0&rowcount=" + iRowCountInPage
+        strNextPageLink = "./js_links.html?skip=" + (parseInt(iSkip)+1) + "&rowcount=" + iRowCountInPage
+
+        // 分页显示，显示页号
+        tQuery.count({
+          success: function(iUrlCount) {
+          
+            // 获得总URL记录数
+            var strPageBanner;
+            strPageBanner = "[文章总数: " + iUrlCount + "] ";
+            
+            // 获得页数
+            var iPageCount = parseInt (iUrlCount / iPageUrlCount);
+            var iMorePageBegin = 14;
+            var bIsMorePage = false;
+            
+            for (var i=0; i<iPageCount; i++)
+            {
+                var iNo = i+1;
+                if (iNo != iSkip)
+                    strPageBanner += "&nbsp;<font size=4><a href=\"./js_links.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a></font> " ; 
+                else
+                    strPageBanner += "&nbsp;<a href=\"./js_links.html?skip=" + iNo + "&rowcount=100\"><font color=red size=6>" + iNo + "</font></a> " ;
+
+                if (i==iMorePageBegin)
+                {
+                    if (iSkip<=iMorePageBegin+1)
+                        strPageBanner += "<span class='more_page' style=display:none>";
+                    else
+                        strPageBanner += "<span class='more_page' style=display:>";
+
+                    bIsMorePage = true;
+                }                
+            }
+
+            // 判断页数是否整除，如果不是整除，还要多显示一页
+            if (iPageCount * iPageUrlCount < iUrlCount)
+            {
+                var iNo = (iPageCount+1);
+                if (iNo != iSkip)
+                    strPageBanner += "&nbsp;<font size=4><a href=\"./js_links.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a></font> " ; 
+                else
+                    strPageBanner += "&nbsp;<a href=\"./js_links.html?skip=" + iNo + "&rowcount=100\"><font color=red size=6>" + iNo + "</font></a> " ;
+            }
+
+            if (bIsMorePage)
+            {
+                strPageBanner += "</span>";
+                if (iSkip<=iMorePageBegin+1)
+                    strPageBanner += "&nbsp;<a href='javascript:$(\".more_page\").show(); $(\".more_link\").hide();' class='more_link'>更多...</a>";
+            }
+            
+            // 输出显示 
+            // document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>";
+            document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>";
+          },
+          error: function(error) {
+          }
+        });        
+        
+        // 构造FONT SIZE
+        var strFontSizeLeft  = "<font size=4>"
+        if (window.screen.width < window.screen.height)
+            strFontSizeLeft  = "<font size=6>"
+        var strFontSizeRight  = "</font>"
+
+        // 排序，显示最新的URL
+        tQuery.descending("createdAt");
+        tQuery.limit (iPageUrlCount);
+        tQuery.skip ((iSkip-1)*iPageUrlCount);
+        
+        // 显示当前页内的URL
+        tQuery.find({
+            success: function(results) 
+            {
+                var strLastLink = ""
+
+                var strNextPageImg = "next_128.jpg"
+                if (window.screen.width < window.screen.height)
+                    strNextPageImg = "next_256.png"                
+
+                for (var i = 0; i < results.length; i++) 
+                {
+                    var object = results[i];
+                    var strUrl = object.get('url');
+                    if (!strUrl)
+                        continue;
+
+                    if (strUrl.indexOf ('http://') != 0 && strUrl.indexOf('https://') != 0)
+                        strUrl = "http://" + strUrl;
+                    var strRemark = object.get('remark');
+                    if (!strRemark)
+                        strRemark = strUrl;
+                    var strStarColor = object.get('StarColor');
+                    var strCreateDate = object.get('strCreateDate');
+
+                    // 提取域名部分
+                    var strDomainLink = ""
+                    var strHost = strUrl.match(/https?:\/\/([^\/]+)\//i);
+                    if (strHost && strHost.length > 0){
+                        var strHostName = strHost[1]
+                        if (strHostName.indexOf ("www.") == 0) {
+                            strHostName = strHostName.substr (4)
+                        }
+                        strDomainLink = " <a href=\"" + strHost[0] + "?utm_source=www.jqk6.com\" target=\"_blank\">" + strHostName + "</a>"
+                    }
+
+                    if (strLastLink && strLastLink === strDomainLink) {
+                        strDomainLink = "<font size=2 color=gray>同上</font>"
+                    } 
+                    strLastLink = strDomainLink
+
+                    if (window.screen.width >= window.screen.height){ // 横屏、PC
+	                   	document.getElementById("StdOut").innerHTML += 
+	                       	"<span style='display:inline-block;width:100px;background-color:" + strStarColor + "' id=\"aid_" + object.id + "\">" + "<a href=\"javascript:FuncChangeColor('" + object.id + "');\">" + strCreateDate + "</a>&nbsp;</span>"
+                        	document.getElementById("StdOut").innerHTML += 
+                            	"<span style='display:inline-block;width:250px;background-color:" + strStarColor + "' id=\"eid_" + object.id + "\">" + strDomainLink  + "&nbsp;</span>"
+                    }
+                    document.getElementById("StdOut").innerHTML += 
+                        "<span style='display:inline-block;width:50px;background-color:" + strStarColor + "' id=\"cid_" + object.id + "\">" + "<a href=\"" + strUrl + "\" target=\"_blank\">阅读</a>&nbsp;</span>" + 
+                        "<span style='display:inline-block;width:800px;background-color:" + strStarColor + "' id=\"did_" + object.id + "\">" + strFontSizeLeft + strRemark + strFontSizeRight + "&nbsp;</span>" + 
+                        "<br><br>";
+
+                    // 每隔N行,空一行,便于阅读
+                    if (i>0 && i%5==4)
+                        document.getElementById("StdOut").innerHTML += "<hr>";
+                }
+
+                // NEXT PAGE BUTTON
+                document.getElementById("StdOut").innerHTML += 
+                    "<span style='display:inline-block;width:500px;background-color:White;'><a href=\"" + strHomePageLink + "\"><img src=\"../res/png/home.png\" alt=\"GO HOME\"></span>" +
+                    "<span style='display:inline-block;'><a href=\"" + strNextPageLink + "\"><img src=\"../res/png/" + strNextPageImg + "\" alt=\"NEXT PAGE\"></a></span>" + 
+                    "<hr>";
+                
+            },
+            error: function(error) 
+            {
+                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+            }
+        });       
+    }
+    </script> 
+    
+    </head>
+
+    <body>
+
+    <!-- HEADER NAV BAR //-->
+    <hr>
+    <table>
+        <tr>
+            <td>[<a href="../index.html">首页</a>]</td>
+            <td>[<a href="../add/js_main.html">网站</a>]</td>
+            <td bgcolor=Cyan>&nbsp;<font color=red>文章</font>&nbsp;</td>
+            <td>[<a href="../about.html">关于</a>]</td>
+        </tr>
+    </table>
+    <hr>
+
+    <!-- Pages Header //-->
+    <b id="PagesHeader"><PagesHeader></b>
+
+    <!-- stdout logging //-->
+    <p id="StdOut"><StdOut></p>
+
+    <!-- Pages Tailor //-->
+    <b id="PagesTailor"><PagesTailor></b>
+    
+    <!-- RUN //-->
+    <script type="text/javascript">
+        FuncShowTheNewUrl ();
+    </script>
+  
+    </body>
+    
+</html>

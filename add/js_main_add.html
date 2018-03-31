@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>AddWeb</title>
+    
+    <link rel="stylesheet" type="text/css" href="../css/jqk6.css" />
+
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="../bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+
+    <!-- RESET INPUT -->
+    <script>
+      function reset_input () {
+        $("#InUrlId").attr("value","");
+        $("#InImgUrlId").attr("value","");
+        $("#InNameId").attr("value","");
+        $("#InUrlId").focus();
+
+        $("#ThumbnailUrlId").html("");
+        $("#ThumbnailImgId").attr("src", "");
+        $("#ThumbnailImgId").attr("alt", "");
+      }
+    </script>
+
+    <script>
+      function FuncAdd2Thumbnail (strImgUrl, strNailUrl) {
+
+        if (!strNailUrl)
+          return;
+
+        var TheThumbnail = Bmob.Object.extend("Thumbnail");
+        var tTheThumbnail = new TheThumbnail();
+        tTheThumbnail.set("strOrg", strImgUrl);
+        tTheThumbnail.set("strNail", strNailUrl);
+
+        tTheThumbnail.save(null, {
+            success: function(object) {
+                $("#StdOut").html( "OK to add thumbnail for "+object.id);
+            },
+            error: function(model, error) {
+                $("#StdOut").html( "Fail to add thumbnail! "+error.message);
+            }
+        });
+
+      }
+    </script>
+
+    <!-- Bmob Add URL //-->
+    <script type="text/javascript">
+    function FuncAdd2TheNewUrl () {
+        var strUrl = $.trim(FormTheNewUrl.InUrl.value);
+        var strName = $.trim(FormTheNewUrl.InName.value);
+        var strImgUrl = $.trim(FormTheNewUrl.InImgUrl.value);
+
+        if (strUrl==""||strName==""){
+          $("#InUrlId").select();
+          $("#InUrlId").focus();
+          return;
+        }
+
+        var TheNewUrl = Bmob.Object.extend("TheNewUrl");
+        var tTheNewUrl = new TheNewUrl();
+        tTheNewUrl.set("url", strUrl);
+        tTheNewUrl.set("name", strName);
+        tTheNewUrl.set("img_url", strImgUrl);
+        tTheNewUrl.save(null, {
+            success: function(object) {
+                document.getElementById("StdOut").innerHTML="<font color=Blue size=8>OK</font> to add for "+object.id+" // <font color=blue>"+strName+"</font>";
+            },
+            error: function(model, error) {
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+" // <font color=blue>"+strName+"</font>";
+            }
+        });
+
+        reset_input ();
+    }
+    </script>
+
+    <!-- GENERATE THUMBNAIL IMAGE -->
+    <script>
+    function FuncGenerateThumbnailImg() {
+      var strImgUrl = $.trim(FormTheNewUrl.InImgUrl.value);
+      if (!strImgUrl) {
+        $("#InImgUrlId").select();
+        $("#InImgUrlId").focus();
+        return;
+      }
+      $("#ThumbnailUrlId").html("Waiting...");
+      $("#ThumbnailImgId").attr("src", "");
+      $("#ThumbnailImgId").attr("alt", "Waiting...");
+      // $("#InImgUrlId").attr("disabled", true);
+      // $("#InImgBtnId").hide();
+
+      var strNailUrl = "";
+      // Bmob.Image.thumbnail({"image":strImgUrl,"mode":0,"quality":100,"width":200}).then(function(obj) {
+      // Bmob.Image.thumbnail({"image":strImgUrl,"mode":1,"quality":100,"height":200}).then(function(obj) {
+      // Bmob.Image.thumbnail({"image":strImgUrl,"mode":2,"quality":100,"longEdge":200}).then(function(obj) {
+      // Bmob.Image.thumbnail({"image":strImgUrl,"mode":3,"quality":100,"shortEdge":200}).then(function(obj) {
+      Bmob.Image.thumbnail({"image":strImgUrl,"mode":4,"quality":100,"width":300,"height":300}).then(function(obj) {
+      // Bmob.Image.thumbnail({"image":strImgUrl,"mode":5,"quality":100,"width":200,"height":200}).then(function(obj) {
+        if (obj.url)
+        {
+          // CONVERT OK
+          strNailUrl = "http://file.bmob.cn/" + obj.url;
+
+          $("#InImgUrlId").attr("value", strNailUrl);
+          $("#InImgUrlId").select();
+          $("#InImgUrlId").focus(); 
+
+          $("#ThumbnailUrlId").html (strNailUrl);
+          $("#ThumbnailImgId").attr("src", strNailUrl);
+          $("#ThumbnailImgId").attr("alt", strNailUrl);
+
+          // 将URL记录到Thumbnail表
+          setTimeout (FuncAdd2Thumbnail (strImgUrl, strNailUrl));
+        }
+        else 
+        {
+          $("#ThumbnailUrlId").html ("<font color=red>Failed!</font> error:" + obj.error);
+          $("#ThumbnailImgId").attr("src", "");
+          $("#ThumbnailImgId").attr("alt", "");
+        }
+
+        // $("#InImgBtnId").show();
+        // $("#InImgUrlId").attr("disabled", false);
+        $("#InImgUrlId").select();
+        $("#InImgUrlId").focus();
+
+      }).then(null, function (err){
+
+        $("#ThumbnailUrlId").html ("<font color=red>Failed!</font> code:" + err.code + " message:"+err.message);
+        $("#ThumbnailImgId").attr("src", "");
+        $("#ThumbnailImgId").attr("alt", "");
+
+        // $("#InImgBtnId").show();
+        // $("#InImgUrlId").attr("disabled", false);
+        $("#InImgUrlId").select();
+        $("#InImgUrlId").focus();
+      });
+
+    }
+    </script>
+
+  </head>
+
+  <body>
+
+  <!-- HEADER NAV BAR //-->
+  <hr>
+  <table>
+    <tr>
+      <td>[<a href="../index.html">首页</a>]</td>
+      <td bgcolor=Cyan>&nbsp;<font color=red>添加</font>&nbsp;</td>
+      <td>[<a href="../add/js_main.html">网站</a>]</td>
+      <td>[<a href="../add/js_links_add_frame.html">添加</a>]</td>
+      <td>[<a href="../add/js_links.html">文章</a>]</td>
+      <td>[<a href="../add/js_logging_add.html">添加</a>]</td>
+      <td>[<a href="../add/js_logging.html">日志</a>]</td>
+      <td>[<a href="../about.html">关于</a>]</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Input box //-->
+  <form name="FormTheNewUrl">
+	<ul>
+    <li><tt><font color=red>*</font> <a href="javascript:reset_input();">网站链接</a>: </tt> <input type="text" name="InUrl" id="InUrlId" size="60" autofocus /> </li> 
+    <li><tt><font color=red>*</font> 网站名称: </tt> <input type="text" name="InName" id="InNameId" size="60" /> </li>
+    <br>
+    <li><tt><font color=white>*</font> 图片链接: </tt> <input type="text" name="InImgUrl" id="InImgUrlId" size="60" /> </li>
+    <br>
+    <li>
+      <tt><font color=white>*</font><font color=white> 填充补位:</font> </tt> 
+      <input type="button" name="ImgBtn" id="InImgBtnId" value="Generate a thumbnail" onclick="FuncGenerateThumbnailImg(this)"  style="font-size:10px"/>  
+      <input type="button" name="ShowAllImg" id="ShowAllImgId" value="Surf thumbnails" onclick="window.open('js_thumbnail.html')" style="font-size:10px"> 
+    </li>
+    <br>
+    <li><tt><font color=red>*</font><font color=white> 添加网站:</font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheNewUrl(this)" style="font-size:10px"/></li>
+	</ul>
+  </form>
+  <hr>
+
+  <!-- stdout logging //-->
+  <p id="StdOut"></p>
+
+  <!-- THUMBNAIL IMAGE URL -->
+  <p><img id="ThumbnailImgId" src="" alt=""></p>
+  <p id="ThumbnailUrlId"></p>
+
+  <!-- INIT -->
+  <script>
+
+  </script>
+
+  </body>
+</html>

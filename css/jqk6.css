@@ -1,0 +1,12 @@
+li {
+    auto;
+    /*solid;*/
+}
+a {
+    background: White;
+    transition: all 0.2s ease;
+}
+a:hover {
+    color: Red;
+    background: Yellow;
+}

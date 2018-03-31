@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Calc Date</title>
+	<script type="text/javascript" src="/jquery/jquery-1.4.2.min.js"></script>
+	<script>
+	function funcCalcDate() {
+
+		// 输入时间秒数，转化为毫秒数，构造Date对象
+		var iInputMilliseconds = $("#idSecond").val();
+		var iInputOld = iInputMilliseconds;
+		iInputMilliseconds = parseInt (iInputMilliseconds, 10);
+		iInputMilliseconds = iInputMilliseconds*1000; // second -> millisecond
+
+		// 计算2010年01月01日基准时间
+		var d = new Date();
+		d.setFullYear(2010); // 设置 Date 对象中的年份（四位数字）。
+		d.setMonth (0);	// 设置 Date 对象中月份 (0 ~ 11)。
+		d.setDate(1);	// 设置 Date 对象中月的某一天 (1 ~ 31)。
+		d.setHours(0); // 设置 Date 对象中的小时 (0 ~ 23)。
+		d.setMinutes(0); // 设置 Date 对象中的分钟 (0 ~ 59)。
+		d.setSeconds(0); // 设置 Date 对象中的秒钟 (0 ~ 59)。
+		d.setMilliseconds(0); // 设置 Date 对象中的毫秒 (0 ~ 999)。
+		var i2010Milliseconds = d.getTime ();	 // 返回 1970 年 1 月 1 日至今的毫秒数。
+
+		var tResult = new Date();
+		tResult.setTime (iInputMilliseconds + i2010Milliseconds);
+
+		// 输出结算结果
+		$("#idStdout").html("<b>" + iInputOld + "</b> => <font color=blue>" + tResult.toDateString() + "</font> <font color=red>" + tResult.toTimeString() + "</font></br>" + $("#idStdout").html());
+
+		$("#idSecond").select();
+		$("#idSecond").focus();
+	}
+	</script>
+	<script>
+	function funcGetNowDate () {
+
+		// 计算2010年01月01日基准时间
+		var d = new Date();
+		d.setFullYear(2010); // 设置 Date 对象中的年份（四位数字）。
+		d.setMonth (0);	// 设置 Date 对象中月份 (0 ~ 11)。
+		d.setDate(1);	// 设置 Date 对象中月的某一天 (1 ~ 31)。
+		d.setHours(0); // 设置 Date 对象中的小时 (0 ~ 23)。
+		d.setMinutes(0); // 设置 Date 对象中的分钟 (0 ~ 59)。
+		d.setSeconds(0); // 设置 Date 对象中的秒钟 (0 ~ 59)。
+		d.setMilliseconds(0); // 设置 Date 对象中的毫秒 (0 ~ 999)。
+		var i2010Milliseconds = d.getTime ();	 // 返回 1970 年 1 月 1 日至今的毫秒数。
+
+		var dNow = new Date();
+		var iNow = dNow.getTime();
+
+		// 输出结算结果
+		$("#idSecond").val(Math.floor((iNow - i2010Milliseconds)/1000));
+
+		$("#idSecond").select();
+		$("#idSecond").focus();
+
+		// 调用计算时间
+		funcCalcDate();
+	}
+	</script>
+</head>
+<body>
+<form id="idForm1">
+输入2010年01月01日00:00:00开始的时间（秒数）：</br>
+如：<b>197416212</b> 将被转化为：<b>Sun Apr 03 2016 21:50:12 GMT+0800 (中国标准时间)</b></br>
+<input id="idSecond" type="text" />
+<input id="idCalcBtn" type="button" value="计算" onclick="funcCalcDate(this);" />
+<input id="idNowBtn" type="button" value="现在" onclick="funcGetNowDate(this);" />
+</form>
+<p id="idStdout"></p>
+<script>
+	// READY
+	$(document).ready(function() {
+		$("#idSecond").select();
+		$("#idSecond").focus();
+	});	
+</script>
+</body>
+</html>

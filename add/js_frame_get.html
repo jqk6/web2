@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>iframe -- 聚奇酷 jqk6.com</title>
+      
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+
+
+    <script>
+	    function reset_input () {
+	        $("#strUrlId").attr("value","");
+	        $("#strUrlId").focus();
+	    }
+    </script>   
+
+	<script>
+		function FuncGetUrlInFrame () {
+	        var strUrl = $.trim(tUrlForm.strUrlName.value);
+	        if (strUrl == "") {
+	          $("#strUrlId").focus();
+	          return;
+	        }
+
+	        // 设置框架高度，隐藏框架
+	        document.getElementById("iframe_window").height = 0
+
+			// 清空输出信息
+ 			document.getElementById("strGetUrlId").innerHTML = ""
+ 			document.getElementById("strGetTitleId").innerHTML = ""
+ 			document.getElementById("strGetDomainId").innerHTML = ""
+ 			document.getElementById("strGetCookieId").innerHTML = ""
+ 			document.getElementById("strGetLastModifiedId").innerHTML = ""
+ 			document.getElementById("strGetReferrerId").innerHTML = ""
+ 			document.getElementById("strGetUrl2Id").innerHTML = ""
+ 			document.getElementById("strGetImagesLengthId").innerHTML = ""
+ 			document.getElementById("strGetImagesId").innerHTML = ""
+
+	        // 为框架设置新的URL
+	       document.getElementById("iframe_window").src = strUrl
+		}
+	</script>
+
+    </head>
+    <body>
+
+	  <form name="tUrlForm">
+	 		<a href="javascript:reset_input();">URL</a>:
+	      <input type="text" name="strUrlName" id="strUrlId" size="100" autofocus />
+	    	<br><br>
+	    	<font color=white>URL:</font>
+		   <input type="button" name="strButtonName" id="strButtonId" value="GO WEB" onclick="FuncGetUrlInFrame(this)" style="font-size:10px"/>
+	  </form>
+
+		<!-- 提取到URL -->
+		URL:
+		<span id="strGetUrlId"></span> <br>
+
+	 	<!-- 提取到标题 -->
+	 	TITLE:
+		<span id="strGetTitleId"></span> <br>
+
+		<!-- 提取到域名 -->
+		DOMAIN:
+		<span id="strGetDomainId"></span> <br>
+
+		<!-- 提取到COOKIE -->
+		COOKIE:
+		<span id="strGetCookieId"></span> <br>
+
+		<!-- 提取到最近修改时间 -->
+		lastModified:
+		<span id="strGetLastModifiedId"></span> <br>
+
+		<!-- 提取到引用 -->
+		referrer:
+		<span id="strGetReferrerId"></span> <br>
+
+		<!-- 提取到URL -->
+		URL:
+		<span id="strGetUrl2Id"></span> <br>
+
+		<!-- 提取到图片数组元素数量 -->
+		images.length:
+		<span id="strGetImagesLengthId"></span> <br>
+
+		<!-- 提取到图片，用于显示图片 -->
+		images:<br>
+		<span id="strGetImagesId"></span> <br>
+
+	<hr>
+
+	<center>
+		<iframe id="iframe_window" src="" width="100%" height="0" frameBorder="1" frameSpacing="0" scrolling="auto" marginHeight="0" marginWidth="0" ></iframe>
+	</center>
+  
+	<script>
+		// 替换iframe内容
+		if (0){
+			var topWin = window.top.document.getElementById("iframe_window").contentWindow
+			topWin.document.open()
+			topWin.document.writeln ("hi")
+			topWin.document.close()		
+		}
+
+		// iframe页面变化时触发
+		$("#iframe_window").load(function(){
+			// 设置框架高度
+			document.getElementById("iframe_window").height= window.innerHeight * 3 / 4
+
+			// 从框架中提取URL
+ 			document.getElementById("strGetUrlId").innerHTML = document.getElementById("iframe_window").src
+
+ 			// 从框架中提取标题
+ 			document.getElementById("strGetTitleId").innerHTML = document.getElementById("iframe_window").contentDocument.title
+
+ 			// 从框架中提取域名
+ 			document.getElementById("strGetDomainId").innerHTML = document.getElementById("iframe_window").contentDocument.domain
+
+ 			// 从框架中提取域名
+ 			document.getElementById("strGetCookieId").innerHTML = document.getElementById("iframe_window").contentDocument.cookie
+
+ 			// 从框架中提取
+ 			document.getElementById("strGetLastModifiedId").innerHTML = document.getElementById("iframe_window").contentDocument.lastModified
+
+ 			// 从框架中提取
+ 			document.getElementById("strGetReferrerId").innerHTML = document.getElementById("iframe_window").contentDocument.referrer
+
+ 			// 从框架中提取
+ 			document.getElementById("strGetUrl2Id").innerHTML = document.getElementById("iframe_window").contentDocument.URL
+
+ 			// 从框架中提取
+ 			document.getElementById("strGetImagesLengthId").innerHTML = document.getElementById("iframe_window").contentDocument.images.length
+
+ 			// 显示图片
+ 			document.getElementById("strGetImagesId").innerHTML = ""
+ 			var aryImages = document.getElementById("iframe_window").contentDocument.images
+ 			var i
+ 			for (i=0; i<aryImages.length; i++) {
+ 				document.getElementById("strGetImagesId").innerHTML += "No." + (i+1) + " : "
+ 				document.getElementById("strGetImagesId").innerHTML += "<img src=\"" + aryImages[i].src + "\"><br>"
+ 			}
+
+    	});
+	</script>
+
+
+    </body>    
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>AddLog</title>
+    
+    <link rel="stylesheet" type="text/css" href="../css/jqk6.css" />
+    
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="../bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+
+    <!-- RESET INPUT -->
+    <script>
+    function reset_input () {
+        $("#InLineId").attr("value","");
+        $("#InLineId").focus();
+    }
+    </script>    
+    
+    <!-- Bmob Add Logging //-->
+    <script type="text/javascript">
+    function FuncAdd2TheLogging () {
+        var strLogging = $.trim(FormTheLogging.InLine.value);
+        if (strLogging == "") {
+          $("#InLineId").focus();
+          return;
+        }
+        strLogging = strLogging.replace (/</g, "&lt;");
+        strLogging = strLogging.replace (/>/g, "&gt;");
+        var strColor = ""
+        if ($("#InCheckId").attr("checked")==true)
+            strColor = "Yellow"
+
+        var TheNewLogging = Bmob.Object.extend("Logging");
+        var tTheNewLogging = new TheNewLogging();
+
+        tTheNewLogging.set("strLine", strLogging);
+        // tTheNewLogging.set("strCreateDate", (new Date).toDateString());
+        var t1 = new Date;
+        tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
+        tTheNewLogging.set ("strColor", strColor)
+        tTheNewLogging.save(null, {
+            success: function(object) {
+                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+ " // <font color=blue>"+strLogging+"</font>";
+                $("#InCheckId").attr("checked", false)
+            },
+            error: function(model, error) {
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+ " // <font color=blue>"+strLogging+"</font>";
+                $("#InCheckId").attr("checked", false)
+            }
+        });
+
+        reset_input ();
+    }
+    </script>
+
+  </head>
+
+  <body>
+
+  <!-- HEADER NAV BAR //-->
+  <hr>
+  <table>
+    <tr>
+      <td>[<a href="../index.html">首页</a>]</td>
+      <td>[<a href="../add/js_main_add.html">添加</a>]</td>
+      <td>[<a href="../add/js_main.html">网站</a>]</td>
+      <td>[<a href="../add/js_links_add_frame.html">添加</a>]</td>
+      <td>[<a href="../add/js_links.html">文章</a>]</td>
+      <td bgcolor=Cyan>&nbsp;<font color=red>添加</font>&nbsp;</td>
+      <td>[<a href="../add/js_logging.html">日志</a>]</td>
+      <td>[<a href="../about.html">关于</a>]</td>
+    </tr>
+  </table>
+  <hr> 
+  
+  <!-- Input box //-->
+  <form name="FormTheLogging">
+	<ul>
+    <li><tt><font color=red>*</font> <a href="javascript:reset_input();">日志</a>: </tt> 
+      <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
+      <textarea name="InLine" id="InLineId" rows=20 cols=100 autofocus ></textarea>
+    </li>
+    <br>
+        <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> <input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:10px"/></li>
+    <br>
+	  <li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:10px"/></li>
+	</ul>
+  </form>
+  <hr>
+  
+  <!-- stdout logging //-->
+  <p id="StdOut"><StdOut></p>
+  
+  </body>
+</html>
+

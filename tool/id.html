@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Check ID</title>
+	<script type="text/javascript" src="/jquery/jquery-1.4.2.min.js"></script>
+	<script>
+	
+	// 网上合法身份证号码举例
+	/*
+男
+潘怡悦 510723199007195415
+汤心怡 510723197609114433
+李伟博 510723198006202551
+郎泽雨 51072319870313665X
+雷熙华 510723197101221473
+卞懿轩 51072319880814383X
+安嘉志 510723197708284171
+王懿轩 51072319820625273X
+彭俊哲 510723197801231912
+沈开霁 510723198705171192
+滕懿轩 510723197208273396
+李雄逸 510723198504243954
+姜明灿 510723198108124312
+薛晋鹏 510723197205151457
+殷博文 510723197409289095
+滕伟誉 510723198504213018
+吕熙泰 510723198206241459
+花熙泰 510723197707112255
+施嘉志 510723198109227217
+吴宣展 510723197108125230
+
+女
+元欣畅 510723197901198507
+俞霞影 51072319820625556X
+伍颖初 510723198701203863
+尤红旭 510723197307262668
+鲍雅静 510723198101192080
+苏雪晴 510723197206192269
+张逸云 51072319840710862X
+元雅柔 510723198205143929
+伍依白 510723198409133706
+苗嘉丽 510723198607191747
+鲁迎秋 510723197809103528
+顾智美 510723198206231840
+姜静娴 51072319900226870X
+吴歌飞 510723197309273889
+傅雅柔 510723198007137085
+潘清俊 510723197605202882
+岑清婉 510723198009155906
+倪婉清 510723197803169462
+施娟巧 510723198807177122
+史诗兰 510723197105148402	
+	*/
+
+	// http://blog.csdn.net/thinkscape/article/details/17683757
+	// Javascript验证表单身份证号码的合法性 - anyx的专栏 - 博客频道 - CSDN.NET
+
+	var CheckIdCard={  
+		//Wi 加权因子 Xi 余数0~10对应的校验码 Pi省份代码  
+		Wi:[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2],  
+		Xi:[1,0,"X",9,8,7,6,5,4,3,2],  
+		Pi:[11,12,13,14,15,21,22,23,31,32,33,34,35,36,37,41,42,43,44,45,46,50,51,52,53,54,61,62,63,64,65,71,81,82,91],  
+
+		//检验18位身份证号码出生日期是否有效  
+		//parseFloat过滤前导零，年份必需大于等于1900且小于等于当前年份，用Date()对象判断日期是否有效。  
+		brithday18:function(sIdCard){
+			var year=parseFloat(sIdCard.substr(6,4));  
+			var month=parseFloat(sIdCard.substr(10,2));  
+			var day=parseFloat(sIdCard.substr(12,2));  
+			var checkDay=new Date(year,month-1,day);  
+			var nowDay=new Date();  
+			if (1900<=year && year<=nowDay.getFullYear() && month==(checkDay.getMonth()+1) && day==checkDay.getDate()) {  
+				$("#idStdErr").html("");
+				return true;  
+			};  
+			$("#idStdErr").html("18位号码生日错误");
+		},  
+
+		//检验15位身份证号码出生日期是否有效  
+		brithday15:function(sIdCard){  
+			var year=parseFloat(sIdCard.substr(6,2));  
+			var month=parseFloat(sIdCard.substr(8,2));  
+			var day=parseFloat(sIdCard.substr(10,2));  
+			var checkDay=new Date(year,month-1,day);  
+			if (month==(checkDay.getMonth()+1) && day==checkDay.getDate()) {  
+				$("#idStdErr").html("");
+				return true;  
+			}; 
+			$("#idStdErr").html("15位号码生日错误");
+		},  
+
+		//检验校验码是否有效  
+		validate:function(sIdCard){  
+			var aIdCard=sIdCard.split("");  
+			var sum=0;  
+			for (var i = 0; i < CheckIdCard.Wi.length; i++) {  
+				sum+=CheckIdCard.Wi[i]*aIdCard[i]; //线性加权求和  
+			};  
+			var index=sum%11;//求模，可能为0~10,可求对应的校验码是否于身份证的校验码匹配  
+			if (CheckIdCard.Xi[index]==aIdCard[17].toUpperCase()) {  
+				$("#idStdErr").html("");
+				return true;  
+			};
+			$("#idStdErr").html("校验码错误");
+		},  
+
+		//检验输入的省份编码是否有效  
+		province:function(sIdCard){
+			var p2=sIdCard.substr(0,2);  
+			for (var i = 0; i < CheckIdCard.Pi.length; i++) {  
+				if(CheckIdCard.Pi[i]==p2){  
+					$("#idStdErr").html("");
+					return true;  
+				};  
+			};
+			$("#idStdErr").html("省份错误"); 
+		}  
+	}; 
+	</script>
+	<script>
+	function funcCheckID() {
+		//去除字符串的前后空格，允许用户不小心输入前后空格  
+		var sIdCard=$("#idID").val().replace(/^\s+|\s+$/g,"");
+
+		//判断是否全为18或15位数字，最后一位可以是大小写字母X  
+		//允许用户输入大小写X代替罗马数字的Ⅹ  
+		if (sIdCard.match(/^\d{14,17}(\d|X)$/gi)==null) {
+			$("#idStdout").html("身份证号码须为18位或15位数字");      
+		}  
+		else if (sIdCard.length==18) {  
+			if (CheckIdCard.province(sIdCard)&&CheckIdCard.brithday18(sIdCard)&&CheckIdCard.validate(sIdCard)) {  
+				$("#idStdout").html("身份证号码合法");  
+			}  
+			else{  
+				$("#idStdout").html("请输入有效的身份证号码");  
+			};  
+		}  
+		else if (sIdCard.length==15) {  
+			if (CheckIdCard.province(sIdCard)&&CheckIdCard.brithday15(sIdCard)) {  
+				$("#idStdout").html("身份证号码合法");  
+			}  
+			else{  
+				$("#idStdout").html("请输入有效的身份证号码");  
+			};  
+		}; 
+
+		$("#idID").select();
+		$("#idID").focus();
+	}
+	</script>
+
+</head>
+<body>
+<form id="idForm1">
+输入身份证号码：</br>
+<input id="idID" type="text" value="510723197206192269"/>
+<input id="idCheckBtn" type="button" value="计算" onclick="funcCheckID(this);" />
+</form>
+<p id="idStdout" style="background-color: yellow"></p>
+<p id="idStdErr" style="background-color: red"></p>
+<script>
+	// READY
+	$(document).ready(function() {
+		$("#idID").select();
+		$("#idID").focus();
+	});
+</script>
+</body>
+</html>

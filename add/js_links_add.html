@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>AddLink</title>
+    
+    <link rel="stylesheet" type="text/css" href="../css/jqk6.css" />
+    
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="../bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+    
+    <!-- RESET INPUT -->
+    <script>
+    function reset_input () {
+        $("#InUrlId").attr("value","");
+        $("#InRemarkId").attr("value","");
+        $("#InColorId").attr("value","");
+        $("#InUrlId").focus();
+    }
+    </script>
+
+    <!-- Bmob Add URL //-->
+    <script type="text/javascript">
+    function FuncAdd2TheNewUrl () {
+        var strUrl = $.trim(FormTheNewUrl.InUrl.value);
+        var strRemark = $.trim(FormTheNewUrl.InRemark.value);
+        var tColorAry = ["red", "white", "cyan", "silver", "blue", "gray", "darkblue", "black", "lightblue",
+                        "orange", "purple", "brown", "yellow", "maroon", "lime", "green", "magenta", "olive"];
+
+        if (strUrl==""||strRemark==""){
+          $("#InUrlId").select();
+          $("#InUrlId").focus();
+          return;
+        }
+
+        // TITLE FROM ZHIHU.COM
+        if (strUrl.substr(0,21) == "http://www.zhihu.com/" && 
+            strRemark.substr(-2,2)== "修改")
+        {
+          // 去掉最后的"修改"两个字
+          strRemark = strRemark.substr(0, strRemark.length-2);
+        }
+
+        var TheNewUrl = Bmob.Object.extend("WebLinks");
+        var tTheNewUrl = new TheNewUrl();
+
+        tTheNewUrl.set("url", strUrl);
+        tTheNewUrl.set("remark", strRemark);
+
+        var t1 = new Date;
+        tTheNewUrl.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());
+
+        tTheNewUrl.save(null, {
+            success: function(object) {
+                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+" // <font color=blue>"+strRemark+"</font>";
+            },
+            error: function(model, error) {
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+" // <font color=blue>"+strRemark+"</font>";
+            }
+        });
+
+        reset_input ();
+    }
+    </script>
+
+    <!-- SHOW COLOR DETAIL //-->
+    <script type="text/javascript">
+    var iColorSelect = 0;
+    function show_color_detail() {
+      if (iColorSelect%2==0){
+        $("#html_div_color").show();
+      }
+      else {
+        $("#html_div_color").hide();
+      }
+      iColorSelect ++;
+      $("#InColorId").select();
+      $("#InColorId").focus();
+    }
+    </script>
+
+  </head>
+
+  <body>
+
+  <!-- HEADER NAV BAR //-->
+  <hr>
+  <table>
+    <tr>
+      <td>[<a href="../index.html">首页</a>]</td>
+      <td>[<a href="../add/js_main_add.html">添加</a>]</td>
+      <td>[<a href="../add/js_main.html">网站</a>]</td>
+      <td bgcolor=Cyan>&nbsp;<font color=red>添加</font>&nbsp;</td>
+      <td>[<a href="../add/js_links.html">文章</a>]</td>
+      <td>[<a href="../add/js_logging_add.html">添加</a>]</td>
+      <td>[<a href="../add/js_logging.html">日志</a>]</td>
+      <td>[<a href="../about.html">关于</a>]</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Input box //-->
+  <form name="FormTheNewUrl">
+	<ul>
+    <li><tt><font color=red>*</font> <a href="javascript:reset_input();">文章链接</a>: </tt> <input type="text" name="InUrl" id="InUrlId" size="60" autofocus /> </li>
+    <li><tt><font color=red>*</font> 文章标题: </tt> <input type="text" name="InRemark" id="InRemarkId" size="60" /> </li>
+    <br>
+	  <li><tt><font color=red>*</font><font color=white> 添加文章: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheNewUrl(this)" style="font-size:10px"/> </li>
+    <br>
+    <li><tt><font color=white>*</font> 颜色工具: </tt><tt><a href="javascript:show_color_detail();">HTML color code reference</a></tt></li>
+	</ul>
+  </form>
+  <hr>
+  
+  <!-- stdout logging //-->
+  <p id="StdOut"><StdOut></p>
+
+  <div id="html_div_color" style="display:none;">
+  <table>
+    <span><b>Cheat Sheet:</b></span>
+    <tr>
+      <td bgcolor="Red"><font color=white>Red</font></td>
+      <td bgcolor="White">White</td>
+      <td bgcolor="Cyan">Cyan青</td>
+      <td bgcolor="Silver">Silver</td>
+      <td bgcolor="Blue"><font color=white>Blue</font></td>
+      <td bgcolor="Gray"><font color=white>Gray</font></td>
+      <td bgcolor="DarkBlue"><font color=white>DarkBlue</font></td>
+      <td bgcolor="Black"><font color=white>Black</font></td>
+      <td bgcolor="LightBlue">LightBlue</td>
+    </tr>
+    <tr>
+      <td bgcolor="Orange"><font color=white>Orange</font></td>
+      <td bgcolor="Purple"><font color=white>Purple</font></td>
+      <td bgcolor="Brown"><font color=white>Brown</font></td>      
+      <td bgcolor="Yellow">Yellow</td>
+      <td bgcolor="Maroon"><font color=white>Maroon褐红</font></td>
+      <td bgcolor="Lime">Lime青柠</td>      
+      <td bgcolor="Green"><font color=white>Green</font></td>
+      <td bgcolor="Magenta"><font color=white>Magenta洋红</font></td>
+      <td bgcolor="Olive"><font color=white>Olive黄褐</font></td>      
+    </tr>
+  </table>
+  <p><a href="http://www.w3school.com.cn/tags/html_ref_colornames.asp" target="_blank">W3School HTML 颜色名</a></p>
+  <p><a href="http://www.computerhope.com/htmcolor.htm" target="_blank">HTML color codes and names</a></p>
+  </div>
+
+  </body>
+</html>
+

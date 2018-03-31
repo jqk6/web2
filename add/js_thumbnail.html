@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>聚奇酷 jqk6.com</title>
+    
+    <link rel="stylesheet" type="text/css" href="../css/jqk6.css" />
+    
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- jQuery //-->
+    <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="../bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+    
+    <!-- Javascript get URL parameters //-->
+    <script language="javascript">
+    function GetUrlRequest() {
+      //获取当前URL中"?"符后的字串
+      var url = location.search; 
+       var theRequest = new Object();
+       if (url.indexOf("?") != -1) {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for(var i = 0; i < strs.length; i ++) {
+             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+          }
+       }
+       return theRequest;
+    }
+    </script>   
+
+    <!--  -->
+    <script type="text/javascript">
+    function FuncDeleteRow(obj_id) {
+
+        var TheThumbnail = Bmob.Object.extend("Thumbnail");
+        var tQuery = new Bmob.Query(TheThumbnail);
+        tQuery.equalTo("objectId", obj_id);
+
+        tQuery.find({
+            success: function(results) 
+            {
+                for (var i = 0; i < results.length; i++) 
+                {
+                    var object = results[i];
+                    // alert (object.get('strOrg') + "\r\n" + object.get('strNail'));
+
+                    object.destroy({
+                      success: function(object) {
+                        // 删除成功
+                        $("#delId_"+obj_id).html ("<font color=red size=1>删</font>");
+                      },
+                      error: function(object, error) {
+                        // 删除失败
+                      }
+                    });
+
+                }
+            },
+            error: function(error) 
+            {
+                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+            }
+        });
+    }
+    </script>
+    
+    <!-- Bmob Show Thumbnail //-->
+    <script type="text/javascript">
+    function FuncShowThumbnail () {
+        var TheThumbnail = Bmob.Object.extend("Thumbnail");
+        var tQuery = new Bmob.Query(TheThumbnail);
+
+        // 获取当前URL参数
+        var tUrlRequest = new Object();
+        tUrlRequest = GetUrlRequest();
+        
+        var iSkip = tUrlRequest["skip"];
+        if (typeof(iSkip) == "undefined" || iSkip == "" || iSkip<1)
+        {
+            iSkip = 1;  // 最新一页
+        }
+        
+        var iRowCountInPage = tUrlRequest["rowcount"];
+        if (!iRowCountInPage || iRowCountInPage<10)
+            iRowCountInPage = 10;
+
+        // 一页内的日志记录数
+        var iPageUrlCount = iRowCountInPage; 
+        
+        // 分页显示，显示页号
+        tQuery.count({
+          success: function(iUrlCount) {
+          
+            // 获得总URL记录数
+            var strPageBanner;
+            strPageBanner = "记录: " + iUrlCount + " 页数: ";
+            
+            // 获得页数
+            var iPageCount = parseInt (iUrlCount / iPageUrlCount);
+            
+            for (var i=0; i<iPageCount; i++)
+            {
+                var iNo = i+1;
+                if (iNo != iSkip)
+                    strPageBanner += "<a href=\"./js_thumbnail.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
+                else
+                    // strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
+                    strPageBanner += "<font size=6 color=red><a href=\"./js_thumbnail.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
+            }
+
+            // 判断页数是否整除，如果不是整除，还要多显示一页
+            if (iPageCount * iPageUrlCount < iUrlCount)
+            {
+                var iNo = (iPageCount+1);
+                if (iNo != iSkip)
+                    strPageBanner += "<a href=\"./js_thumbnail.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
+                else
+                    // strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
+                    strPageBanner += "<font size=6 color=red><a href=\"./js_thumbnail.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
+            }
+            
+            // 输出显示 
+            document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>\r\n";
+            document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
+          },
+          error: function(error) {
+          }
+        });
+        
+        // 排序，显示最新的Thumbnail
+        tQuery.descending("createdAt");
+        tQuery.limit (iPageUrlCount);
+        tQuery.skip ((iSkip-1)*iPageUrlCount);
+        
+        // 显示当前页内的Thumbnail
+        tQuery.find({
+            success: function(results) {
+                document.getElementById("StdOut").innerHTML = "记录: " + results.length + "<hr>";
+                document.getElementById("StdOut").innerHTML += "<ol>";
+
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    var strOrg = object.get('strOrg');
+                    var strNail = object.get('strNail');
+                    if (!strNail)
+                        continue;
+
+                    document.getElementById("StdOut").innerHTML += 
+                        "<li>" +
+                        "<span style='display:inline-block;width:100px;'><a href='" + strOrg + "' target='_blank'>原图</a></span>" +
+                        "<span style='display:inline-block;width:100px;' id='delId_" + object.id + "'><a href=\"javascript:FuncDeleteRow('" + object.id + "');\"><font color=white size=1>删</font></a></span>" +
+                        "<span style='display:inline-block;'><img src='" + strNail + "'></span>" +
+                        "</li>";
+
+                    document.getElementById("StdOut").innerHTML += "<hr>";                        
+                 }
+                document.getElementById("StdOut").innerHTML += "</ol>";                        
+            },
+            error: function(error) {
+                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+            }
+        });       
+    }
+    </script> 
+    
+    </head>
+
+    <body>
+
+    <hr>
+
+    <!-- Pages Header //-->
+    <b id="PagesHeader"><PagesHeader></b>
+
+    <!-- stdout logging //-->
+    <p id="StdOut"></p>
+
+    <!-- Pages Tailor //-->
+    <b id="PagesTailor"><PagesTailor></b>
+    
+    <!-- RUN //-->
+    <script type="text/javascript">
+    FuncShowThumbnail ();
+    </script>
+  
+    </body>
+    
+</html>

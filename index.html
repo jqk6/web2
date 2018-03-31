@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>聚奇酷 jqk6.com - 平凡世界优秀网站的发现之旅</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/jqk6.css" />
+
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- jQuery //-->
+    <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+
+    <!-- Bmob Load //-->
+    <script type="text/javascript" src="bmob/latest/bmob-min.js"></script>
+    
+    <!-- Bmob Init //-->
+    <script type="text/javascript">
+    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    </script>
+    
+    <!-- Javascript get URL parameters //-->
+    <Script language="javascript">
+    function GetUrlRequest() {
+      //获取当前URL中"?"符后的字串
+      var url = location.search; 
+       var theRequest = new Object();
+       if (url.indexOf("?") != -1) {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for(var i = 0; i < strs.length; i ++) {
+             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+          }
+       }
+       return theRequest;
+    }
+    </Script>    
+
+    <script type="text/javascript">
+    function changeImg(objImg)
+    {
+        //设置最大宽度
+        var most = 320;        
+        if(objImg.width > most)
+        {
+            var scaling = 1-(objImg.width-most)/objImg.width;    
+            //计算缩小比例
+            objImg.width = objImg.width*scaling;
+            objImg.height = objImg.height;              //img元素没有设置高度时将自动等比例缩小
+            //objImg.height = objImg.height*scaling;    //img元素设置高度时需进行等比例缩小
+        }
+    }
+    </script>
+    
+    <!-- Bmob Show URL //-->
+    <script type="text/javascript">
+
+    var strHomePageLink
+    var strNextPageLink
+
+    function FuncShowTheNewUrl () {
+        var TheNewUrl = Bmob.Object.extend("TheNewUrl");
+        var tQuery = new Bmob.Query(TheNewUrl);
+
+        // 获取当前URL参数
+        var tUrlRequest = new Object();
+        tUrlRequest = GetUrlRequest();
+        
+        var iSkip = tUrlRequest["skip"];
+        if (typeof(iSkip) == "undefined" || iSkip == "" || iSkip<1)
+        {
+            iSkip = 1;  // 最新一页
+        }
+
+        var iRowCountInPage = tUrlRequest["rowcount"];
+        if (!iRowCountInPage || iRowCountInPage<1){
+            iRowCountInPage = 40;   // 主页默认网站个数
+            
+            // 手机只取一半数量
+            if (window.screen.width < window.screen.height) {
+                iRowCountInPage = iRowCountInPage / 2
+                iRowCountInPage = iRowCountInPage + 1 
+            }
+        }
+        
+        // 一页内的URL记录数
+        var iPageUrlCount = iRowCountInPage;  
+
+        // NEXT PAGE LINK
+        strHomePageLink = "./index.html?skip=0&rowcount=" + iRowCountInPage
+        strNextPageLink = "./index.html?skip=" + (parseInt(iSkip)+1) + "&rowcount=" + iRowCountInPage
+        
+        // 分页显示，显示页号
+        tQuery.count({
+          success: function(iUrlCount) {
+          
+            // 获得总URL记录数
+            var strPageBanner;
+            strPageBanner = "[网站总数: " + iUrlCount + "] ";
+            
+            // 获得页数
+            var iPageCount = parseInt (iUrlCount / iPageUrlCount);
+            var iMorePageBegin = 14;
+            var bIsMorePage = false;
+
+            for (var i=0; i<iPageCount; i++)
+            {
+                var iNo = i+1;
+                if (iNo != iSkip)
+                    strPageBanner += "&nbsp;<font size=2><a href=\"./index.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a></font> " ; 
+                else
+                    strPageBanner += "&nbsp;<a href=\"./index.html?skip=" + iNo + "&rowcount=100\"><font color=red size=6>" + iNo + "</font></a> " ;
+
+                if (i==iMorePageBegin)
+                {
+                    if (iSkip<=iMorePageBegin+1)
+                        strPageBanner += "<span class='more_page' style=display:none>";
+                    else
+                        strPageBanner += "<span class='more_page' style=display:>";
+
+                    bIsMorePage = true;
+                }
+            }
+
+            // 判断页数是否整除，如果不是整除，还要多显示一页
+            if (iPageCount * iPageUrlCount < iUrlCount)
+            {
+                var iNo = (iPageCount+1);
+                if (iNo != iSkip)
+                    strPageBanner += "&nbsp;<font size=2><a href=\"./index.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a></font> ";
+                else
+                    strPageBanner += "&nbsp;<a href=\"./index.html?skip=" + iNo + "&rowcount=100\"><font color=red size=6>" + iNo + "</font></a> " ;
+            }
+            
+            if (bIsMorePage)
+            {
+                strPageBanner += "</span>";
+                if (iSkip<=iMorePageBegin+1)
+                    strPageBanner += "&nbsp;<a href='javascript:$(\".more_page\").show(); $(\".more_link\").hide();' class='more_link'>更多...</a>";
+            }
+      
+            // 输出显示 
+            document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
+          },
+          error: function(error) {
+          }
+        });        
+        
+        // 排序，显示最新的URL
+        tQuery.descending("createdAt");
+        tQuery.limit (iPageUrlCount);
+        tQuery.skip ((iSkip-1)*iPageUrlCount);
+        
+        // 显示当前页内的URL
+        tQuery.find({
+            success: function(results) {
+
+            	var strNextPageImg = "next_128.jpg"
+            	if (window.screen.width < window.screen.height)
+            		strNextPageImg = "next_256.png"
+
+                document.getElementById("StdOut").innerHTML = "";
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    var strUrl = object.get('url');
+                    var strName= object.get('name');
+                    var strImgUrl = object.get('img_url');
+                    if (!strUrl || !strName)
+                        continue;
+                    if (strUrl.indexOf ('http://') != 0 && strUrl.indexOf('https://') != 0)
+                        strUrl = "http://" + strUrl;
+                    var strRemark = object.get('remark');
+
+                    var strOrigUrl = strUrl
+                    var strOrigUrlLink = "<a href=\"" + strOrigUrl + "\" target=_blank><font size=2 color=gray>元链</font></a>"
+                    strOrigUrlLink += "<font size=2 color=gray></font><br><br>"
+                    
+                    var strImgTag = "";
+                    if (strImgUrl != "" && typeof(strImgUrl) != "undefined")
+                    {
+                        strImgTag = "<img src=\"" + strImgUrl + "\" onload=\"changeImg(this);\">";
+                    }
+
+                    // 提取域名部分
+                    var strDomainLink = ""
+                    var strHost = strUrl.match(/https?:\/\/([^\/]+)\//i);
+                    if (strHost && strHost.length > 0){
+                        var strHostName = strHost[1]
+                        if (strHostName.indexOf ("www.") == 0) {
+                            strHostName = strHostName.substr (4)
+                        }
+                        strDomainLink = " <a href=\"" + strHost[0] + "?utm_source=www.jqk6.com\" target=\"_blank\">" + strHostName + "</a>"
+                        strUrl = strHost[0] 
+                    }
+
+                    if (!strDomainLink){
+                        var strHost = strUrl.match(/https?:\/\/([^\/]+)/i);
+                        if (strHost && strHost.length > 0){
+                            strDomainLink = " <a href=\"" + strUrl + "?utm_source=www.jqk6.com\" target=\"_blank\">" + strHost[1] + "</a>"
+                        }
+                    }
+
+                    // 构造FONT SIZE
+                    var strFontSizeLeft  = "<font size=3>"
+                    if (window.screen.width < window.screen.height)
+                        strFontSizeLeft  = "<font size=6>"
+                    var strFontSizeRight  = "</font>"
+
+                    document.getElementById("StdOut").innerHTML += 
+                        "<span style='display:inline-block;width:300px;background-color:White;'><br>" + "<b><font color=gray size=2>[" + ((iSkip-1)*iPageUrlCount+i+1) + "]</font> " + strOrigUrlLink +strFontSizeLeft + "<font color=red>" + strName.substr(0, 2) + "</font>"+ strName.substr(2) + strFontSizeRight + "</a><br><br>" + strDomainLink + "</b><br><br></span>" +
+                        "<span style='display:inline-block;width:100px;'><br><br></span>" + 
+                        "<span style='display:inline-block;'><br>" + strImgTag + "<br><br></span>" + 
+                        "<hr>";
+                }
+
+                // NEXT PAGE BUTTON
+                document.getElementById("StdOut").innerHTML += 
+                    "<span style='display:inline-block;width:300px;background-color:White;'><a href=\"" + strHomePageLink + "\"><img src=\"res/png/home.png\" alt=\"GO HOME\"></span>" +
+                    "<span style='display:inline-block;'><a href=\"" + strNextPageLink + "\"><img src=\"res/png/" + strNextPageImg + "\" alt=\"NEXT PAGE\"></a></span>" + 
+                    "<hr>";
+            },
+            error: function(error) {
+                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+            }
+        });       
+    }
+    </script> 
+    
+    </head>
+
+    <body>
+
+    <!-- HEADER NAV BAR //-->
+    <center><img src="res/png/tree_top_title_email_web_center.jpg" alt="jqk6.com"></center>
+    <hr>
+    <center>
+        <font size=2 color=gray>
+        	<br>
+        </font>
+        <font size=2 color=gray>
+            <b><font color=blue size=5>聚奇酷 jqk6.com - 平凡世界优秀网站的发现之旅</font></b><br>
+        </font>
+        <font size=2 color=gray>
+            <br>
+        </font>
+    </center>
+    <hr>
+
+    <!-- stdout logging //-->
+    <center><p id="StdOut"><StdOut></p></center>
+
+    <!-- Pages Tailor //-->
+    <center><b id="PagesTailor"><PagesTailor></b></center>
+    
+    <!-- RUN //-->
+    <script type="text/javascript">
+    FuncShowTheNewUrl ();
+    </script>
+    
+</html>
