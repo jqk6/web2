@@ -15,7 +15,7 @@ if(window.localStorage){var st=window.localStorage; st.setItem(ftid,1); st.setIt
 function skLoad() {
 if(window.localStorage){var st=window.localStorage;
 for(var i=0;i<st.length;i++){
-ft=document.getElementById(st.key(i));ft.className="sk";
+ft=document.getElementById(st.key(i));if(ft){ft.className="sk";}
 }
 }
 }
