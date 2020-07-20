@@ -1,4 +1,4 @@
 # 聚奇酷
-# http://www.jqk6.com
+# https://jqk6.github.io/web2/
 # git remote -v
 # git remote set-url origin git@github.com:jqk6/web.git
