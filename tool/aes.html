@@ -1,0 +1,63 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>AES</title>
+	<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+	<script>
+	
+	
+	</script>
+	<script>
+	function funcEncrypt() {
+		//去除字符串的前后空格，允许用户不小心输入前后空格  
+		var sIdCard=$("#idID").val().replace(/^\s+|\s+$/g,"");
+
+		//判断是否全为18或15位数字，最后一位可以是大小写字母X  
+		//允许用户输入大小写X代替罗马数字的Ⅹ  
+		if (sIdCard.match(/^\d{14,17}(\d|X)$/gi)==null) {
+			$("#idStdout").html("身份证号码须为18位或15位数字");      
+		}  
+		else if (sIdCard.length==18) {  
+			if (CheckIdCard.province(sIdCard)&&CheckIdCard.brithday18(sIdCard)&&CheckIdCard.validate(sIdCard)) {  
+				$("#idStdout").html("身份证号码合法");  
+			}  
+			else{  
+				$("#idStdout").html("请输入有效的身份证号码");  
+			};  
+		}  
+		else if (sIdCard.length==15) {  
+			if (CheckIdCard.province(sIdCard)&&CheckIdCard.brithday15(sIdCard)) {  
+				$("#idStdout").html("身份证号码合法");  
+			}  
+			else{  
+				$("#idStdout").html("请输入有效的身份证号码");  
+			};  
+		}; 
+
+		$("#idID").select();
+		$("#idID").focus();
+	}
+	</script>
+
+</head>
+<body>
+<form id="idForm1">
+输入明文或密文：</br>
+<input id="idInput" type="text" value=""/>
+<input id="idEncryptBtn" type="button" value="加密" onclick="funcEncrypt(this);" />
+<input id="idDecryptBtn" type="button" value="解密" onclick="funcDecrypt(this);" />
+</form>
+<p id="idStdout" style="background-color: yellow"></p>
+<p id="idStdErr" style="background-color: red"></p>
+<script>
+	// READY
+	$(document).ready(function() {
+		$("#idInput").select();
+		$("#idInput").focus();
+	});
+</script>
+</body>
+</html>
