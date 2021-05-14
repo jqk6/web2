@@ -1,26 +1,62 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset='utf-8'>
 	<title>AES</title>
-	<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="aes.js"></script>
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script src="aes.js"></script>
 	<script type="text/javascript">
 	function funcEncrypt() {
-		var strText = $("#idText").val();
+		$("#idStdout").html('');
+		$("#idStdExt").html('');
+		$("#idStdErr").html('');
+		var iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+		//var strKey = '1234abcd';
 		var strKey = $("#idKey").val();
-		var strRes = CryptoJS.AES.encrypt(strText,strKey).toString();		
-		$("#idStdout").html(strRes);
+		var strText = $("#idText").val();
+		var hexKey = CryptoJS.enc.Hex.parse(strKey);
+		var strRes = CryptoJS.AES.encrypt(strText,hexKey,{iv:iv}).toString();
+		var strTry = CryptoJS.AES.decrypt(strRes,hexKey,{iv:iv}).toString(CryptoJS.enc.Utf8);
+		if (strText == strTry) {
+			$("#idStdout").html(strRes);
+			$("#idStdExt").html('INPUT: \"'+ strText + '\" KEY: \"' + hexKey + '\"'+' TRY_DECRYPT: \"' + strTry + '\"');
+		}else{
+			$("#idStdErr").html('INPUT: \"'+ strText + '\" KEY: \"' + hexKey + '\"'+' TRY_DECRYPT: \"' + strTry + '\"');
+		}
 		$("#idText").select();
 		$("#idText").focus();
 	}
 	</script>
 	<script type="text/javascript">
 	function funcDecrypt() {
-		var strText = $("#idText").val();
+		$("#idStdout").html('');
+		$("#idStdExt").html('');
+		$("#idStdErr").html('');
+		var iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
+		//var strKey = '1234abcd';
 		var strKey = $("#idKey").val();
-		var strRes = CryptoJS.AES.decrypt(strText,strKey).toString();		
-		$("#idStdout").html(strRes);
+		var strText = $("#idText").val();
+		var hexKey = CryptoJS.enc.Hex.parse(strKey);
+		var strRes = '';
+		try {
+			strRes = CryptoJS.AES.decrypt(strText,hexKey,{iv:iv}).toString(CryptoJS.enc.Utf8);
+		} catch (e) {
+			$("#idStdErr").html(e.toString());
+			$("#idText").select();
+			$("#idText").focus();
+			return;
+		}
+		if (!strRes){
+			$("#idStdout").html(strRes);
+			$("#idStdExt").html('');
+			$("#idStdErr").html('INPUT:\"'+ strText + '\" + KEY: \"' + hexKey + '\"');
+		} else {
+			$("#idStdout").html(strRes);
+			$("#idStdExt").html('INPUT:\"'+ strText + '\" + KEY: \"' + hexKey + '\"');
+			$("#idStdErr").html('');
+			$("#idText").val(strRes);
+		}
 		$("#idText").select();
 		$("#idText").focus();
 	}
@@ -28,14 +64,19 @@
 </head>
 <body>
 <form id="idForm1">
-输入明文或密文：</br>
-<input id="idText" type="text" value=""/>
-<input id="idEncryptBtn" type="button" value="加密" onclick="funcEncrypt(this);" /></br>
-输入密钥：</br>
+Plaintext/Encrypted:</br>
+<!--<input id="idText" type="text" value=""/ size=100> //-->
+<textarea name="InLine" id="idText" rows="15" cols="100" autofocus=""></textarea>
+<input id="idEncryptBtn" type="button" value="Encrypt" onclick="funcEncrypt(this);" />
+<input id="idDecryptBtn" type="button" value="Decrypt" onclick="funcDecrypt(this);" /></br>
+</br>
+Hex Key (length should be 8N, e.g., '11223344' or '11aa22bb33cc44dd'):</br>
 <input id="idKey" type="text" value=""/>
-<input id="idDecryptBtn" type="button" value="解密" onclick="funcDecrypt(this);" /></br>
 </form>
-<p id="idStdout" style="background-color: yellow"></p>
+</br>
+Encrypted/Plaintext:<p id="idStdout" style="background-color: yellow"></p>
+</br>
+<p id="idStdExt" style="background-color: lightgray"></p>
 <p id="idStdErr" style="background-color: red"></p>
 <script>
 	// READY
@@ -46,3 +87,4 @@
 </script>
 </body>
 </html>
+
