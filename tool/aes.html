@@ -17,7 +17,15 @@
 		var strText = $("#idText").val();
 		var hexKey = CryptoJS.enc.Hex.parse(strKey);
 		var strRes = CryptoJS.AES.encrypt(strText,hexKey,{iv:iv}).toString();
-		var strTry = CryptoJS.AES.decrypt(strRes,hexKey,{iv:iv}).toString(CryptoJS.enc.Utf8);
+		var strTry = '';
+		try {
+			strTry = CryptoJS.AES.decrypt(strRes,hexKey,{iv:iv}).toString(CryptoJS.enc.Utf8);
+		} catch (e) {
+			$("#idStdErr").html(e.toString());
+			$("#idText").select();
+			$("#idText").focus();
+			return;
+		}
 		if (strText == strTry) {
 			$("#idText").val(strRes);
 			$("#idStdout").html(strRes);
