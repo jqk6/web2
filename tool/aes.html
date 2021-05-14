@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset='utf-8'>
 	<title>AES</title>
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-	<script src="aes.js"></script>
+	<script type="text/javascript" src="aes.js"></script>
 	<script type="text/javascript">
 	function funcEncrypt() {
 		$("#idStdout").html('');
 		$("#idStdExt").html('');
 		$("#idStdErr").html('');
 		var iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
-		//var strKey = '1234abcd';
 		var strKey = $("#idKey").val();
 		var strText = $("#idText").val();
 		var hexKey = CryptoJS.enc.Hex.parse(strKey);
@@ -29,9 +27,9 @@
 		if (strText == strTry) {
 			$("#idText").val(strRes);
 			$("#idStdout").html(strRes);
-			$("#idStdExt").html('INPUT: \"'+ strText + '\" KEY: \"' + hexKey + '\"'+' TRY_DECRYPT: \"' + strTry + '\"');
+			$("#idStdExt").html('<b>KEY:</b> \"<font color=blue>' + hexKey + '</font>\"'+'<b>INPUT:</b> \"'+ strText + '\"' + ' <b>TRY_DECRYPT:</b> \"' + strTry + '\"');
 		}else{
-			$("#idStdErr").html('INPUT: \"'+ strText + '\" KEY: \"' + hexKey + '\"'+' TRY_DECRYPT: \"' + strTry + '\"');
+			$("#idStdErr").html('<b>KEY:</b> \"<font color=blue>' + hexKey + '</font>\"'+'<b>INPUT:</b> \"'+ strText + '\"' + ' <b>TRY_DECRYPT:</b> \"' + strTry + '\"');
 		}
 		$("#idText").select();
 		$("#idText").focus();
@@ -43,7 +41,6 @@
 		$("#idStdExt").html('');
 		$("#idStdErr").html('');
 		var iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
-		//var strKey = '1234abcd';
 		var strKey = $("#idKey").val();
 		var strText = $("#idText").val();
 		var hexKey = CryptoJS.enc.Hex.parse(strKey);
@@ -59,10 +56,10 @@
 		if (!strRes){
 			$("#idStdout").html(strRes);
 			$("#idStdExt").html('');
-			$("#idStdErr").html('INPUT:\"'+ strText + '\" + KEY: \"' + hexKey + '\"');
+			$("#idStdErr").html('<b>KEY:</b> \"<font color=blue>' + hexKey + '</font>\"' + '<b>INPUT:</b>\"'+ strText + '\"');
 		} else {
 			$("#idStdout").html(strRes);
-			$("#idStdExt").html('INPUT:\"'+ strText + '\" + KEY: \"' + hexKey + '\"');
+			$("#idStdExt").html('<b>KEY:</b> \"<font color=blue>' + hexKey + '</font>\"' + '<b>INPUT:</b>\"'+ strText + '\"');
 			$("#idStdErr").html('');
 			$("#idText").val(strRes);
 		}
@@ -70,17 +67,25 @@
 		$("#idText").focus();
 	}
 	</script>
+	<script type="text/javascript">
+	function funcGenKey() {
+		var salt = CryptoJS.lib.WordArray.random(32);
+		$("#idKey").val(salt);
+		$("#idKey").select();
+		$("#idKey").focus();
+	}
+	</script>
 </head>
 <body>
 <form id="idForm1">
 Plaintext/Encrypted:</br>
-<!--<input id="idText" type="text" value=""/ size=100> //-->
 <textarea name="InLine" id="idText" rows="15" cols="100" autofocus=""></textarea>
 <input id="idEncryptBtn" type="button" value="Encrypt" onclick="funcEncrypt(this);" />
 <input id="idDecryptBtn" type="button" value="Decrypt" onclick="funcDecrypt(this);" /></br>
 </br>
-Hex Key (length should be 8N, e.g., '11223344' or '11aa22bb33cc44dd'):</br>
-<input id="idKey" type="text" value=""/>
+Hex Key (length should be 8N, e.g., '11223344'. Button [GenKey] will generate 32 random numbers (64 hex values):</br>
+<input id="idKey" type="text" value="" size="66"/>
+<input id="idGenKeyBtn" type="button" value="GenKey" onclick="funcGenKey(this);" />
 </form>
 </br>
 Encrypted/Plaintext:<p id="idStdout" style="background-color: yellow"></p>
@@ -96,4 +101,3 @@ Encrypted/Plaintext:<p id="idStdout" style="background-color: yellow"></p>
 </script>
 </body>
 </html>
-
