@@ -19,6 +19,7 @@
 		var strRes = CryptoJS.AES.encrypt(strText,hexKey,{iv:iv}).toString();
 		var strTry = CryptoJS.AES.decrypt(strRes,hexKey,{iv:iv}).toString(CryptoJS.enc.Utf8);
 		if (strText == strTry) {
+			$("#idText").val(strRes);
 			$("#idStdout").html(strRes);
 			$("#idStdExt").html('INPUT: \"'+ strText + '\" KEY: \"' + hexKey + '\"'+' TRY_DECRYPT: \"' + strTry + '\"');
 		}else{
