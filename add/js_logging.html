@@ -112,8 +112,9 @@
 			for (ii=0; arrayOfLines && ii<arrayOfLines.length; ii++) {
 				var strLine = arrayOfLines[ii];
 				if (strLine.startsWith('http://') || strLine.startsWith('https://')) {
-					strNew += strLine + '</br>';
-					strNew += '[&nbsp;<a href="'+strLine+'" target=blank>open</a>&nbsp;]</br>\n';
+					//strNew += strLine + '</br>';
+					//strNew += '[&nbsp;<a href="'+strLine+'" target=blank>open</a>&nbsp;]</br>\n';
+					strNew += '[&nbsp;<a href="'+strLine+'" target=blank>open</a>&nbsp;] '+ strLine +'</br>\n';
 				} else {
 					strNew += strLine + '</br>';
 				}
