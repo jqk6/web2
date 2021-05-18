@@ -103,6 +103,29 @@
     
     <!-- Bmob Show Logging //-->
     <script type="text/javascript">
+
+	function funcGetNewText (strText) {
+		var strNew = '';
+		try {
+			var arrayOfLines = strText.match(/[^\r\n]+/g);
+			var ii=0;
+			for (ii=0; arrayOfLines && ii<arrayOfLines.length; ii++) {
+				var strLine = arrayOfLines[ii];
+				if (strLine.startsWith('http://') || strLine.startsWith('https://')) {
+					strNew += strLine + '</br>';
+					strNew += '[&nbsp;<a href="'+strLine+'" target=blank>open</a>&nbsp;]</br>\n';
+				} else {
+					strNew += strLine + '</br>';
+				}
+			}
+		} catch (e) {
+			strNew = strText;
+			return strNew;
+		}
+
+		return strNew;
+	}      
+      
     function FuncShowTheLogging () {
         var TheLogging = Bmob.Object.extend("Logging");
         var tQuery = new Bmob.Query(TheLogging);
@@ -209,9 +232,7 @@
                         continue;
 
                     // 如何含有回车换行，则用pre，否则不用pre
-                    if (strLine.indexOf ("\n")>0) {
-                        strLine = "<pre>" + strLine + "</pre>";
-                    }
+                    strLine = funcGetNewText(strLine);
 
                     document.getElementById("StdOut").innerHTML += 
                         "<li>" +
@@ -269,3 +290,5 @@
     </body>
     
 </html>
+	    
+	    
