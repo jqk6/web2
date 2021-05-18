@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>FIND URL</title>
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script type="text/javascript">
+	function funcGetNewText (strText) {
+		var strNew = '';
+		try {
+			var arrayOfLines = strText.match(/[^\r\n]+/g);
+			var ii=0;
+			for (ii=0; arrayOfLines && ii<arrayOfLines.length; ii++) {
+				var strLine = arrayOfLines[ii];
+				if (strLine.startsWith('http://') || strLine.startsWith('https://')) {
+					strNew += strLine + '</br>';
+					strNew += '[&nbsp;<a href="'+strLine+'" target=blank>open</a>&nbsp;]</br>\n';
+				} else {
+					strNew += strLine + '</br>';
+				}
+			}
+		} catch (e) {
+			strNew = strText;
+			return strNew;
+		}
+
+		return strNew;
+	}
+	function funcFindUrl() {
+		$("#idStdout").html('');
+		$("#idStdExt").html('');
+		$("#idStdErr").html('');
+		
+		var strText = $("#idText").val();
+		var strNew = funcGetNewText(strText);
+		$("#idStdOut").html(strNew);
+		$("#idText").select();
+		$("#idText").focus();
+	}
+	</script>
+</head>
+<body>
+<form id="idForm1">
+Text strings:</br>
+<textarea name="InLine" id="idText" rows="15" cols="100" autofocus=""></textarea></br>
+<input id="idFindUrlBtn" type="button" value="FindUrl" onclick="funcFindUrl(this);" />
+</br>
+</form>
+</br>
+<p id="idStdOut" style="background-color: yellow"></p>
+<p id="idStdExt" style="background-color: lightgray"></p>
+<p id="idStdErr" style="background-color: red"></p>
+<script>
+	// READY
+	$(document).ready(function() {
+		$("#idText").select();
+		$("#idText").focus();
+	});
+</script>
+</body>
+</html>
