@@ -22,12 +22,22 @@
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
+	function funcConvert16() {
+    		var strInput16 = $("#idInput").val();
+		var iInput10 = parseInt(strInput16, 10);
+		var strOutput2 = parseInt(iInput10).toString(2);
+		var strOutput10 = parseInt(iInput10).toString(10);
+		$("#idStdout").html("<b>" + strInput16 + "</b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=darkblue>"+strOutput10+"</font></br>" + $("#idStdout").html());
+		$("#idInput").select();
+		$("#idInput").focus();
+	}
 	</script>
 </head>
 <body>
 <form id="idForm1">
 比如：输入"1010"，点击Convert2，输出十进制"Dec:10"，输出十六进制"Hex:a"</br>
 比如：输入"1010"，点击Convert10，输出二进制"Bin:1111110010"，输出十六进制"Hex:3f2"</br>
+比如：输入"1010"，点击Convert16，输出二进制"Bin:1000000010000"，输出十进制"Dec:4112"</br>
 <input id="idInput" type="text" />
 <input id="idConvert2Btn" type="button" value="Convert2" onclick="funcConvert2(this);" />
 <input id="idConvert10Btn" type="button" value="Convert10" onclick="funcConvert10(this);" />
