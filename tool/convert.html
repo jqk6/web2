@@ -9,7 +9,7 @@
     		var strInput2 = $("#idInput").val();
 		var iInput10 = parseInt(strInput2, 2);
 		var strInput16 = parseInt(iInput10).toString(16);
-		$("#idStdout").html("Bin:<b>"+strInput2+"</b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font></br>" + $("#idStdout").html());
+		$("#idStdout").html("Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font></br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -18,7 +18,7 @@
 		var iInput10 = parseInt(strInput10, 10);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput16 = parseInt(iInput10).toString(16);
-		$("#idStdout").html("Dec:<b>"+strInput10+"</b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strOutput16+"</font></br>" + $("#idStdout").html());
+		$("#idStdout").html("Dec:<b><font color=red>"+strInput10+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strOutput16+"</font></br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -27,7 +27,7 @@
 		var iInput10 = parseInt(strInput16, 16);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput10 = parseInt(iInput10).toString(10);
-		$("#idStdout").html("Hex:<b>"+strInput16+"</b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font></br>" + $("#idStdout").html());
+		$("#idStdout").html("Hex:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font></br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
