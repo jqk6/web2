@@ -24,7 +24,7 @@
 	}
 	function funcConvert16() {
     		var strInput16 = $("#idInput").val();
-		var iInput10 = parseInt(strInput16, 10);
+		var iInput10 = parseInt(strInput16, 16);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput10 = parseInt(iInput10).toString(10);
 		$("#idStdout").html("<b>" + strInput16 + "</b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=darkblue>"+strOutput10+"</font></br>" + $("#idStdout").html());
