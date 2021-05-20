@@ -17,7 +17,7 @@
 		var iInput10 = parseInt(strInput10, 10);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput16 = parseInt(iInput10).toString(16);
-		$("#idStdout").html("<b>" + strInput10 + "</b> => <font color=blue>" + strOutput2 + "</font><font color=darkblue>"+strOutput16+"</font></br>" + $("#idStdout").html());
+		$("#idStdout").html("<b>" + strInput10 + "</b> => Bin:<font color=blue>"+strOutput2+"</font> Hex:<font color=darkblue>"+strOutput16+"</font></br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -25,7 +25,8 @@
 </head>
 <body>
 <form id="idForm1">
-输入二进制，如1010，点击Convert2，输出10：</br>
+比如：输入"1010"，点击Convert2，输出"10"</br>
+比如：输入"1010"，点击Convert10，输出"3f2"</br>
 <input id="idInput" type="text" />
 <input id="idConvert2Btn" type="button" value="Convert2" onclick="funcConvert2(this);" />
 <input id="idConvert10Btn" type="button" value="Convert10" onclick="funcConvert10(this);" />
