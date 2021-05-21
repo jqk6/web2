@@ -47,7 +47,18 @@
 		$("#idInput").focus();
 	}
 	function funcConvert16Exchange() {
-    		var strInput16 = $("#idInput").val();
+    		var strIn16 = $("#idInput").val();
+		if (strIn16 && strIn16.length % 2==0){
+			var strInput16 = "";
+			var ii;
+			for (ii=0; ii<strIn16/2; ii++) {
+				strInput16 += strIn16.substring(ii,ii+2);
+			}
+		} else {
+			$("#idInput").select();
+			$("#idInput").focus();
+			return;
+		}
 		var iInput10 = parseInt(strInput16, 16);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput10 = parseInt(iInput10).toString(10);
@@ -64,6 +75,7 @@
     		funcConvert2();
 		funcConvert10();
 		funcConvert16();
+		funcConvert16Exchange();
 		$("#idStdout").html("</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();		
