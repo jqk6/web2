@@ -95,7 +95,9 @@
         reset_input ();
     }
     </script>
-
+  <script>
+    setInterval("funcGetCurrentTime()", 1000);
+  </script>
   </head>
 
   <body>
@@ -132,6 +134,7 @@
   <hr>
   
   <!-- stdout logging //-->
+  <p id="idCurrTime"></p>
   <p id="StdOut"><StdOut></p>
   
   </body>
