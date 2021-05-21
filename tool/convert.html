@@ -9,7 +9,12 @@
     		var strInput2 = $("#idInput").val();
 		var iInput10 = parseInt(strInput2, 2);
 		var strInput16 = parseInt(iInput10).toString(16);
-		$("#idStdout").html("Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font></br>" + $("#idStdout").html());
+		var strCheck2 = parseInt(iInput10).toString(2);
+		var strCheckInfo = "";
+		if (strCheck2 !== strInput2) {
+			strCheckInfo = "<font color=red><b> INPUT_ERROR!!! </b></font>";
+		}
+		$("#idStdout").html("Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
