@@ -51,8 +51,8 @@
     		var strIn16 = $("#idInput").val();
 		if (strIn16 && strIn16.length % 2==0){
 			var ii;
-			for (ii=0; ii<strIn16.length/2; ii++) {
-				strInput16 += strIn16.substring(ii*2,ii*2+2);
+			for (ii=strIn16.length/2; ii>0; ii--) {
+				strInput16 += strIn16.substring((ii-1)*2,(ii-1)*2+2);
 			}
 		} else {
 			$("#idInput").select();
