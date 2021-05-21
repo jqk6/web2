@@ -12,7 +12,7 @@
 		var strCheck2 = parseInt(strInput16,16).toString(2);
 		var strCheckInfo = "";
 		if (strCheck2 !== strInput2) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
 		}
 		$("#idStdout").html("Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
@@ -26,7 +26,7 @@
 		var strCheck10 = parseInt(strOutput16, 16).toString(10);
 		var strCheckInfo = "";
 		if (strCheck10 !== strInput10) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
 		}
 		$("#idStdout").html("Dec:<b><font color=red>"+strInput10+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strOutput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
@@ -40,7 +40,7 @@
 		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
 		if (strCheck16 !== strInput16) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
 		}
 		$("#idStdout").html("Hex:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
