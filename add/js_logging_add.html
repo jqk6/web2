@@ -35,6 +35,29 @@
         $("#InLineId").focus();
     }
     </script>    
+	
+    <script>
+	function funcGetCurrentTime() {
+	    var date = new Date();//当前时间
+	    var month = funcZeroFill(date.getMonth() + 1);//月
+	    var day = funcZeroFill(date.getDate());//日
+	    var hour = funcZeroFill(date.getHours());//时
+	    var minute = funcZeroFill(date.getMinutes());//分
+	    var second = funcZeroFill(date.getSeconds());//秒
+
+	    //当前时间
+	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+	    return curTime;
+	}
+
+	function funcZeroFill(i){
+	    if (i >= 0 && i <= 9) {
+		return "0" + i;
+	    } else {
+		return i;
+	    }
+	}
+    </script>
     
     <!-- Bmob Add Logging //-->
     <script type="text/javascript">
@@ -60,11 +83,11 @@
         tTheNewLogging.set ("strColor", strColor)
         tTheNewLogging.save(null, {
             success: function(object) {
-                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+"@"+funcGetCurrentTime()+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
-                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+"@"+funcGetCurrentTime()+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
         });
