@@ -9,7 +9,7 @@
     		var strInput2 = $("#idInput").val();
 		var iInput10 = parseInt(strInput2, 2);
 		var strInput16 = parseInt(iInput10).toString(16);
-		var strCheck2 = parseInt(iInput10).toString(2);
+		var strCheck2 = parseInt(strInput16,16).toString(2);
 		var strCheckInfo = "";
 		if (strCheck2 !== strInput2) {
 			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
@@ -23,7 +23,7 @@
 		var iInput10 = parseInt(strInput10, 10);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput16 = parseInt(iInput10).toString(16);
-		var strCheck10 = parseInt(strOutput16).toString(10);
+		var strCheck10 = parseInt(strOutput16, 16).toString(10);
 		var strCheckInfo = "";
 		if (strCheck10 !== strInput10) {
 			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
@@ -37,7 +37,7 @@
 		var iInput10 = parseInt(strInput16, 16);
 		var strOutput2 = parseInt(iInput10).toString(2);
 		var strOutput10 = parseInt(iInput10).toString(10);
-		var strCheck16 = parseInt(strOutput10).toString(16);
+		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
 		if (strCheck16 !== strInput16) {
 			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_ERROR!!! </b></font>";
