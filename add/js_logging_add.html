@@ -81,12 +81,15 @@
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
         tTheNewLogging.set ("strColor", strColor)
+	$("#idInfo").html("<b><font color=blue>Adding...</font></b>");
         tTheNewLogging.save(null, {
             success: function(object) {
+		$("#idInfo").html("");
                 document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
+		$("#idInfo").html("");
                 document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
@@ -132,6 +135,7 @@
   
   <!-- stdout logging //-->
   <p id="idCurrTime"></p>
+  <p id="idInfo"></p>
   <p id="StdOut"><StdOut></p>
   
   </body>
