@@ -83,11 +83,11 @@
         tTheNewLogging.set ("strColor", strColor)
         tTheNewLogging.save(null, {
             success: function(object) {
-                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+"@"+funcGetCurrentTime()+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+"@<b>"+funcGetCurrentTime()+ "</b> // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
-                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+"@"+funcGetCurrentTime()+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+"@<b>"+funcGetCurrentTime()+ "</b> // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
         });
