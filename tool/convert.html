@@ -46,6 +46,20 @@
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
+	function funcConvert16Exchange() {
+    		var strInput16 = $("#idInput").val();
+		var iInput10 = parseInt(strInput16, 16);
+		var strOutput2 = parseInt(iInput10).toString(2);
+		var strOutput10 = parseInt(iInput10).toString(10);
+		var strCheck16 = parseInt(strOutput10, 10).toString(16);
+		var strCheckInfo = "";
+		if (strCheck16 !== strInput16) {
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
+		}
+		$("#idStdout").html("Hex:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idInput").select();
+		$("#idInput").focus();
+	}
 	function funcConvertAll() {
     		funcConvert2();
 		funcConvert10();
@@ -65,7 +79,8 @@
 <input id="idInput" type="text" />
 <input id="idConvert2Btn" type="button" value="Convert2" onclick="funcConvert2(this);" />
 <input id="idConvert10Btn" type="button" value="Convert10" onclick="funcConvert10(this);" />
-<input id="idConvert16Btn" type="button" value="Convert16" onclick="funcConvert16(this);" />&nbsp;&nbsp;
+<input id="idConvert16Btn" type="button" value="Convert16" onclick="funcConvert16(this);" />
+<input id="idConvert16ExchangeBtn" type="button" value="Convert16Ex" onclick="funcConvert16Exchange(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
 <input id="idConvertAllBtn" type="button" value="ConvertAll" onclick="funcConvertAll(this);" />
 </form> 
 <p id="idStdout"></p>
