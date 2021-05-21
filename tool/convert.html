@@ -88,8 +88,11 @@
 			var strOutput10 = parseInt(iInput10).toString(10);
 			var strCheck16 = parseInt(strOutput10, 10).toString(16);
 			if (strCheck16 !== strInput16.replace(/\b(0+)/gi,"")) {
-				strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
-				break;
+				if (strCheck16=="0" && strInput16.replace(/\b(0+)/gi,"") == "") {
+				} else {
+					strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
+					break;
+				}
 			}
 			strIpv4 += strOutput10;
 			if (ii < 3) {
