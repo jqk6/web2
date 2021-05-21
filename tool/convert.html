@@ -83,7 +83,7 @@
 		var strIpv4="";
 		var ii;
 		for (ii=0; ii<4; ii++){
-			strInput16 = strIn16.substring(ii);
+			strInput16 = strIn16.substring(ii*2, ii*2+2);
 			var iInput10 = parseInt(strInput16, 16);
 			var strOutput10 = parseInt(iInput10).toString(10);
 			var strCheck16 = parseInt(strOutput10, 10).toString(16);
