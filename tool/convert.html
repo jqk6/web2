@@ -71,7 +71,37 @@
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
+	function funcConvert16Ipv4() {
+    		var strIn16 = $("#idInput").val();
+		if (strIn16 && strIn16.length == 8){
+		} else {
+			$("#idInput").select();
+			$("#idInput").focus();
+			return;
+		}
+		var strCheckInfo = "";
+		var strIpv4="";
+		var ii;
+		for (ii=0; ii<4; ii++){
+			strInput16 = strIn16.substring(ii);
+			var iInput10 = parseInt(strInput16, 16);
+			var strOutput10 = parseInt(iInput10).toString(10);
+			var strCheck16 = parseInt(strOutput10, 10).toString(16);
+			if (strCheck16 !== strInput16.replace(/\b(0+)/gi,"")) {
+				strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
+				break;
+			}
+			strIpv4 += strOutput10;
+			if (ii < 3) {
+				strIpv4 += ".";
+			}
+		}
+		$("#idStdout").html("Ipv4  Hex:<b><font color=red>"+strInput16+"</font></b> => Dec:<font color=blue>"+strIpv4+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idInput").select();
+		$("#idInput").focus();
+	}
 	function funcConvertAll() {
+		funcConvert16Ipv4();
 		funcConvert16Exchange();
 		funcConvert16();
 		funcConvert10();
@@ -93,7 +123,8 @@
 <input id="idConvert2Btn" type="button" value="Convert2" onclick="funcConvert2(this);" />
 <input id="idConvert10Btn" type="button" value="Convert10" onclick="funcConvert10(this);" />
 <input id="idConvert16Btn" type="button" value="Convert16" onclick="funcConvert16(this);" />
-<input id="idConvert16ExchangeBtn" type="button" value="Convert16Ex" onclick="funcConvert16Exchange(this);" />&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="idConvert16ExchangeBtn" type="button" value="Convert16Ex" onclick="funcConvert16Exchange(this);" />
+<input id="idConvert16Ipv4Btn" type="button" value="Convert16Ipv4" onclick="funcConvert16Ipv4(this);" />&nbsp;&nbsp;&nbsp;
 <input id="idConvertAllBtn" type="button" value="Batch Convert" onclick="funcConvertAll(this);" />
 </form> 
 <p id="idStdout"></p>
