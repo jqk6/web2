@@ -52,7 +52,7 @@
 		if (strIn16 && strIn16.length % 2==0){
 			var ii;
 			for (ii=0; ii<strIn16.length/2; ii++) {
-				strInput16 += strIn16.substring(ii,ii+2);
+				strInput16 += strIn16.substring(ii*2,ii*2+2);
 			}
 		} else {
 			$("#idInput").select();
