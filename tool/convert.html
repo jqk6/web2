@@ -12,9 +12,9 @@
 		var strCheck2 = parseInt(strInput16,16).toString(2);
 		var strCheckInfo = "";
 		if (strCheck2 !== strInput2.replace(/\b(0+)/gi,"")) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
 		}
-		$("#idStdout").html("Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idStdout").html("Input Bin:<b><font color=red>"+strInput2+"</font></b> => Dec:<font color=blue>"+iInput10+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strInput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -26,9 +26,9 @@
 		var strCheck10 = parseInt(strOutput16, 16).toString(10);
 		var strCheckInfo = "";
 		if (strCheck10 !== strInput10.replace(/\b(0+)/gi,"")) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
 		}
-		$("#idStdout").html("Dec:<b><font color=red>"+strInput10+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strOutput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idStdout").html("Input Dec:<b><font color=red>"+strInput10+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Hex:<font color=blue>"+strOutput16+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -40,9 +40,9 @@
 		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
 		if (strCheck16 !== strInput16.replace(/\b(0+)/gi,"")) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
 		}
-		$("#idStdout").html("Hex:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idStdout").html("Input Hex:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
@@ -65,9 +65,9 @@
 		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
 		if (strCheck16 !== strInput16.replace(/\b(0+)/gi,"")) {
-			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_NOT_MATCH!!! </b></font>";
+			strCheckInfo = "&nbsp;&nbsp;&nbsp;<font color=red><b> INPUT_WARNING!!! </b></font>";
 		}
-		$("#idStdout").html("xeH:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
+		$("#idStdout").html("Input xeH:<b><font color=red>"+strInput16+"</font></b> => Bin:<font color=blue>"+strOutput2+"</font> &nbsp;&nbsp; Dec:<font color=blue>"+strOutput10+"</font>"+strCheckInfo+"</br>" + $("#idStdout").html());
 		$("#idInput").select();
 		$("#idInput").focus();
 	}
