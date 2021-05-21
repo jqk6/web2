@@ -95,9 +95,6 @@
         reset_input ();
     }
     </script>
-  <script>
-    setInterval("funcGetCurrentTime()", 1000);
-  </script>
   </head>
 
   <body>
@@ -138,5 +135,10 @@
   <p id="StdOut"><StdOut></p>
   
   </body>
+  <script>
+    setInterval(function() {
+	    $("#idCurrTime").html("<font color=red><b>"+funcGetCurrentTime()+"</b></font>");
+    }, 1000);
+  </script>
 </html>
 
