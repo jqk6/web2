@@ -60,11 +60,11 @@
         tTheNewLogging.set ("strColor", strColor)
         tTheNewLogging.save(null, {
             success: function(object) {
-                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+ " // <font color=blue>"+strLogging+"</font></br>"+$("#Stdout").html();
+                document.getElementById("StdOut").innerHTML="OK to add for "+object.id+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
-                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+ " // <font color=blue>"+strLogging+"</font></br>"+$("#Stdout").html();
+                document.getElementById("StdOut").innerHTML="Fail to add!"+error.message+ " // <font color=blue>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
         });
