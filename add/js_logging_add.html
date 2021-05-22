@@ -81,7 +81,7 @@
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
         tTheNewLogging.set ("strColor", strColor)
-        $("#idInfo").html("<b><font color=blue>"+funcGetCurrentTime()+" Adding... </font></b>"+strLogging);
+        $("#idInfo").html("<b><font color=red>"+funcGetCurrentTime()+" Adding... "+strLogging+"</font></b>");
         tTheNewLogging.save(null, {
             success: function(object) {
 		$("#idInfo").html("");
@@ -141,7 +141,7 @@
   </body>
   <script>
     setInterval(function() {
-	    $("#idCurrTime").html("<font color=red><b>"+funcGetCurrentTime()+"</b></font>");
+	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
     }, 1000);
   </script>
 </html>
