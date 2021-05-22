@@ -42,6 +42,29 @@
     Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
     </script>
     
+    <script>
+	function funcGetCurrentTime() {
+	    var date = new Date();//当前时间
+	    var month = funcZeroFill(date.getMonth() + 1);//月
+	    var day = funcZeroFill(date.getDate());//日
+	    var hour = funcZeroFill(date.getHours());//时
+	    var minute = funcZeroFill(date.getMinutes());//分
+	    var second = funcZeroFill(date.getSeconds());//秒
+
+	    //当前时间
+	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+	    return curTime;
+	}
+
+	function funcZeroFill(i){
+	    if (i >= 0 && i <= 9) {
+		return "0" + i;
+	    } else {
+		return i;
+	    }
+	}
+    </script>	  
+	  
     <!-- Javascript get URL parameters //-->
     <script language="javascript">
     function GetUrlRequest() {
@@ -283,6 +306,7 @@
             <td>[<a href="../add/js_logging_add.html">添加</a>]</td>
             <td bgcolor=Cyan>&nbsp;<font color=red>日志</font>&nbsp;</td>
             <td>[<a href="../about.html">关于</a>]</td>
+	    <td><div id="idCurrTime"></div></td>
         </tr>
     </table>
     <hr>
@@ -297,10 +321,17 @@
     <b id="PagesTailor"><PagesTailor></b>
     
     <!-- RUN //-->
+	    
+  <script>
+    setInterval(function() {
+	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
+    }, 1000);
+  </script>
+	    
     <script type="text/javascript">
     FuncShowTheLogging ();
     </script>
-  
+  	    
     </body>
     
 </html>
