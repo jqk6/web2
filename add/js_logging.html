@@ -42,6 +42,10 @@
     Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
     </script>
     
+  <script>
+  var g_iPageLoadedOK = 0;		  
+  </script>
+	  
     <script>
 	function funcGetCurrentTime() {
 	    var date = new Date();//当前时间
@@ -284,11 +288,12 @@
                         document.getElementById("StdOut").innerHTML += "<hr>";                        
                  }
                 document.getElementById("StdOut").innerHTML += "</ol>";
-		$("#idInfo").html("");
+		$("#idInfo").html("<font color=red><b>Current page content loaded.</br></b></font>" + $("#idInfo").html());
+		g_iPageLoadedOK = 1;
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-		$("#idInfo").html("");
+		$("#idInfo").html("<font color=red><b>Current page content load failed!</br></b></font>" + $("#idInfo").html());
             }
         });       
     }
@@ -332,15 +337,18 @@
   <script>
     setInterval(function() {
 	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
+	    if (g_iPageLoadedOK === 1) {
+		    g_iPageLoadedOK = 2;
+		    $("#idInfo").html("");
+	    }
     }, 1000);
   </script>
-	    
+
     <script type="text/javascript">
     $("#idInfo").html("<font color=red><b>Loading logs...</b></font>");
     FuncShowTheLogging ();
-
     </script>
-  	    
+
     </body>
     
 </html>
