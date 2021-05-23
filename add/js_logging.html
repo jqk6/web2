@@ -282,11 +282,11 @@
                         document.getElementById("StdOut").innerHTML += "<hr>";                        
                  }
                 document.getElementById("StdOut").innerHTML += "</ol>";
-		$("#idCurrTime").html("");
+		$("#idInfo").html("");
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-		$("#idCurrTime").html("");
+		$("#idInfo").html("");
             }
         });       
     }
@@ -334,7 +334,7 @@
   </script>
 	    
     <script type="text/javascript">
-    $("#idCurrTime").html("<font color=red><b>Loading logs...</b></font>");
+    $("#idInfo").html("<font color=red><b>Loading logs...</b></font>");
     FuncShowTheLogging ();
 
     </script>
