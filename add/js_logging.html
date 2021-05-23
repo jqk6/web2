@@ -281,10 +281,12 @@
                     if (i>0 && i%5==4)
                         document.getElementById("StdOut").innerHTML += "<hr>";                        
                  }
-                document.getElementById("StdOut").innerHTML += "</ol>";                        
+                document.getElementById("StdOut").innerHTML += "</ol>";
+		$("#idCurrTime").html("");
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+		$("#idCurrTime").html("");
             }
         });       
     }
@@ -313,7 +315,10 @@
 
     <!-- Pages Header //-->
     <b id="PagesHeader"><PagesHeader></b>
-
+    
+    <!-- information //-->
+    <p id="idInfo"></p>
+	    
     <!-- stdout logging //-->
     <p id="StdOut"><StdOut></p>
 
@@ -329,7 +334,9 @@
   </script>
 	    
     <script type="text/javascript">
+    $("#idCurrTime").html("<font color=red><b>Loading logs...</b></font>");
     FuncShowTheLogging ();
+
     </script>
   	    
     </body>
