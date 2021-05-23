@@ -243,9 +243,11 @@
             document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>\r\n";
             document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
 	    $("#idInfo").html("<font color=red><b>Loading current page content...</br>Page list loaded.</br></b></font>" + $("#idInfo").html());
+	    g_iPageLoadedOK +=1;
           },
           error: function(error) {
 	    $("#idInfo").html("<font color=red><b>Page list load failed!</br></b></font>" + $("#idInfo").html());
+	    g_iPageLoadedOK +=1;
           }
         });        
         
@@ -289,11 +291,12 @@
                  }
                 document.getElementById("StdOut").innerHTML += "</ol>";
 		$("#idInfo").html("<font color=red><b>Current page content loaded.</br></b></font>" + $("#idInfo").html());
-		g_iPageLoadedOK = 1;
+		g_iPageLoadedOK +=1;
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
 		$("#idInfo").html("<font color=red><b>Current page content load failed!</br></b></font>" + $("#idInfo").html());
+		g_iPageLoadedOK +=1;
             }
         });       
     }
@@ -337,8 +340,8 @@
   <script>
     setInterval(function() {
 	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
-	    if (g_iPageLoadedOK === 1) {
-		    g_iPageLoadedOK = 2;
+	    if (g_iPageLoadedOK >= 2) {
+		    g_iPageLoadedOK = -1;
 		    $("#idInfo").html("");
 	    }
     }, 1000);
