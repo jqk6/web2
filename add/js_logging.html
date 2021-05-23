@@ -238,8 +238,10 @@
             // 输出显示 
             document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>\r\n";
             document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
+	    $("#idInfo").html("<font color=red><b>Page list loaded.</br>Loading current page content...</br></b></font>" + $("#idInfo").html());
           },
           error: function(error) {
+	    $("#idInfo").html("<font color=red><b>Page list load failed!</br></b></font>" + $("#idInfo").html());
           }
         });        
         
