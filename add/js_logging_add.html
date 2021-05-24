@@ -85,7 +85,7 @@
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
         tTheNewLogging.set ("strColor", strColor)
-        $("#idInfo").html("<b><font color=red>"+funcGetCurrentTime()+" Adding... "+strLoggingWithBr+"</font></b>");
+        $("#idInfo").html("<b><font color=red>"+funcGetCurrentTime()+"</br>Adding... "+strLoggingWithBr+"</font></b>");
         tTheNewLogging.save(null, {
             success: function(object) {
 		$("#idInfo").html("");
