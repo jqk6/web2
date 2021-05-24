@@ -338,6 +338,7 @@
     <!-- RUN //-->
 	    
   <script>
+    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
 	    if (g_iPageLoadedOK >= 2) {
@@ -351,7 +352,7 @@
     $("#idInfo").html("<font color=red><b>Start loading ...</b></font>");
     FuncShowTheLogging ();
     </script>
-
+	    
     </body>
     
 </html>
