@@ -353,10 +353,14 @@
 		    var iCnt = 0;
 		    var strUrlPage = '';
 		    for (var skey in g_urlUniqAry) {
-			    strUrlPage += "<b>"+skey+"</b>&nbsp;&nbsp;";
-			    iCnt += 1;
-			    if (iCnt % 8 == 0) {
+			    if (1) {
+				strUrlPage += "<b>"+skey+"</b></br>\n";
+			    } else {
+			    	strUrlPage += "<b>"+skey+"</b>&nbsp;&nbsp;";
+			    	iCnt += 1;
+			    	if (iCnt % 8 == 0) {
 				    strUrlPage += "</br>\n";
+				}
 			    }
 		    }
 		    $("#idUrlDict").html(strUrlPage);
