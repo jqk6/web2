@@ -242,11 +242,11 @@
             // 输出显示 
             document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>\r\n";
             document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
-	    $("#idInfo").html("<font color=red><b>Page list load OK.</br></b></font>" + $("#idInfo").html());
+	    $("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Page list load OK.</br></b></font>" + $("#idInfo").html());
 	    g_iPageLoadedOK +=1;
           },
           error: function(error) {
-	    $("#idInfo").html("<font color=red><b>Page list load failed!</br></b></font>" + $("#idInfo").html());
+	    $("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Page list load failed!</br></b></font>" + $("#idInfo").html());
 	    g_iPageLoadedOK +=1;
           }
         });        
@@ -290,12 +290,12 @@
                         document.getElementById("StdOut").innerHTML += "<hr>";                        
                  }
                 document.getElementById("StdOut").innerHTML += "</ol>";
-		$("#idInfo").html("<font color=red><b>Content load OK.</br></b></font>" + $("#idInfo").html());
+		$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Content load OK.</br></b></font>" + $("#idInfo").html());
 		g_iPageLoadedOK +=1;
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-		$("#idInfo").html("<font color=red><b>Content load failed!</br></b></font>" + $("#idInfo").html());
+		$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Content load failed!</br></b></font>" + $("#idInfo").html());
 		g_iPageLoadedOK +=1;
             }
         });       
@@ -349,7 +349,7 @@
   </script>
 
     <script type="text/javascript">
-    $("#idInfo").html("<font color=red><b>Start loading ...</b></font>");
+    $("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Start loading ...</b></font>");
     FuncShowTheLogging ();
     </script>
 	    
