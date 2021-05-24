@@ -350,18 +350,11 @@
 	    if (g_iPageLoadedOK >= 2) {
 		    g_iPageLoadedOK = -1;
 		    $("#idInfo").html("");
-		    var iCnt = 0;
+		    var iNo = 0;
 		    var strUrlPage = '';
 		    for (var skey in g_urlUniqAry) {
-			    if (1) {
-				strUrlPage += "<b>"+skey+"</b></br>\n";
-			    } else {
-			    	strUrlPage += "<b>"+skey+"</b>&nbsp;&nbsp;";
-			    	iCnt += 1;
-			    	if (iCnt % 8 == 0) {
-				    strUrlPage += "</br>\n";
-				}
-			    }
+			iNo += 1;
+			strUrlPage += "No." + iNo.toString() + " <b>"+skey+"</b> </br>\n";
 		    }
 		    $("#idUrlDict").html(strUrlPage);
 	    }
