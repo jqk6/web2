@@ -77,9 +77,10 @@
         var tTheNewLogging = new TheNewLogging();
 
         tTheNewLogging.set("strLine", strLogging);
-	strLoggingWithBr = strLogging.replace("\r\n","</br>");
-	strLoggingWithBr = strLogging.replace("\r","</br>");
-	strLoggingWithBr = strLogging.replace("\n","</br>");
+	strLoggingWithBr = strLogging;
+	strLoggingWithBr = strLoggingWithBr.replace(/\r\n/g, "</br>");
+	strLoggingWithBr = strLoggingWithBr.replace(/\r/g, "</br>");
+	strLoggingWithBr = strLoggingWithBr.replace(/\n/g, "</br>");
         // tTheNewLogging.set("strCreateDate", (new Date).toDateString());
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
