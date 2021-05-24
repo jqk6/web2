@@ -354,7 +354,7 @@
 		    var strUrlPage = '';
 		    for (var skey in g_urlUniqAry) {
 			iNo += 1;
-			strUrlPage += "No." + iNo.toString() + " <b>"+skey+"</b> </br>\n";
+			strUrlPage += "No." + iNo.toString().padStart(3,' ') + " <b>"+skey+"</b> </br>\n";
 		    }
 		    $("#idUrlDict").html(strUrlPage);
 	    }
