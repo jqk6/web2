@@ -77,20 +77,23 @@
         var tTheNewLogging = new TheNewLogging();
 
         tTheNewLogging.set("strLine", strLogging);
+	strLoggingWithBr = strLogging.replace("\r\n","</br>");
+	strLoggingWithBr = strLogging.replace("\r","</br>");
+	strLoggingWithBr = strLogging.replace("\n","</br>");
         // tTheNewLogging.set("strCreateDate", (new Date).toDateString());
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
         tTheNewLogging.set ("strColor", strColor)
-        $("#idInfo").html("<b><font color=red>"+funcGetCurrentTime()+" Adding... "+strLogging+"</font></b>");
+        $("#idInfo").html("<b><font color=red>"+funcGetCurrentTime()+" Adding... "+strLoggingWithBr+"</font></b>");
         tTheNewLogging.save(null, {
             success: function(object) {
 		$("#idInfo").html("");
-                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=gray>"+strLoggingWithBr+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
 		$("#idInfo").html("");
-                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=gray>"+strLoggingWithBr+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
         });
