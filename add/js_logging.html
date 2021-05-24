@@ -351,9 +351,14 @@
 	    if (g_iPageLoadedOK >= 2) {
 		    g_iPageLoadedOK = -1;
 		    $("#idInfo").html("");
+		    var iCnt = 0;
 		    var strUrlPage = '';
 		    for (var skey in g_urlUniqAry) {
-			    strUrlPage += skey + "&nbsp;&nbsp;";
+			    strUrlPage += "<a href=\""+skey+"\" target=_blank>" + skey + "</a>&nbsp;&nbsp;&nbsp;";
+			    iCnt += 1;
+			    if (iCnt % 8 == 0) {
+				    strUrlPage += "</br>\n";
+			    }
 		    }
 		    $("#idUrlDict").html(strUrlPage);
 	    }
