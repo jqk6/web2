@@ -44,6 +44,7 @@
     
   <script>
   var g_iPageLoadedOK = 0;		  
+  var g_urlUniqAry = {};
   </script>
 	  
     <script>
@@ -152,6 +153,9 @@
                             				strHostName = strHostName.substr (4);
                         			}
                         			strDomainLink = " <a href=\"" + strHost[0] + "\" target=\"_blank\">" + strHostName + "</a>";
+						
+						strHostName in g_urlUniqAry || (g_urlUniqAry[strHostName] = 0);
+						g_urlUniqAry[strHostName] += 1;
                     			}
 					
 					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font></br>\n <font color=grey>'+ strLine +'</font></br>\n';
