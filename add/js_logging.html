@@ -336,6 +336,9 @@
     <!-- stdout logging //-->
     <p id="StdOut"><StdOut></p>
 
+    <!-- url dict keys //-->
+    <p id="idUrlDict"></p>
+	    
     <!-- Pages Tailor //-->
     <b id="PagesTailor"><PagesTailor></b>
     
@@ -348,6 +351,11 @@
 	    if (g_iPageLoadedOK >= 2) {
 		    g_iPageLoadedOK = -1;
 		    $("#idInfo").html("");
+		    var strUrlPage;
+		    for (var key in Object.keys(g_urlUniqAry)) {
+			    strUrlPage += key + "&nbsp;&nbsp;";
+		    }
+		    $("#idUrlDict").html(strUrlPage);
 	    }
     }, 1000);
   </script>
