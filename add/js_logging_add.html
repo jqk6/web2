@@ -152,9 +152,9 @@
   
   </body>
   <script>
-    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
+    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : latest no is "+g_iAddLogCount.toString()+"</b></font>");
     setInterval(function() {
-	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
+	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : latest no is "+g_iAddLogCount.toString()+"</b></font>");
     }, 1000);
   </script>
 </html>
