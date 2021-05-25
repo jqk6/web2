@@ -5,7 +5,12 @@
     <title>AddLog</title>
     
     <link rel="stylesheet" type="text/css" href="../css/jqk6.css" />
-    
+    	  
+    <!-- 百度统计 //-->
+    <script type="text/javascript">
+	var g_iAddLogCount = 0;
+    </script>
+	  
     <!-- 百度统计 //-->
     <script type="text/javascript">
     var _hmt = _hmt || [];
@@ -72,9 +77,12 @@
         var strColor = ""
         if ($("#InCheckId").attr("checked")==true)
             strColor = "Yellow"
-
+	    
         var TheNewLogging = Bmob.Object.extend("Logging");
         var tTheNewLogging = new TheNewLogging();
+
+	g_iAddLogCount += 1;
+	tTheNewLogging.iAddLogCount = g_iAddLogCount;
 
         tTheNewLogging.set("strLine", strLogging);
 	strLoggingWithBr = strLogging;
@@ -89,12 +97,12 @@
         tTheNewLogging.save(null, {
             success: function(object) {
 		$("#idInfo").html("");
-                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="<b>No."+tTheNewLogging.iAddLogCount.toString() + " : " + funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
 		$("#idInfo").html("");
-                document.getElementById("StdOut").innerHTML="<b>"+funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
+                document.getElementById("StdOut").innerHTML="<b>No."+tTheNewLogging.iAddLogCount.toString() + " : " + funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
         });
