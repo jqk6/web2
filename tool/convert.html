@@ -5,6 +5,12 @@
 	<title>Convert</title>
 	<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
 	<script>
+function funcGetBinPadWithMost8Zero(strBinInput) {
+	if (strBinInput.length % 8 == 0) {
+		return strBinInput;
+	}
+	return strBinInput.padStart((Math.floor(strBinInput.length/8)+1)*8, '0');
+}
 	function funcConvert2() {
     		var strInput2 = $("#idInput").val();
 		var iInput10 = parseInt(strInput2, 2);
@@ -21,7 +27,7 @@
 	function funcConvert10() {
     		var strInput10 = $("#idInput").val();
 		var iInput10 = parseInt(strInput10, 10);
-		var strOutput2 = parseInt(iInput10).toString(2);
+		var strOutput2 = funcGetBinPadWithMost8Zero(parseInt(iInput10).toString(2));
 		var strOutput16 = parseInt(iInput10).toString(16);
 		var strCheck10 = parseInt(strOutput16, 16).toString(10);
 		var strCheckInfo = "";
@@ -35,7 +41,7 @@
 	function funcConvert16() {
     		var strInput16 = $("#idInput").val();
 		var iInput10 = parseInt(strInput16, 16);
-		var strOutput2 = parseInt(iInput10).toString(2);
+		var strOutput2 = funcGetBinPadWithMost8Zero(parseInt(iInput10).toString(2));
 		var strOutput10 = parseInt(iInput10).toString(10);
 		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
@@ -60,7 +66,7 @@
 			return;
 		}
 		var iInput10 = parseInt(strInput16, 16);
-		var strOutput2 = parseInt(iInput10).toString(2);
+		var strOutput2 = funcGetBinPadWithMost8Zero(parseInt(iInput10).toString(2));
 		var strOutput10 = parseInt(iInput10).toString(10);
 		var strCheck16 = parseInt(strOutput10, 10).toString(16);
 		var strCheckInfo = "";
