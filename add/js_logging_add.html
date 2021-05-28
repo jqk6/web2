@@ -109,12 +109,7 @@
 
         reset_input ();
     }
-    function FuncPaste(){
-	var editor = document.getElementById("InLineId");
-	editor.focus();
-	editor.select();
-	document.execCommand('Paste');	    
-    }
+
     </script>
   </head>
 
@@ -137,7 +132,7 @@
   <hr> 
   
   <!-- Input box //-->
-  <form name="FormTheLogging">
+  <form name="FormTheLogging" id="idFormTheLogging">
 	<ul>
     <li><tt><font color=red>*</font> <a href="javascript:reset_input();">日志</a>: </tt> 
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
@@ -146,9 +141,7 @@
     <br>
         <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> <input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:10px"/></li>
     <br>
-	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:15px"/>
-                                                                  &nbsp;&nbsp;<input type="button" name="PasteButton" id="PasteButtonId" value="PASTE" onclick="FuncPaste(this)" style="font-size:15px"/>
-	</li>		
+	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:15px"/></li>
 	</ul>
   </form>
   <hr>
@@ -163,6 +156,15 @@
     $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
     setInterval(function() {
 	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
+  // 自动追加换行
+  if (1) {
+    var strLogging = $.trim(FormTheLogging.InLine.value);
+    if (strLogging != "") {
+      strLogging += "\n\n";
+      $("#idFormTheLogging").val(strLogging);
+    }
+  }
+	    
     }, 1000);
   </script>
 </html>
