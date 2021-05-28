@@ -110,9 +110,10 @@
         reset_input ();
     }
     function FuncPaste(){
-	const pasteText = document.querySelector('#InLineId');
-	pasteText.focus();
-	document.execCommand('paste');
+	var editor = document.getElementById("InLineId");
+	editor.focus();
+	editor.select();
+	document.execCommand('Paste');	    
     }
     </script>
   </head>
