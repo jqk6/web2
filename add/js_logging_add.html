@@ -109,6 +109,11 @@
 
         reset_input ();
     }
+    function FuncPaste(){
+	const pasteText = document.querySelector('#output');
+	pasteText.focus();
+	document.execCommand('paste');
+    }
     </script>
   </head>
 
@@ -140,7 +145,8 @@
     <br>
         <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> <input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:10px"/></li>
     <br>
-	  <li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:10px"/></li>
+	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:15px"/></li>
+        <li><tt><font color=red>*</font><font color=white> 粘贴: </font> </tt> <input type="button" name="PasteButton" id="PasteButtonId" value="PASTE" onclick="FuncPaste(this)" style="font-size:15px"/></li>		
 	</ul>
   </form>
   <hr>
