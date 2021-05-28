@@ -127,6 +127,7 @@
       <td bgcolor=Cyan>&nbsp;<font color=red>添加</font>&nbsp;</td>
       <td>[<a href="../add/js_logging.html"><b>日志</b></a>]</td>
       <td>[<a href="../about.html">关于</a>]</td>
+      <td><div id="idCurrTime1"></div></td>
     </tr>
   </table>
   <hr> 
@@ -153,18 +154,11 @@
   
   </body>
   <script>
+    $("#idCurrTime1").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
     $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
     setInterval(function() {
-	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
-  // 自动追加换行
-  if (1) {
-    var strLogging = $.trim(FormTheLogging.InLine.value);
-    if (strLogging != "") {
-      strLogging += "\n\n";
-      $("#idFormTheLogging").val(strLogging);
-    }
-  }
-	    
+	    $("#idCurrTime1").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
+	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");	    
     }, 1000);
   </script>
 </html>
