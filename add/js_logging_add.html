@@ -109,6 +109,17 @@
 
         reset_input ();
     }
+	    
+    function FuncAddCrlf() {
+        var strLogging = $.trim(FormTheLogging.InLine.value);
+        if (strLogging == "") {
+          $("#InLineId").focus();
+          return;
+	  FormTheLogging.InLine.value = strLogging + "\r\n\r\n";
+	  $("#InLineId").focus();
+        }
+	    
+    }
 
     </script>
   </head>
@@ -133,7 +144,7 @@
   <hr> 
   
   <!-- Input box //-->
-  <form name="FormTheLogging" id="idFormTheLogging">
+  <form name="FormTheLogging">
 	<ul>
     <li><tt><font color=red>*</font> <a href="javascript:reset_input();">日志</a>: </tt> 
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
@@ -142,7 +153,10 @@
     <br>
         <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> <input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:10px"/></li>
     <br>
-	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> <input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:15px"/></li>
+	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> 
+		<input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:25px"/> &nbsp;&nbsp;
+		<input type="button" name="InButtonCrLf" id="InButtonCrlfId" value="CRLF" onclick="FuncAddCrlf(this)" style="font-size:25px"/>
+	</li>
 	</ul>
   </form>
   <hr>
