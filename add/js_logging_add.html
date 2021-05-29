@@ -115,7 +115,7 @@
         if (strLogging == "") {
           $("#InLineId").focus();
           return;
-	  FormTheLogging.InLine.value = strLogging + "\r\n\r\n";
+	  alert (strLogging);
 	  $("#InLineId").focus();
         }
 	    
@@ -151,11 +151,12 @@
       <textarea name="InLine" id="InLineId" rows=20 cols=100 autofocus ></textarea>
     </li>
     <br>
-        <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> <input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:10px"/></li>
+        <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> 
+		<input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:20px"/></li>
     <br>
 	<li><tt><font color=red>*</font><font color=white> 添加: </font> </tt> 
-		<input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:25px"/> &nbsp;&nbsp;
-		<input type="button" name="InButtonCrLf" id="InButtonCrlfId" value="CRLF" onclick="FuncAddCrlf(this)" style="font-size:25px"/>
+		<input type="button" name="InButton" id="InButtonId" value="ADD" onclick="FuncAdd2TheLogging(this)" style="font-size:20px"/> &nbsp;&nbsp;
+		<input type="button" name="InButtonCrLf" id="InButtonCrlfId" value="CRLF" onclick="FuncAddCrlf(this)" style="font-size:20px"/>
 	</li>
 	</ul>
   </form>
