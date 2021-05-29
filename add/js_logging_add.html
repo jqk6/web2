@@ -116,7 +116,8 @@
           $("#InLineId").focus();
           return;
         }
-	alert (strLogging);
+	strLogging += "\r\n\r\n";
+	$("#idFormTheLogging").val(strLogging);
 	$("#InLineId").focus();    
     }
 
@@ -143,7 +144,7 @@
   <hr> 
   
   <!-- Input box //-->
-  <form name="FormTheLogging">
+  <form name="FormTheLogging" id="idFormTheLogging">
 	<ul>
     <li><tt><font color=red>*</font> <a href="javascript:reset_input();">日志</a>: </tt> 
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
