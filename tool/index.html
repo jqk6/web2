@@ -386,4 +386,10 @@
 <a href="" target=_blank></a>&nbsp;&nbsp;
 </p>
 </body>
+  <script>
+    $("#idCurrTime").html("<font color=green size=50><b>"+funcGetCurrentTime()+"</b></font>");
+    setInterval(function() {
+	    $("#idCurrTime").html("<font color=green size=50><b>"+funcGetCurrentTime()+"</b></font>");
+    }, 1000);
+  </script>
 </html>
