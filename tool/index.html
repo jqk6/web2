@@ -411,10 +411,16 @@
 	}
 </script>
   <script>
-    $("#idCurrTime").html("<font color=green size=50><b>"+funcGetCurrentTime()+"</b></font>");
+    var g_iCurrTimeColorCount = 0;
+    $("#idCurrTime").html("<font color=black size=100><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
-	    $("#idCurrTime").html("<font color=green size=50><b>"+funcGetCurrentTime()+"</b></font>");
-    }, 1000);
+	    g_iCurrTimeColorCount += 1;
+	    if (g_iCurrTimeColorCount % 2) {
+		    $("#idCurrTime").html("<font color=red size=100><b>"+funcGetCurrentTime()+"</b></font>");
+	    } else {
+		    $("#idCurrTime").html("<font color=blue size=100><b>"+funcGetCurrentTime()+"</b></font>");
+	    }
+    }, 900);
   </script>
     <style type="text/css">
         li {
