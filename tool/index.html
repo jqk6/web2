@@ -417,7 +417,7 @@
 </script>
   <script>
     var g_iCurrTimeColorCount = 0;
-    $("#idCurrTime").html("<font color=black style=\"font-size:150px;\"><b>"+funcGetCurrentTime()+"</b></font>");
+    $("#idCurrTime").html("<font color=gray style=\"font-size:150px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    g_iCurrTimeColorCount += 1;
 	    if (funcGetCurrentMinute() % 2==0) {
