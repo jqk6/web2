@@ -389,6 +389,11 @@
     <!-- jQuery //-->
     <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
 <script>
+	function funcGetCurrentMinute() {
+		var date = new Date();//当前时间
+		var minute = funcZeroFill(date.getMinutes());//分
+		return minute;
+	}
 	function funcGetCurrentTime() {
 	    var date = new Date();//当前时间
 	    var month = funcZeroFill(date.getMonth() + 1);//月
@@ -415,7 +420,7 @@
     $("#idCurrTime").html("<font color=black style=\"font-size:150px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    g_iCurrTimeColorCount += 1;
-	    if (g_iCurrTimeColorCount % 60==0) {
+	    if (funcGetCurrentMinute() % 2==0) {
 		    $("#idCurrTime").html("<font color=red style=\"font-size:150px;\"><b>"+funcGetCurrentTime()+"</b></font>");
 	    } else {
 		    $("#idCurrTime").html("<font color=blue style=\"font-size:150px;\"><b>"+funcGetCurrentTime()+"</b></font>");
