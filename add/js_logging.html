@@ -45,6 +45,7 @@
   <script>
   var g_iPageLoadedOK = 0;		  
   var g_urlUniqAry = {};
+  var g_infoList = [];
   </script>
 	  
     <script>
@@ -160,6 +161,11 @@
 					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font></br>\n <font color=grey>'+ strLine +'</font></br>\n';
 				} else {
 					strNew += '<b>' + strLine + '</b></br>';
+					
+					// 记录非URL行
+					if (strNew.trim()) {
+					  g_infoList.push(strNew.trim());
+					}
 				}
 			}
 		} catch (e) {
@@ -341,6 +347,9 @@
     <!-- url dict keys //-->
     <p id="idUrlDict"></p>
 	    
+    <!-- info line list //-->
+    <p id="idInfoLinePage"></p>
+	    
     <!-- RUN //-->
 	    
   <script>
@@ -357,6 +366,15 @@
 			strUrlPage += "<font color=grey><b>No." + iNo.toString().padEnd(4,' ').replace(/\s/g,'&nbsp;') + "</b></font> <b>"+skey+"</b> </br>\n";
 		    }
 		    $("#idUrlDict").html(strUrlPage);
+		    
+		    // 非URL部分：
+		    var strLinePage = '<pre>';
+		    var ii;
+		    for (ii=0; ii<g_infoList.length; ii++){
+		      strLinePage += g_infoList[ii] + "\n";
+		    }
+		    strLinePage += "</pre>";
+		    $("#idInfoLinePage").html(strLinePage);
 	    }
     }, 1000);
   </script>
