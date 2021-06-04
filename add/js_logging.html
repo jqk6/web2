@@ -46,7 +46,9 @@
   var g_iPageLoadedOK = 0;		  
   var g_urlUniqAry = {};
   var g_infoList = [];
-  var g_iUrlCount = 0;
+  var g_iUrlCount = 0; // 总记录数
+  var g_iPageCount = 0; // 总页数
+  var g_iCurrPageNo = 0; // 当前页号
   </script>
 	  
     <script>
@@ -210,6 +212,7 @@
             
             // 获得页数
             var iPageCount = parseInt (iUrlCount / iPageUrlCount);
+	    g_iPageCount = iPageCount;
             var iMorePageBegin = 19;
             var bIsMorePage = false;
             
@@ -383,7 +386,7 @@
 		    $("#idInfoLinePage").html(strLinePage);
 		    
 		    // 标题
-		    $(document).attr("title", g_iUrlCount.toString() + " logs loaded.");
+		    $(document).attr("title", g_iPageCount.toString() + " pages " + g_iUrlCount.toString() + " logs loaded.");
 	    }
     }, 1000);
   </script>
