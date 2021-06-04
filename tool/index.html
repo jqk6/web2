@@ -541,6 +541,18 @@
 	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
 	    return curTime;
 	}
+	function funcGetCurrentDay() {
+	    var date = new Date();//当前时间
+	    var month = funcZeroFill(date.getMonth() + 1);//月
+	    var day = funcZeroFill(date.getDate());//日
+	    var hour = funcZeroFill(date.getHours());//时
+	    var minute = funcZeroFill(date.getMinutes());//分
+	    var second = funcZeroFill(date.getSeconds());//秒
+
+	    //当前时间
+	    var curTime = hour + ":" + minute + ":" + second;
+	    return curTime;
+	}	
 
 	function funcZeroFill(i){
 	    if (i >= 0 && i <= 9) {
@@ -562,7 +574,7 @@
 	    }
 	    
 	    // 标题
-	    $(document).attr("title", funcGetCurrentTime());
+	    $(document).attr("title", funcGetCurrentDay());
     }, 999);
   </script>
     <style type="text/css">
