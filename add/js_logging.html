@@ -239,6 +239,7 @@
             // 判断页数是否整除，如果不是整除，还要多显示一页
             if (iPageCount * iPageUrlCount < iUrlCount)
             {
+		g_iPageCount += 1;
                 var iNo = (iPageCount+1);
                 if (iNo != iSkip)
                     strPageBanner += "<a href=\"./js_logging.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
