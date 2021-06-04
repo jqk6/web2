@@ -173,7 +173,12 @@
     $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
     setInterval(function() {
 	    $("#idCurrTime1").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
-	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");	    
+	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+" : Latest is No."+g_iAddLogCount.toString()+"</b></font>");
+	    
+	    // 标题
+	    if (g_iAddLogCount>0) {
+	        $(document).attr("title", g_iAddLogCount.toString() + " log added.");
+	    }
     }, 1000);
   </script>
 </html>
