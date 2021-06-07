@@ -195,7 +195,7 @@
         
         var iRowCountInPage = tUrlRequest["rowcount"];
         if (!iRowCountInPage || iRowCountInPage<1)
-            iRowCountInPage = 100; 
+            iRowCountInPage = 20; 
 
         // 一页内的日志记录数
         var iPageUrlCount = iRowCountInPage; 
@@ -223,7 +223,7 @@
                     strPageBanner += "<a href=\"./js_logging.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
                 else
                     //strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
-                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=400\">" + iNo + "</a></font> " ;
+                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
 
                 if (i==iMorePageBegin)
                 {
@@ -245,7 +245,7 @@
                     strPageBanner += "<a href=\"./js_logging.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
                 else
                     //strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
-                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=400\">" + iNo + "</a></font> " ;
+                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
             }
             
             if (bIsMorePage)
