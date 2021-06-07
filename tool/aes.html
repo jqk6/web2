@@ -43,6 +43,7 @@
 		var iv = CryptoJS.enc.Hex.parse('00000000000000000000000000000000');
 		var strKey = $("#idKey").val();
 		var strText = $("#idText").val();
+		strText = strText.trim();
 		var hexKey = CryptoJS.enc.Hex.parse(strKey);
 		var strRes = '';
 		try {
