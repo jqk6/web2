@@ -811,12 +811,11 @@
 	    // 标题
 	    $(document).attr("title", '动成长 '+funcGetCurrentDay());
 	    
-	    if (funcGetCurrentMinute() % 2==0){
-	    	g_iGoodWordNo += 1;
-	    	if (g_iGoodWordNo >= g_strGoodWordsAry.length){
-		    g_iGoodWordNo = 0;
-	    	}	    
-	    }
+    	   g_iGoodWordNo += 1;
+    	   if (g_iGoodWordNo >= g_strGoodWordsAry.length){
+	       g_iGoodWordNo = 0;
+    	   }	    
+
     }, 999);
   </script>
     <style type="text/css">
