@@ -764,6 +764,11 @@
 		var minute = funcZeroFill(date.getMinutes());//分
 		return minute;
 	}
+	function funcGetCurrentSecond() {
+		var date = new Date();//当前时间
+		var second = funcZeroFill(date.getSeconds());//秒
+		return second;
+	}	
 	function funcGetCurrentTime() {
 	    var date = new Date();//当前时间
 	    var month = funcZeroFill(date.getMonth() + 1);//月
@@ -811,10 +816,12 @@
 	    // 标题
 	    $(document).attr("title", '动成长 '+funcGetCurrentDay());
 	    
-    	   g_iGoodWordNo += 1;
-    	   if (g_iGoodWordNo >= g_strGoodWordsAry.length){
-	       g_iGoodWordNo = 0;
-    	   }	    
+	    if (funcGetCurrentSecond() %2 == 0) {
+    	      g_iGoodWordNo += 1;
+    	      if (g_iGoodWordNo >= g_strGoodWordsAry.length){
+	         g_iGoodWordNo = 0;
+    	      }
+	    }
 
     }, 999);
   </script>
