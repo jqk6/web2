@@ -19,7 +19,7 @@
 <a href="../add/js_logging.html" target=_blank><font color=green><b>Show Log</b></font></a> 
 <a href="https://github.com/jqk6/web2/edit/master/add/js_logging.html" target=_blank>[E]</a>&nbsp;&nbsp;
 <a href="" target=_blank></a>&nbsp;&nbsp;
-<b>学习 模仿 吃苦 死磕 感悟 习惯 成长 收获 祸从口出 病从口入 闭嘴 诚恳 不贪小便宜</b>&nbsp;&nbsp;
+<b>|</b>&nbsp;&nbsp;
 <a href="./aes.html" target=_blank>aes</a> 
 <a href="https://github.com/jqk6/web2/edit/master/tool/aes.html" target=_blank>[E]</a>&nbsp;&nbsp;
 <a href="./convert.html" target=_blank>convert</a> &nbsp;&nbsp;
@@ -757,6 +757,8 @@
     <!-- jQuery //-->
     <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
 <script>
+	var g_strGoodWordsAry = ['学习','模仿','吃苦','死磕','感悟','习惯','成长','收获','祸从口出','病从口入','闭嘴','诚恳','不贪小便宜',];
+	var g_iGoodWordNo = 0;
 	function funcGetCurrentMinute() {
 		var date = new Date();//当前时间
 		var minute = funcZeroFill(date.getMinutes());//分
@@ -800,14 +802,20 @@
     $("#idCurrTime").html("<font color=gray style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    g_iCurrTimeColorCount += 1;
+	    	    
 	    if (funcGetCurrentMinute() % 2==0) {
-		    $("#idCurrTime").html("<font color=red style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+"</b></font>");
+		    $("#idCurrTime").html("<font color=red style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    } else {
-		    $("#idCurrTime").html("<font color=blue style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+"</b></font>");
+		    $("#idCurrTime").html("<font color=blue style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    }
 	    
 	    // 标题
 	    $(document).attr("title", '动成长 '+funcGetCurrentDay());
+	    
+	    g_iGoodWordNo += 1;
+	    if (g_iGoodWordNo >= g_strGoodWordsAry.length){
+		    g_iGoodWordNo = 0;
+	    }	    
     }, 999);
   </script>
     <style type="text/css">
