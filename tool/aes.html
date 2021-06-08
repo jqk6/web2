@@ -84,6 +84,16 @@
 		$("#idKey").focus();
 	}
 	</script>
+	</script>
+	<script type="text/javascript">
+	function funcClearAll() {
+		$("#idText").val("");
+		$("#idKey").val("");
+		
+		$("#idText").select();
+		$("#idText").focus();
+	}
+	</script>
 </head>
 <body>
 <form id="idForm1">
@@ -95,7 +105,8 @@ Plaintext/Encrypted:</br>
 Hex Key (length should be 8N, e.g., '11223344'. Button [GenKey] will generate 32 random numbers (64 hex values):</br>
 <input id="idKey" type="text" value="" size="66"/>
 <input id="idGenKeyBtn" type="button" value="GenKey" onclick="funcGenKey(this);" />
-<input id="idEgKeyBtn" type="button" value="E.g." onclick="funcEgKey(this);" />
+<input id="idEgKeyBtn" type="button" value="E.g.Key" onclick="funcEgKey(this);" />
+<input id="idClearAllBtn" type="button" value="Clear All" onclick="funcClearAll(this);" />
 </form>
 </br>
 Encrypted/Plaintext:<p id="idStdout" style="background-color: yellow"></p>
