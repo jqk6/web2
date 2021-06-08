@@ -802,7 +802,8 @@
 	}
 </script>
   <script>
-
+    var g_iTitleCharNo = 0;
+    var g_strTitleCharAry = ['动','成','长'];
     $("#idCurrTime").html("<font color=gray style=\"font-size:100px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    	    
@@ -813,7 +814,7 @@
 	    }
 	    
 	    // 标题
-	    $(document).attr("title", '动成长 '+funcGetCurrentDay());
+	    $(document).attr("title", g_strTitleCharAry[g_iTitleCharNo] + ' '+funcGetCurrentDay());
 	    
 	    if (funcGetCurrentSecond() %2 == 0) {
     	      g_iGoodWordNo += 1;
@@ -821,7 +822,11 @@
 	         g_iGoodWordNo = 0;
     	      }
 	    }
-
+	    
+	    g_iTitleCharNo += 1;
+	    if (g_iTitleCharNo >= g_strTitleCharAry.length) {
+		    g_iTitleCharNo = 0;
+	    }
     }, 999);
   </script>
     <style type="text/css">
