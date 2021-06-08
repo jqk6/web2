@@ -161,7 +161,13 @@
 						strDomainLink in g_urlUniqAry || (g_urlUniqAry[strDomainLink] = strHostName);
                     			}
 					
-					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font></br>\n <font color=grey>'+ strLine +'</font></br>\n';
+					// 是否位pdf文件
+					var strPdfInfo = '';
+					if (strUrl.endsWith('.pdf')) {
+						strPdfInfo = ' <font color=pink><b>[PDF]</b></font> ';
+					}
+					
+					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font></br>'+strPdfInfo+'\n <font color=grey>'+ strLine +'</font></br>\n';
 				} else {
 					strNew += '<b>' + strLine + '</b></br>';
 					
