@@ -162,12 +162,14 @@
                     			}
 					
 					// 是否为pdf文件
-					var strPdfInfo = '';
+					var strFileInfo = '';
 					if (strUrl.endsWith('.pdf')) {
-						strPdfInfo = ' <font color=red><b>[PDF]</b></font> ';
+						strFileInfo = ' <font color=red><b>[PDF]</b></font> ';
+					} else if (strUrl.endsWith('.ppt') || strUrl.endsWith('.pptx')) {
+						strFileInfo = ' <font color=red><b>[PPT]</b></font> ';
 					}
 					
-					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strPdfInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
+					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
 				} else {
 					strNew += '<b>' + strLine + '</b></br>';
 					
