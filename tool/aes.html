@@ -77,11 +77,35 @@
 	}
 	</script>
 	<script type="text/javascript">
+	var g_iEgNewKeyNo = 0;
+	var g_strEgNewKeyAry = [
+		"00112233",
+		"11223344",
+		"22334455",
+		"33445566",
+		"44556677",
+		"55667788",
+		"66778899",
+		"778899AA",
+		"8899AABB",
+		"99AABBCC",
+		"AABBCCDD",
+		"BBCCDDEE",
+		"CCDDEEFF",
+		"DDEEFF00",
+		"EEFF0011",
+		"FF001122",
+	];
 	function funcEgKey() {
-		var strNewKey = "11223344";
-		$("#idKey").val(strNewKey);
+	
+		$("#idKey").val(g_strEgNewKeyAry[g_iEgNewKeyNo]);
 		$("#idKey").select();
 		$("#idKey").focus();
+		
+		g_iEgNewKeyNo += 1;
+		if (g_iEgNewKeyNo >= g_strEgNewKeyAry.length){
+			g_iEgNewKeyNo = 0;
+		}		
 	}
 	</script>
 	</script>
@@ -102,7 +126,8 @@ Plaintext/Encrypted:</br>
 <input id="idEncryptBtn" type="button" value="Encrypt" onclick="funcEncrypt(this);" />
 <input id="idDecryptBtn" type="button" value="Decrypt" onclick="funcDecrypt(this);" /></br>
 </br>
-Hex Key (length should be 8N, e.g., '11223344'. Button [GenKey] will generate 32 random numbers (64 hex values):</br>
+Hex Key (length should be 8N, e.g., '11223344') </br>
+Button [GenKey] will generate 32 random numbers (64 hex values):</br>
 <input id="idKey" type="text" value="" size="66"/>
 <input id="idGenKeyBtn" type="button" value="GenKey" onclick="funcGenKey(this);" />
 <input id="idEgKeyBtn" type="button" value="E.g.Key" onclick="funcEgKey(this);" />
