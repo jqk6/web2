@@ -76,6 +76,14 @@
 		$("#idKey").focus();
 	}
 	</script>
+	<script type="text/javascript">
+	function funcEgKey() {
+		var strNewKey = "11223344;
+		$("#idKey").val(strNewKey);
+		$("#idKey").select();
+		$("#idKey").focus();
+	}
+	</script>
 </head>
 <body>
 <form id="idForm1">
@@ -87,6 +95,7 @@ Plaintext/Encrypted:</br>
 Hex Key (length should be 8N, e.g., '11223344'. Button [GenKey] will generate 32 random numbers (64 hex values):</br>
 <input id="idKey" type="text" value="" size="66"/>
 <input id="idGenKeyBtn" type="button" value="GenKey" onclick="funcGenKey(this);" />
+<input id="idEgKeyBtn" type="button" value="E.g." onclick="funcEgKey(this);" />
 </form>
 </br>
 Encrypted/Plaintext:<p id="idStdout" style="background-color: yellow"></p>
