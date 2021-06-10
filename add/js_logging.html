@@ -171,19 +171,19 @@
 					
 					// 是否为特殊网站
 					var strWebSiteInfo = '';
-					if (strUrl.indexOf('zhihu.com/')) {
+					if (strUrl.indexOf('zhihu.com/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[知乎]</b></font> ';
-					} else if (strUrl.indexOf('weixin.qq.com/')) {
+					} else if (strUrl.indexOf('weixin.qq.com/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[微信]</b></font> ';
-					} else if (strUrl.indexOf('github.io/')>=0) {
+					} else if (strUrl.indexOf('github.io/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[Github Pages]</b></font> ';
-					} else if (strUrl.indexOf('github.com/')>=0) {
+					} else if (strUrl.indexOf('github.com/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[Github]</b></font> ';
-					} else if (strUrl.indexOf('csdn.net/')>=0) {
+					} else if (strUrl.indexOf('csdn.net/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[CSDN]</b></font> ';
-					} else if (strUrl.indexOf('stackoverflow.com/')>=0) {
+					} else if (strUrl.indexOf('stackoverflow.com/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[Stackoverflow]</b></font> ';
-					} else if (strUrl.indexOf('wikipedia.org/')>=0) {
+					} else if (strUrl.indexOf('wikipedia.org/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[维基百科]</b></font> ';
 					}
 					
