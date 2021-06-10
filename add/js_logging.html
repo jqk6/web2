@@ -185,6 +185,10 @@
 						strWebSiteInfo = ' <font color=red><b>[Stackoverflow]</b></font> ';
 					} else if (strUrl.indexOf('wikipedia.org/')>0) {
 						strWebSiteInfo = ' <font color=red><b>[维基百科]</b></font> ';
+					} else if (strUrl.indexOf('cnblogs.com/')>0) {
+						strWebSiteInfo = ' <font color=red><b>[博客园]</b></font> ';
+					} else if (strUrl.indexOf('jianshu.com/')>0) {
+						strWebSiteInfo = ' <font color=red><b>[简书]</b></font> ';
 					}
 					
 					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
