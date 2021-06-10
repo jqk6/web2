@@ -175,6 +175,10 @@
 						strWebSiteInfo = ' <font color=red><b>[知乎]</b></font> ';
 					} else if (strUrl.startsWith('https://mp.weixin.qq.com/')) {
 						strWebSiteInfo = ' <font color=red><b>[微信]</b></font> ';
+					} else if (strUrl.indexOf('github.io/')>=0) {
+						strWebSiteInfo = ' <font color=red><b>[GithubPages]</b></font> ';
+					} else if (strUrl.indexOf('github.com/')>=0) {
+						strWebSiteInfo = ' <font color=red><b>[Github]</b></font> ';
 					}
 					
 					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
