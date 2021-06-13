@@ -138,39 +138,15 @@
     {
         var TheLogging = Bmob.Object.extend("Logging");
         var tQuery = new Bmob.Query(TheLogging);
-        tQuery.equalTo("objectId", obj_id);
 
-        tQuery.find({
-            success: function(results) 
-            {
-                for (var i = 0; i < results.length; i++) 
-                {
-                    var object = results[i];
-                    var strColor = object.get('strColor');
-                    
-                    if (strColor)
-                    {
-                        strColor = "";
-                        document.getElementById("aid_" + obj_id).style.background = "#FFFFFF";
-                        document.getElementById("bid_" + obj_id).style.background = "#FFFFFF";
-                    }
-                    else 
-                    {
-                        strColor = "Yellow";
-                        document.getElementById("aid_" + obj_id).style.background = "#FFFF00";
-                        document.getElementById("bid_" + obj_id).style.background = "#FFFF00";
-                    }
-
-                    object.fetchWhenSave(true);
-                    object.set('strColor', strColor);
-                    object.save(null, null);
-                }
-            },
-            error: function(error) 
-            {
-                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-            }
-        });
+	query.destroy(obj_id).then(res => {
+	  console.log(res);
+	  document.getElementById("aid_" + obj_id).style.background = "#CCCCCC";
+          document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
+	}).catch(error => {
+	  console.log(error);
+	  document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
+	});	    
     }
     </script>
     
