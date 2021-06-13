@@ -139,7 +139,7 @@
         var TheLogging = Bmob.Object.extend("Logging");
         var tQuery = new Bmob.Query(TheLogging);
 
-	query.destroy(obj_id).then(res => {
+	tQuery.destroy(obj_id).then(res => {
 	  console.log(res);
 	  document.getElementById("aid_" + obj_id).style.background = "#CCCCCC";
           document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
