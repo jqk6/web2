@@ -142,10 +142,12 @@
 	      success: function(object) {
 		object.destroy({
 		  success: function(deleteObject) {
-		  console.log("delete success");
+		    console.log("delete success");
+                    document.getElementById("aid_" + obj_id).style.background = "#CCCCCC";
+                    document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
 		  },
 		  error: function(deleteObject, error) {
-		  console.log("delete fail");
+		    console.log("delete fail");			  
 		  }
 		});
 	      },
