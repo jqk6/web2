@@ -138,7 +138,7 @@
     {
         var TheLogging = Bmob.Object.extend("Logging");
         var tQuery = new Bmob.Query(TheLogging);
-	    query.get(obj_id, {
+	    tQuery.get(obj_id, {
 	      success: function(object) {
 		object.destroy({
 		  success: function(deleteObject) {
