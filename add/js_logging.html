@@ -49,6 +49,8 @@
   var g_iUrlCount = 0; // 总记录数
   var g_iPageCount = 0; // 总页数
   var g_iCurrPageNo = 0; // 当前页号
+  var g_strLastLine = '';
+  var g_iRepeatLineCount = 0;
   </script>
 	  
     <script>
@@ -162,9 +164,7 @@
     </script>
     
     <!-- Bmob Show Logging //-->
-    <script type="text/javascript">
-	var g_strLastLine = '';
-
+    <script type="text/javascript">	
 	function funcGetNewText (strText) {
 		var strNew = '';
 		try {
@@ -358,6 +358,7 @@
 			    //
 		    } else if (strLine === g_strLastLine){
 			    strColor = 'grey';
+			    g_iRepeatLineCount += 1;
 		    } 
 		    g_strLastLine = strLine;
 			
@@ -453,9 +454,9 @@
 		    $("#idInfoLinePage").html(strLinePage);
 		    
 		    // 标题
-		    $(document).attr("title", g_iPageCount.toString() + " pages " + g_iUrlCount.toString() + " logs");
+		    $(document).attr("title", "P:" + g_iPageCount.toString() + "; L:" + g_iUrlCount.toString() + "; R:" + g_iRepeatLineCount.toString() + "; ");
 	    }
-    }, 1000);
+    }, 999);
   </script>
 
     <script type="text/javascript">
