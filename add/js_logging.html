@@ -355,10 +355,11 @@
                     strLine = funcGetNewText(strLine);
 			
 		    if (g_strLastLine === ''){
-			    g_strLastLine = strLine;
+			    //
 		    } else if (strLine === g_strLastLine){
 			    strColor = 'grey';
 		    } 
+		    g_strLastLine = strLine;
 			
                     document.getElementById("StdOut").innerHTML += 
                         "<li>" +
