@@ -51,6 +51,7 @@
   var g_iCurrPageNo = 0; // 当前页号
   var g_strLastLine = '';
   var g_iRepeatLineCount = 0;
+  var g_strLineUniqAry = {};
   </script>
 	  
     <script>
@@ -187,7 +188,7 @@
                         			}
                         			strDomainLink = " <a href=\"" + strHost[0] + "\" target=\"_blank\">" + strHostName + "</a>";
 						
-						strDomainLink in g_urlUniqAry || (g_urlUniqAry[strDomainLink] = strHostName);
+						strDomainLink in g_urlUniqAry || (g_urlUniqAry[strDomainLink] = strHostName);						
                     			}
 					
 					// 是否为pdf文件
@@ -360,7 +361,9 @@
 			    strColor = 'grey';
 			    g_iRepeatLineCount += 1;
 		    } 
+			
 		    g_strLastLine = strLine;
+		    strLine in g_strLineUniqAry || (g_strLineUniqAry[strLine] = 1);
 			
                     document.getElementById("StdOut").innerHTML += 
                         "<li>" +
@@ -452,6 +455,8 @@
 		    }
 		    strLinePage += "</pre>";
 		    $("#idInfoLinePage").html(strLinePage);
+		    
+		    // 判断是否含有重复的记录
 		    
 		    // 标题
 		    $(document).attr("title", "P:" + g_iPageCount.toString() + "  L:" + g_iUrlCount.toString() + "  R:" + g_iRepeatLineCount.toString() + "  ");
