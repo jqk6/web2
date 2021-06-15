@@ -146,8 +146,8 @@
                     document.getElementById("aid_" + obj_id).style.background = "#CCCCCC";
                     document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
 			  
-		    document.getElementById("aid_" + obj_id).innerHTML = "已删除";
-		    document.getElementById("bid_" + obj_id).innerHTML = "已删除";
+		    document.getElementById("aid_" + obj_id).innerHTML = "Removed";
+		    document.getElementById("bid_" + obj_id).innerHTML = "Removed";
 		  },
 		  error: function(deleteObject, error) {
 		    console.log("delete fail");			  
@@ -163,6 +163,7 @@
     
     <!-- Bmob Show Logging //-->
     <script type="text/javascript">
+	var g_strLastLine = '';
 
 	function funcGetNewText (strText) {
 		var strNew = '';
@@ -352,7 +353,13 @@
 
                     // 如何含有回车换行，则用pre，否则不用pre
                     strLine = funcGetNewText(strLine);
-
+			
+		    if (g_strLastLine === ''){
+			    g_strLastLine = strLine;
+		    } else if (strLine === g_strLastLine){
+			    strColor = 'grey';
+		    } 
+			
                     document.getElementById("StdOut").innerHTML += 
                         "<li>" +
                         "<span id='aid_" + object.id + "' style='display:inline-block;width:100px;background-color:" + strColor + ";'><center><a href='javascript:FuncChangeColor(\"" + object.id+ "\");'>" + strCreateDate + "</a>&nbsp;</br></br><a href='javascript:FuncDeleteIt(\"" + object.id+ "\");'>delete</a></center></span>" +
