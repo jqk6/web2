@@ -359,7 +359,7 @@
 		    g_strLineUniqAry[strLine] += 1;
 			
 		    // 判断是否含有重复的记录
-		    if (g_iNotNeighbourRepeatLineCount > 0) {			    
+		    if (g_iNotNeighbourRepeatLineCount === 0) {			    
 			    for (var skey in g_strLineUniqAry) {
 				    if (g_strLineUniqAry[skey] > 1) { // 发现重复的行
 					    strColor = 'plum';
