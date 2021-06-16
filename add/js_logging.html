@@ -357,11 +357,14 @@
 		    // 发现不连续相邻重复的行
 		    strLine in g_strLineUniqAry || (g_strLineUniqAry[strLine] = 0);
 		    g_strLineUniqAry[strLine] += 1;
+			
 		    // 判断是否含有重复的记录
-		    for (var skey in g_strLineUniqAry) {
-			    if (g_strLineUniqAry[skey] > 1) { // 发现重复的行
-				    strColor = 'plum';
-				    g_iNotNeighbourRepeatLineCount += 1;
+		    if (g_iNotNeighbourRepeatLineCount > 0) {			    
+			    for (var skey in g_strLineUniqAry) {
+				    if (g_strLineUniqAry[skey] > 1) { // 发现重复的行
+					    strColor = 'plum';
+					    g_iNotNeighbourRepeatLineCount += 1;
+				    }
 			    }
 		    }
 			
