@@ -52,6 +52,7 @@
   var g_strLastLine = '';
   var g_iRepeatLineCount = 0;
   var g_strLineUniqAry = {};
+  var g_iNotNeighbourRepeatLineCount = 0;
   </script>
 	  
     <script>
@@ -355,16 +356,28 @@
                     // 如何含有回车换行，则用pre，否则不用pre
                     strLine = funcGetNewText(strLine);
 			
+		    // 发现不连续相邻重复的行
+		    strLine in g_strLineUniqAry || (g_strLineUniqAry[strLine] = 0);
+		    g_strLineUniqAry[strLine] += 1;
+		    // 判断是否含有重复的记录
+		    for (var skey in g_strLineUniqAry) {
+			    if (g_strLineUniqAry[skey] > 1) { // 发现重复的行
+				    strColor = 'plum';
+				    g_iNotNeighbourRepeatLineCount += 1;
+			    }
+		    }
+			
+	   	    // 发现连续相邻重复的行（优先级高，覆盖不连续相邻重复的行的信息）
 		    if (g_strLastLine === ''){
 			    //
 		    } else if (strLine === g_strLastLine){
-			    strColor = 'grey';
+			    strColor = 'sliver';
 			    g_iRepeatLineCount += 1;
 		    } 
 			
-		    g_strLastLine = strLine;
-		    strLine in g_strLineUniqAry || (g_strLineUniqAry[strLine] = 1);
+		    g_strLastLine = strLine;			
 			
+		    // 输出一行
                     document.getElementById("StdOut").innerHTML += 
                         "<li>" +
                         "<span id='aid_" + object.id + "' style='display:inline-block;width:100px;background-color:" + strColor + ";'><center><a href='javascript:FuncChangeColor(\"" + object.id+ "\");'>" + strCreateDate + "</a>&nbsp;</br></br><a href='javascript:FuncDeleteIt(\"" + object.id+ "\");'>delete</a></center></span>" +
@@ -455,11 +468,9 @@
 		    }
 		    strLinePage += "</pre>";
 		    $("#idInfoLinePage").html(strLinePage);
-		    
-		    // 判断是否含有重复的记录
-		    
+		    		    
 		    // 标题
-		    $(document).attr("title", "P:" + g_iPageCount.toString() + "  L:" + g_iUrlCount.toString() + "  R:" + g_iRepeatLineCount.toString() + "  ");
+		    $(document).attr("title", "P:" + g_iPageCount.toString() + "  L:" + g_iUrlCount.toString() + "  R:" + g_iRepeatLineCount.toString() + "  NNR:" + g_iNotNeighbourRepeatLineCount.toString());
 	    }
     }, 999);
   </script>
