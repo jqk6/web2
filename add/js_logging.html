@@ -149,7 +149,8 @@
                     document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
 			  
 		    document.getElementById("aid_" + obj_id).innerHTML = "Removed";
-		    document.getElementById("bid_" + obj_id).innerHTML = "Removed";
+		    //document.getElementById("bid_" + obj_id).innerHTML = "Removed";
+		    document.getElementById("bid_" + obj_id).innerHTML = "<del>" + document.getElementById("bid_" + obj_id).innerHTML + "</del>";
 		  },
 		  error: function(deleteObject, error) {
 		    console.log("delete fail");			  
