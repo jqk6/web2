@@ -191,6 +191,16 @@
 						strDomainLink in g_urlUniqAry || (g_urlUniqAry[strDomainLink] = strHostName);						
                     			}
 					
+					// URL是否为网站首页，即xxx.com或www.xxx.com
+					strPortalInfo = '';
+					strTry1 = 'http://' + strDomainLink + '/';
+					strTry2 = 'https://' + strDomainLink + '/';
+					strTry3 = 'http://www.' + strDomainLink + '/';
+					strTry4 = 'https://www.' + strDomainLink + '/';
+					if (strUrl.startsWith(strTry1) || strUrl.startsWith(strTry2) || strUrl.startsWith(strTry3) || strUrl.startsWith(strTry4)) {
+						strPortalInfo = '<font color=blue><b>[Home]</b></font>';
+					}
+					
 					// 是否为pdf文件
 					var strFileInfo = '';
 					if (strUrl.endsWith('.pdf')) {
@@ -221,7 +231,7 @@
 						strWebSiteInfo = ' <font color=red><b>[简书]</b></font> ';
 					}
 					
-					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
+					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strPortalInfo+'&nbsp;'+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
 				} else {
 					strNew += '<b>' + strLine + '</b></br>';
 					
