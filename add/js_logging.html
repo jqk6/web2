@@ -180,9 +180,10 @@
 					// 提取域名部分
 					strUrl = strLine;
                     			var strDomainLink = "";
+					var strHostName = "";
                     			var strHost = strUrl.match(/https?:\/\/([^\/]+)\//i);
                     			if (strHost && strHost.length > 0){
-                        			var strHostName = strHost[1];
+                        			strHostName = strHost[1];
                         			if (strHostName.indexOf ("www.") == 0) {
                             				strHostName = strHostName.substr (4);
                         			}
@@ -193,15 +194,10 @@
 					
 					// URL是否为网站首页，即xxx.com或www.xxx.com
 					strPortalInfo = '';
-					strTry1 = 'http://' + strDomainLink + '/';
-					strTry2 = 'https://' + strDomainLink + '/';
-					strTry3 = 'http://www.' + strDomainLink + '/';
-					strTry4 = 'https://www.' + strDomainLink + '/';
-					console.log(strUrl);
-					console.log(strTry1);
-					console.log(strTry2);
-					console.log(strTry3);
-					console.log(strTry4);
+					strTry1 = 'http://' + strHostName + '/';
+					strTry2 = 'https://' + strHostName + '/';
+					strTry3 = 'http://www.' + strHostName + '/';
+					strTry4 = 'https://www.' + strHostName + '/';
 					if (strUrl.startsWith(strTry1) || strUrl.startsWith(strTry2) || strUrl.startsWith(strTry3) || strUrl.startsWith(strTry4)) {
 						strPortalInfo = '<font color=blue><b>[Home]</b></font>';
 					}
