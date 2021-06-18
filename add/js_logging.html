@@ -198,8 +198,8 @@
 					strTry2 = 'https://' + strHostName + '/';
 					strTry3 = 'http://www.' + strHostName + '/';
 					strTry4 = 'https://www.' + strHostName + '/';
-					if (strUrl.startsWith(strTry1) || strUrl.startsWith(strTry2) || strUrl.startsWith(strTry3) || strUrl.startsWith(strTry4)) {
-						strPortalInfo = '<font color=blue><b>[Home]</b></font>';
+					if (strUrl === strTry1 || strUrl === strTry2 || strUrl === strTry3 || strUrl === strTry4) {
+						strPortalInfo = '<font color=darkgreen><b>[Home]</b></font>';
 					}
 					
 					// 是否为pdf文件
