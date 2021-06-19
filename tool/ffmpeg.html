@@ -70,7 +70,7 @@
 				$("#idStdout").html());
 
 		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
-
+		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
 
 		$("#idTitle").val("");
 		$("#idUrl").val("");
@@ -78,13 +78,23 @@
 	}
 
 	function funcClearAllLogs(){
-		$("#idStdout").html("");
-		funcFocus1();
+		if ($("#idStdout").html()){
+			var answer = window.confirm("Remove all of the history ffmpeg commands!!!");
+			if (answer) {
+				$("#idStdout").html("");
+				localStorage.removeItem("ffmpeg_idStdout"); // 删除localStorage中的该项，注意不能用localStorage.clear()清空全部
+				funcFocus1();
+			}
+		}
 	}
 
 	</script>
 	</head>
 	<body>
+		<!-- version //-->
+		<p>FFmpeg V: 12</p>
+		<hr>
+		<!-- FORM //-->
 		<form id="idForm1">
 		<table>
 			<tr>
@@ -101,6 +111,7 @@
 			</tr>
 		</table>
 		</br>
+		<!-- BUTTON //-->
 		<table>
 		<tr>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -111,11 +122,14 @@
 		</table>
 		</form>
 		<hr>
+		<!-- LOGGING //-->
 		<p id="idStdout"></p>
 		<script>
 			// READY
 			$(document).ready(function() {
 				funcFocus1();
+				// 从localStorage中读出上次的LOG
+				$("#idStdout").html(localStorage.getItem("ffmpeg_idStdout"));
 			});	
 		</script>
 	</body>
