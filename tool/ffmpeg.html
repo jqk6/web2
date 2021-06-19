@@ -1,7 +1,85 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>ffmpeg</title>
-  </head>
-  <body>
-  </body>
+<head>
+	<meta charset='utf-8'>
+	<title>ffmpeg</title>
+	<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+	<script>
+	function funcCalcDate() {
+
+		var ss = $("#idInput").val();
+		var iInputLen = ss.length;
+		if (iInputLen !== 19) {
+			$("#idInput").val("");
+			$("#idInput").select();
+			$("#idInput").focus();
+			$("#idStdout").html("Invalid date time format!</br>" + $("#idStdout").html());
+			return;
+		}
+
+		// 2016-07-20 01:02:03
+		// 0        5    8   11 14 17
+		var d = new Date();
+		d.setFullYear(parseInt(ss.substr(0,4))); 	// 设置 Date 对象中的年份（四位数字）。
+		d.setMonth (parseInt(ss.substr(5,2))-1);	// 设置 Date 对象中月份 (0 ~ 11)。注意：月份人类输入的是1-12，因此需要减1。
+		d.setDate(parseInt(ss.substr(8,2)));		// 设置 Date 对象中月的某一天 (1 ~ 31)。
+		d.setHours(parseInt(ss.substr(11,2))); 	// 设置 Date 对象中的小时 (0 ~ 23)。
+		d.setMinutes(parseInt(ss.substr(14,2))); 	// 设置 Date 对象中的分钟 (0 ~ 59)。
+		d.setSeconds(parseInt(ss.substr(17,2))); 	// 设置 Date 对象中的秒钟 (0 ~ 59)。
+		d.setMilliseconds(0); 				// 设置 Date 对象中的毫秒 (0 ~ 999)。
+		var i1970Milliseconds = d.getTime ();	 	// 返回 1970 年 1 月 1 日至今的毫秒数。
+		i1970Milliseconds = i1970Milliseconds/1000; // 秒数
+
+		// 计算2010年01月01日基准时间
+		var dd = new Date();
+		dd.setFullYear(2010); 				// 设置 Date 对象中的年份（四位数字）。
+		dd.setMonth (0);				// 设置 Date 对象中月份 (0 ~ 11)。
+		dd.setDate(1);					// 设置 Date 对象中月的某一天 (1 ~ 31)。
+		dd.setHours(0); 				// 设置 Date 对象中的小时 (0 ~ 23)。
+		dd.setMinutes(0); 				// 设置 Date 对象中的分钟 (0 ~ 59)。
+		dd.setSeconds(0); 				// 设置 Date 对象中的秒钟 (0 ~ 59)。
+		dd.setMilliseconds(0); 				// 设置 Date 对象中的毫秒 (0 ~ 999)。
+		var i2010Milliseconds = dd.getTime ();	// 返回 1970 年 1 月 1 日至今的毫秒数。
+		i2010Milliseconds = i2010Milliseconds/1000; // 秒数
+
+		// 输出结算结果
+		$("#idStdout").html("<b>" + ss + "</b> => 1970年至今: <font color=blue>" + (i1970Milliseconds) + "</font> 秒；2010年至今: <font color=red>" + (i1970Milliseconds-i2010Milliseconds) + "</font> 秒。</br>" + $("#idStdout").html());
+		$("#idInput").select();
+		$("#idInput").focus();
+	}
+	</script>
+	<script>
+	function funcNowDate() {
+		var d = new Date();
+		var s1 = d.getFullYear();
+		var s2 = (d.getMonth()+1); if (s2 < 10) s2 = "0" + s2;
+		var s3 = d.getDate(); if (s3 < 10) s3 = "0" + s3;
+		var s4 = d.getHours(); if (s4 < 10) s4 = "0" + s4;
+		var s5 = d.getMinutes(); if (s5 < 10) s5 = "0" + s5;
+		var s6 = d.getSeconds(); if (s6 < 10) s6 = "0" + s6;
+		$("#idInput").val(s1 + "-" + s2 + "-" + s3 + " " + s4 + ":" + s5 + ":" + s6);
+
+		// 调用计算时间
+		funcCalcDate();
+	}
+	</script>
+</head>
+<body>
+<form id="idForm1">
+  <b>TITLE:</b>
+  <input id="idTitle" type="text" /></br>  
+  <b>URL:</b>
+  <input id="idUrl" type="text" /></br>
+  <input id="idBtn" type="button" value="计算" onclick="funcCalcDate(this);" />
+</form>
+<p id="idStdout"></p>
+<p id="idStdoutNow"></p>
+<script>
+	// READY
+	$(document).ready(function() {
+		$("#idInput").select();
+		$("#idInput").focus();
+	});	
+</script>
+</body>
 </html>
