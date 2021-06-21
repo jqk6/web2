@@ -6,26 +6,45 @@
 	<title>ffmpeg</title>
 	<script type="text/javascript" src="./jquery-1.4.2.min.js"></script>
 	<script>
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 全局变量
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcFocus1() {
 		$("#idTitle").select();
 		$("#idTitle").focus();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcFocus2() {
 		$("#idUrl").select();
 		$("#idUrl").focus();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcClear1() {
 		$("#idTitle").val("");
 		funcFocus1();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcClear2() {
 		$("#idUrl").val("");
 		funcFocus2();
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Generate FFmpeg
+	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcGenerateFFmpeg() {
 
 		var tt = $("#idTitle").val();
@@ -54,8 +73,14 @@
 		tt = tt.replaceAll (">", "_");
 		tt = tt.replaceAll ("|", "_");
 		var ii;
-		for (ii=0;ii<10;ii++){
+		for (ii=0;ii<20;ii++){
 			tt = tt.replaceAll ("__", "_");
+		}
+
+		if (!(uu.startsWith('http://') || uu.startsWith('https://')))
+		{
+			funcFocus2();
+			return;
 		}
 
 		// ffmpeg -i https://xxx.xxx.org/media/audio/xxx.m3u8 -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 XXX.mp3
@@ -71,18 +96,97 @@
 
 		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
 		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+		if (localStorage.getItem("ffmpeg_strCommands") == null) {
+			localStorage.setItem("ffmpeg_strCommands", strText)
+		} else {
+			localStorage.setItem("ffmpeg_strCommands", strText + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+		}
+
 
 		$("#idTitle").val("");
 		$("#idUrl").val("");
 		funcFocus1();
 	}
 
-	function funcClearAllLogs(){
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Title Only
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcTitleOnly() {
+		var tt = $("#idTitle").val();
+		tt = tt.trim();
+		if (tt.length === 0) {
+			funcFocus1();
+			return;
+		}
+
+		var uu = $("#idUrl").val();
+		uu = uu.trim();
+		if (uu.length != 0) { // TEXT ONLY模式下，URL必须为空
+			funcFocus2();
+			return;
+		}
+
+		// Windows7中，文件名不能包含的字符 \ / : * ? " < > |
+		tt = tt.replaceAll (" ", "_");
+		tt = tt.replaceAll ("\\", "_");
+		tt = tt.replaceAll ("/", "_");
+		tt = tt.replaceAll (":", "_");
+		tt = tt.replaceAll ("*", "_");
+		tt = tt.replaceAll ("?", "_");
+		tt = tt.replaceAll ("\"", "_");
+		tt = tt.replaceAll ("<", "_");
+		tt = tt.replaceAll (">", "_");
+		tt = tt.replaceAll ("|", "_");
+		var ii;
+		for (ii=0;ii<20;ii++){
+			tt = tt.replaceAll ("__", "_");
+		}
+
+		// 输出结算结果
+		$("#idStdout").html(
+				"<font color=gray><i>TITLE:&nbsp;&nbsp;</i></font><font color=red><b>" + tt + "</b></font></br>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+
+		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
+		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+		if (localStorage.getItem("ffmpeg_strCommands") == null) {
+			localStorage.setItem("ffmpeg_strCommands", tt)
+		} else {
+			localStorage.setItem("ffmpeg_strCommands", tt + "\n\n" + localStorage.getItem("ffmpeg_strCommands"))
+		}
+
+		$("#idTitle").val("");
+		$("#idUrl").val("");
+		funcFocus1();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Make Page
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcMakePage() {
+		// console.log(localStorage.getItem("ffmpeg_strCommands"));
+		if (!localStorage.getItem("ffmpeg_strCommands")){
+			funcFocus1();
+			return;
+		}
+
+		$("#idStdout").html(
+				"<pre>" + localStorage.getItem("ffmpeg_strCommands") + "</pre></br>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Clear All Logs
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClearAllLogs() {
 		if ($("#idStdout").html()){
 			var answer = window.confirm("Remove all of the history ffmpeg commands!!!");
 			if (answer) {
 				$("#idStdout").html("");
 				localStorage.removeItem("ffmpeg_idStdout"); // 删除localStorage中的该项，注意不能用localStorage.clear()清空全部
+				localStorage.removeItem("ffmpeg_strCommands");
 				funcFocus1();
 			}
 		}
@@ -92,22 +196,22 @@
 	</head>
 	<body>
 		<!-- version //-->
-		<p>FFmpeg V: 12</p>
+		<p>FFmpeg V: 21</p>
 		<hr>
 		<!-- FORM //-->
 		<form id="idForm1">
 		<table>
 			<tr>
 				<td><b> TITLE: </b></td>
-				<td><input id="idTitle" type="text" size="66"></td>
-				<td><input id="idBtn" type="button" value="Clear" onclick="funcClear1(this);"></td>
-				<td><input id="idBtn" type="button" value="Focus" onclick="funcFocus1(this);"></td>
+				<td><input id="idTitle" type="text" size="66" style="height:30px;"></td>
+				<td><input id="idBtnClear1" type="button" value="Clear" onclick="funcClear1(this);" style="height:30px;"></td>
+				<td><input id="idBtnFocus1" type="button" value="Focus" onclick="funcFocus1(this);" style="height:30px;"></td>
 			</tr>
 			<tr>
 				<td><b> URL: </b></td>
-				<td><input id="idUrl" type="text" size="66"></td>
-				<td><input id="idBtn" type="button" value="Clear" onclick="funcClear2(this);"></td>
-				<td><input id="idBtn" type="button" value="Focus" onclick="funcFocus2(this);"></td>
+				<td><input id="idUrl" type="text" size="66" style="height:30px;"></td>
+				<td><input id="idBtnClear2" type="button" value="Clear" onclick="funcClear2(this);" style="height:30px;"></td>
+				<td><input id="idBtnFocus2" type="button" value="Focus" onclick="funcFocus2(this);" style="height:30px;"></td>
 			</tr>
 		</table>
 		</br>
@@ -115,9 +219,13 @@
 		<table>
 		<tr>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input id="idBtn" type="button" value="Generate FFmpeg" onclick="funcGenerateFFmpeg(this);" style="height:30px;"></td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input id="idBtn" type="button" value="Clear All Logs" onclick="funcClearAllLogs(this);" style="height:30px;"></td>
+			<td><input id="idBtnGenerateFFmpeg" type="button" value="Generate FFmpeg" onclick="funcGenerateFFmpeg(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnTitleOnly" type="button" value="Title Only" onclick="funcTitleOnly(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnMakePage" type="button" value="Make Page" onclick="funcMakePage(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnClearAllLogs" type="button" value="Clear All Logs" onclick="funcClearAllLogs(this);" style="height:30px;"></td>
 		</tr>
 		</table>
 		</form>
