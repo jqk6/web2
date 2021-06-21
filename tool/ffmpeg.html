@@ -83,6 +83,10 @@
 			return;
 		}
 
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}
+
 		// ffmpeg -i https://xxx.xxx.org/media/audio/xxx.m3u8 -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 XXX.mp3
 		var strText = 'ffmpeg -i ' + uu + ' -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 \"'+tt+'\".mp3';
 		
@@ -142,6 +146,10 @@
 			tt = tt.replaceAll ("__", "_");
 		}
 
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}
+
 		// 输出结算结果
 		$("#idStdout").html(
 				"<font color=gray><i>TITLE:&nbsp;&nbsp;</i></font><font color=red><b>" + tt + "</b></font></br>\n" + 
@@ -153,7 +161,7 @@
 		if (localStorage.getItem("ffmpeg_strCommands") == null) {
 			localStorage.setItem("ffmpeg_strCommands", tt)
 		} else {
-			localStorage.setItem("ffmpeg_strCommands", tt + "\n\n" + localStorage.getItem("ffmpeg_strCommands"))
+			localStorage.setItem("ffmpeg_strCommands", tt + "\n" + localStorage.getItem("ffmpeg_strCommands"))
 		}
 
 		$("#idTitle").val("");
@@ -165,16 +173,49 @@
 	// 函数 -- Make Page
 	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcMakePage() {
-		// console.log(localStorage.getItem("ffmpeg_strCommands"));
+
 		if (!localStorage.getItem("ffmpeg_strCommands")){
 			funcFocus1();
 			return;
 		}
 
 		$("#idStdout").html(
-				"<pre>" + localStorage.getItem("ffmpeg_strCommands") + "</pre></br>\n" + 
+				"<pre># MakePage_Begin #\n" + localStorage.getItem("ffmpeg_strCommands") + "\n# MagePage_End #</pre>\n" + 
 				"<hr>\n" +
 				$("#idStdout").html());
+
+		// 生成Clear Page链接（实际为按钮功能）
+		$("#idClearPage").html(
+			'<a href="javascript:void(0)" onclick="funcClearPage()"><b><font color=red>ClearPage</font></b></a>'
+			);
+
+		// 隐藏按钮
+		$("#idBtnMakePage").hide();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- 是否以MakePage页面开头
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcCheckWhetherMakePage(strInput) {
+		if (strInput.startsWith("<pre># MakePage_Begin #")) {
+			if (window.confirm("Do you want to add \"#MakePage...\" lines to output?")){
+				return true;
+			} else {
+				return false; // 不允许添加
+			}
+		}
+		return true;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Clear Page
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClearPage() {
+		// 刷新页面
+		window.location.reload();
+
+		// 显示按钮
+		$("#idBtnMakePage").show();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -196,7 +237,7 @@
 	</head>
 	<body>
 		<!-- version //-->
-		<p>FFmpeg V: 21</p>
+		<p>FFmpeg V: 26</p>
 		<hr>
 		<!-- FORM //-->
 		<form id="idForm1">
@@ -205,13 +246,11 @@
 				<td><b> TITLE: </b></td>
 				<td><input id="idTitle" type="text" size="66" style="height:30px;"></td>
 				<td><input id="idBtnClear1" type="button" value="Clear" onclick="funcClear1(this);" style="height:30px;"></td>
-				<td><input id="idBtnFocus1" type="button" value="Focus" onclick="funcFocus1(this);" style="height:30px;"></td>
 			</tr>
 			<tr>
 				<td><b> URL: </b></td>
 				<td><input id="idUrl" type="text" size="66" style="height:30px;"></td>
 				<td><input id="idBtnClear2" type="button" value="Clear" onclick="funcClear2(this);" style="height:30px;"></td>
-				<td><input id="idBtnFocus2" type="button" value="Focus" onclick="funcFocus2(this);" style="height:30px;"></td>
 			</tr>
 		</table>
 		</br>
@@ -224,6 +263,7 @@
 			<td><input id="idBtnTitleOnly" type="button" value="Title Only" onclick="funcTitleOnly(this);" style="height:30px;"></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><input id="idBtnMakePage" type="button" value="Make Page" onclick="funcMakePage(this);" style="height:30px;"></td>
+			<td><div id="idClearPage"></div></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><input id="idBtnClearAllLogs" type="button" value="Clear All Logs" onclick="funcClearAllLogs(this);" style="height:30px;"></td>
 		</tr>
