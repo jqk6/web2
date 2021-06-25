@@ -106,7 +106,6 @@
 			localStorage.setItem("ffmpeg_strCommands", strText + "\n" + localStorage.getItem("ffmpeg_strCommands"))
 		}
 
-
 		$("#idTitle").val("");
 		$("#idUrl").val("");
 		funcFocus1();
@@ -168,6 +167,46 @@
 		$("#idUrl").val("");
 		funcFocus1();
 	}
+		
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Link Only
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcLinkOnly() {
+		var uu = $("#idUrl").val();
+		uu = uu.trim();
+		if (uu.length === 0) {
+			funcFocus2();
+			return;
+		}
+		
+		if (!(uu.startsWith('http://') || uu.startsWith('https://')))
+		{
+			funcFocus2();
+			return;
+		}
+		
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}		
+		
+		// 输出结算结果
+		$("#idStdout").html(
+				"<font color=gray><i>URL:&nbsp;&nbsp;</i></font><font color=red><b><a href=\""+uu+"\" target=_blank>" + uu + "</a></b></font></br>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+
+		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
+		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+		if (localStorage.getItem("ffmpeg_strCommands") == null) {
+			localStorage.setItem("ffmpeg_strCommands", uu)
+		} else {
+			localStorage.setItem("ffmpeg_strCommands", uu + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+		}
+
+		$("#idTitle").val("");
+		$("#idUrl").val("");
+		funcFocus1();		
+	}		
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// 函数 -- Make Page
@@ -261,6 +300,8 @@
 			<td><input id="idBtnGenerateFFmpeg" type="button" value="Generate FFmpeg" onclick="funcGenerateFFmpeg(this);" style="height:30px;"></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><input id="idBtnTitleOnly" type="button" value="Title Only" onclick="funcTitleOnly(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnLinkOnly" type="button" value="Link Only" onclick="funcLinkOnly(this);" style="height:30px;"></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><input id="idBtnMakePage" type="button" value="Make Page" onclick="funcMakePage(this);" style="height:30px;"></td>
 			<td><div id="idClearPage"></div></td>
