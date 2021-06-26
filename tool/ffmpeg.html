@@ -172,6 +172,9 @@
 	// 函数 -- Link Only
 	/////////////////////////////////////////////////////////////////////////////////////////
 	function funcLinkOnly() {
+		var tt = $("#idTitle").val();
+		tt = tt.trim();
+		
 		var uu = $("#idUrl").val();
 		uu = uu.trim();
 		if (uu.length === 0) {
@@ -189,8 +192,14 @@
 			return;
 		}		
 		
+		var strTitleLine = '';
+		if (tt){
+			strTitleLine = "<i><b>TITLE:&nbsp;&nbsp;</b></i><font color=red><b>" + tt + "</b></font></br>\n";
+		}
+		
 		// 输出结算结果
 		$("#idStdout").html(
+				strTitleLine + 
 				"<font color=gray><i>URL:&nbsp;&nbsp;</i></font><font color=red><b><a href=\""+uu+"\" target=_blank>" + uu + "</a></b></font></br>\n" + 
 				"<hr>\n" +
 				$("#idStdout").html());
