@@ -72,6 +72,7 @@
 		tt = tt.replaceAll ("<", "_");
 		tt = tt.replaceAll (">", "_");
 		tt = tt.replaceAll ("|", "_");
+		tt = tt.replaceAll ("｜", "_");
 		var ii;
 		for (ii=0;ii<20;ii++){
 			tt = tt.replaceAll ("__", "_");
@@ -127,22 +128,6 @@
 		if (uu.length != 0) { // TEXT ONLY模式下，URL必须为空
 			funcFocus2();
 			return;
-		}
-
-		// Windows7中，文件名不能包含的字符 \ / : * ? " < > |
-		tt = tt.replaceAll (" ", "_");
-		tt = tt.replaceAll ("\\", "_");
-		tt = tt.replaceAll ("/", "_");
-		tt = tt.replaceAll (":", "_");
-		tt = tt.replaceAll ("*", "_");
-		tt = tt.replaceAll ("?", "_");
-		tt = tt.replaceAll ("\"", "_");
-		tt = tt.replaceAll ("<", "_");
-		tt = tt.replaceAll (">", "_");
-		tt = tt.replaceAll ("|", "_");
-		var ii;
-		for (ii=0;ii<20;ii++){
-			tt = tt.replaceAll ("__", "_");
 		}
 
 		if (!funcCheckWhetherMakePage($("#idStdout").html())){
