@@ -48,6 +48,7 @@
 	function funcGenerateFFmpeg() {
 
 		var tt = $("#idTitle").val();
+		var strOrigTitle = tt;
 		tt = tt.trim();
 		if (tt.length === 0) {
 			funcFocus1();
@@ -93,7 +94,7 @@
 		
 		// 输出结算结果
 		$("#idStdout").html(
-				"<i><b>TITLE:&nbsp;&nbsp;</b>" + tt + "</i></br>\n" + 
+				"<i><b>TITLE:&nbsp;&nbsp;</b>" + strOrigTitle + "</i></br>\n" + 
 				"<i><b>URL:&nbsp;&nbsp;</b>" + uu + "</i></br>\n" + 
 				"<b><font color=blue>" + strText + "</font></b></br>\n" + 
 				"<hr>\n" +
