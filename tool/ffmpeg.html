@@ -192,10 +192,12 @@
 
 		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
 		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
-		if (localStorage.getItem("ffmpeg_strCommands") == null) {
-			localStorage.setItem("ffmpeg_strCommands", uu)
-		} else {
-			localStorage.setItem("ffmpeg_strCommands", uu + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+		if (tt) {
+			if (localStorage.getItem("ffmpeg_strCommands") == null) {
+				localStorage.setItem("ffmpeg_strCommands", tt)
+			} else {
+				localStorage.setItem("ffmpeg_strCommands", tt + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+			}
 		}
 
 		$("#idTitle").val("");
@@ -271,7 +273,7 @@
 	</head>
 	<body>
 		<!-- version //-->
-		<p>FFmpeg V: 26</p>
+		<p>FFmpeg V: 27</p>
 		<hr>
 		<!-- FORM //-->
 		<form id="idForm1">
