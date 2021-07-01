@@ -395,7 +395,7 @@
 
                     // 每隔N行,空一行,便于阅读
                     if (i>0 && i%5==4)
-                        document.getElementById("StdOut").innerHTML += "<hr id=\"idTail\">";                        
+                        document.getElementById("StdOut").innerHTML += "<hr>";                        
                  }
                 document.getElementById("StdOut").innerHTML += "</ol>";
 		$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Content load OK.</br></b></font>" + $("#idInfo").html());
@@ -442,7 +442,7 @@
     
     <!-- Pages Tailor //-->
     <b id="PagesTailor"><PagesTailor></b>
-    <hr>
+    <hr id="idTail">
 
     <!-- url dict keys //-->
     <p id="idUrlDict"></p>
