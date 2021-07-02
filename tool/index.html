@@ -906,13 +906,13 @@
   <script>
     var g_iTitleCharNo = 0;
     var g_strTitleCharAry = ['动','成','长'];
-    $("#idCurrTime").html("<font color=gray style=\"font-size:50px;\"><b>"+funcGetCurrentTime()+"</b></font>");
+    $("#idCurrTime").html("<font color=gray style=\"font-size:40px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 	    	    
 	    if (funcGetCurrentMinute() % 2==0) {
-		    $("#idCurrTime").html("<font color=red style=\"font-size:50px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
+		    $("#idCurrTime").html("<font color=red style=\"font-size:40px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    } else {
-		    $("#idCurrTime").html("<font color=blue style=\"font-size:50px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
+		    $("#idCurrTime").html("<font color=blue style=\"font-size:40px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    }
 	    
 	    // 标题
