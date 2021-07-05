@@ -234,6 +234,15 @@
 					
 					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strPortalInfo+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
 				} else {
+					// 知乎特例：“(1 封私信) 如何在人多时说话克服紧张和头脑空白？ - 知乎”
+					if (strLine.startsWith("(")) {
+						var iFindEnd = strLine.indexOf(")");
+						var strFindNew = strLine.substr(iFindEnd+1,).trim();
+						if (strFindNew) {
+							strLine = strFindNew;
+						}
+					}
+					
 					strNew += '<b>' + strLine + '</b></br>';
 					
 					// 记录非URL行
