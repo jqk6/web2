@@ -37,6 +37,7 @@
     <script>
 			function reset_input () {
 					$("#InLineId").attr("value","");
+					$("#InLineId2").attr("value","");				
 					$("#InLineId").focus();
 			}
     </script>    
@@ -79,10 +80,13 @@
     <script type="text/javascript">
     function FuncAdd2TheLogging () {
         var strLogging = $.trim(FormTheLogging.InLine.value);
-        if (strLogging == "") {
+	var strLogging2 = $.trim(FormTheLogging.InLine2.value);
+        if (strLogging == "" && strLogging2 == "") {
           $("#InLineId").focus();
           return;
         }
+	strLogging = strLogging + "\n" + strLogging2;
+	    
         strLogging = strLogging.replace (/</g, "&lt;");
         strLogging = strLogging.replace (/>/g, "&gt;");
         var strColor = ""
@@ -127,9 +131,9 @@
           $("#InLineId").focus();
           return;
         }
-				strLogging += "\r\n\r\n";
-				$("#InLineId").val(strLogging);
-				$("#InLineId").focus();    
+	strLogging += "\r\n\r\n";
+	$("#InLineId").val(strLogging);
+	$("#InLineId").focus();    
     }
 
     </script>
@@ -161,7 +165,7 @@
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
       <textarea name="InLine" id="InLineId" rows=10 cols=100 autofocus ></textarea>
     </li>
-    <li><tt> 其它: </tt> 
+    <li><tt> 日志2: </tt> 
       <textarea name="InLine2" id="InLineId2" rows=10 cols=100 autofocus ></textarea>
     </li>
     <br>		
