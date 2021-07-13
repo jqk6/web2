@@ -8,18 +8,18 @@
     	  
     <!-- 百度统计 //-->
     <script type="text/javascript">
-	var g_iAddLogCount = 0;
+			var g_iAddLogCount = 0;
     </script>
 	  
     <!-- 百度统计 //-->
     <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "//hm.baidu.com/hm.js?279eb3fba9f1ccf8f52393aa1b8a0f63";
+				var s = document.getElementsByTagName("script")[0]; 
+				s.parentNode.insertBefore(hm, s);
+			})();
     </script>
     
     <!-- jQuery //-->
@@ -30,49 +30,49 @@
     
     <!-- Bmob Init //-->
     <script type="text/javascript">
-    Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
+    	Bmob.initialize("4c6dd7eed26e4d1ed7877d6093b299c1", "d5c309d52fd9904e1f85e4f5d5dd72f5");
     </script>
 
     <!-- RESET INPUT -->
     <script>
-    function reset_input () {
-        $("#InLineId").attr("value","");
-        $("#InLineId").focus();
-    }
+			function reset_input () {
+					$("#InLineId").attr("value","");
+					$("#InLineId").focus();
+			}
     </script>    
 	
     <script>
-	function funcGetCurrentTime() {
-	    var date = new Date();//当前时间
-	    var month = funcZeroFill(date.getMonth() + 1);//月
-	    var day = funcZeroFill(date.getDate());//日
-	    var hour = funcZeroFill(date.getHours());//时
-	    var minute = funcZeroFill(date.getMinutes());//分
-	    var second = funcZeroFill(date.getSeconds());//秒
+			function funcGetCurrentTime() {
+					var date = new Date();//当前时间
+					var month = funcZeroFill(date.getMonth() + 1);//月
+					var day = funcZeroFill(date.getDate());//日
+					var hour = funcZeroFill(date.getHours());//时
+					var minute = funcZeroFill(date.getMinutes());//分
+					var second = funcZeroFill(date.getSeconds());//秒
 
-	    //当前时间
-	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-	    return curTime;
-	}
-	function funcGetCurrentHHMM() {
-	    var date = new Date();//当前时间
-	    var month = funcZeroFill(date.getMonth() + 1);//月
-	    var day = funcZeroFill(date.getDate());//日
-	    var hour = funcZeroFill(date.getHours());//时
-	    var minute = funcZeroFill(date.getMinutes());//分
-	    var second = funcZeroFill(date.getSeconds());//秒
+					//当前时间
+					var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+					return curTime;
+			}
+			function funcGetCurrentHHMM() {
+					var date = new Date();//当前时间
+					var month = funcZeroFill(date.getMonth() + 1);//月
+					var day = funcZeroFill(date.getDate());//日
+					var hour = funcZeroFill(date.getHours());//时
+					var minute = funcZeroFill(date.getMinutes());//分
+					var second = funcZeroFill(date.getSeconds());//秒
 
-	    //当前时间
-	    var curTime = hour + ":" + minute;
-	    return curTime;
-	}
-	function funcZeroFill(i){
-	    if (i >= 0 && i <= 9) {
-		return "0" + i;
-	    } else {
-		return i;
-	    }
-	}
+					//当前时间
+					var curTime = hour + ":" + minute;
+					return curTime;
+			}
+			function funcZeroFill(i){
+					if (i >= 0 && i <= 9) {
+				return "0" + i;
+					} else {
+				return i;
+					}
+			}
     </script>
     
     <!-- Bmob Add Logging //-->
@@ -86,20 +86,20 @@
         strLogging = strLogging.replace (/</g, "&lt;");
         strLogging = strLogging.replace (/>/g, "&gt;");
         var strColor = ""
-        if ($("#InCheckId").attr("checked")==true)
+        if ($("#InCheckId").attr("checked")==true){
             strColor = "Yellow"
-	    
+				}
         var TheNewLogging = Bmob.Object.extend("Logging");
         var tTheNewLogging = new TheNewLogging();
 
-	g_iAddLogCount += 1;
-	tTheNewLogging.iAddLogCount = g_iAddLogCount;
+				g_iAddLogCount += 1;
+				tTheNewLogging.iAddLogCount = g_iAddLogCount;
 
         tTheNewLogging.set("strLine", strLogging);
-	strLoggingWithBr = strLogging;
-	strLoggingWithBr = strLoggingWithBr.replace(/\r\n/g, "</br>&nbsp;&nbsp;");
-	strLoggingWithBr = strLoggingWithBr.replace(/\r/g, "</br>&nbsp;&nbsp;");
-	strLoggingWithBr = strLoggingWithBr.replace(/\n/g, "</br>&nbsp;&nbsp;");
+				strLoggingWithBr = strLogging;
+				strLoggingWithBr = strLoggingWithBr.replace(/\r\n/g, "</br>&nbsp;&nbsp;");
+				strLoggingWithBr = strLoggingWithBr.replace(/\r/g, "</br>&nbsp;&nbsp;");
+				strLoggingWithBr = strLoggingWithBr.replace(/\n/g, "</br>&nbsp;&nbsp;");
         // tTheNewLogging.set("strCreateDate", (new Date).toDateString());
         var t1 = new Date;
         tTheNewLogging.set("strCreateDate",  t1.getFullYear()+"-"+(t1.getMonth()+1)+"-"+t1.getDate());        
@@ -107,12 +107,12 @@
         $("#idInfo").html("<b><font color=red>No."+tTheNewLogging.iAddLogCount.toString() + " : " + funcGetCurrentTime()+" Adding... </br>&nbsp;&nbsp;"+strLoggingWithBr+"</font></b>");
         tTheNewLogging.save(null, {
             success: function(object) {
-		$("#idInfo").html("");
+								$("#idInfo").html("");
                 document.getElementById("StdOut").innerHTML="<b>No."+tTheNewLogging.iAddLogCount.toString() + " : " + funcGetCurrentTime()+"</b>"+" OK to add for "+object.id+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             },
             error: function(model, error) {
-		$("#idInfo").html("");
+								$("#idInfo").html("");
                 document.getElementById("StdOut").innerHTML="<b>No."+tTheNewLogging.iAddLogCount.toString() + " : " + funcGetCurrentTime()+"</b>"+" Fail to add!"+error.message+" // <font color=gray>"+strLogging+"</font></br>"+$("#StdOut").html();
                 $("#InCheckId").attr("checked", false)
             }
@@ -127,9 +127,9 @@
           $("#InLineId").focus();
           return;
         }
-	strLogging += "\r\n\r\n";
-	$("#InLineId").val(strLogging);
-	$("#InLineId").focus();    
+				strLogging += "\r\n\r\n";
+				$("#InLineId").val(strLogging);
+				$("#InLineId").focus();    
     }
 
     </script>
@@ -159,8 +159,12 @@
 	<ul>
     <li><tt><font color=red>*</font> <a href="javascript:reset_input();">日志</a>: </tt> 
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
-      <textarea name="InLine" id="InLineId" rows=20 cols=100 autofocus ></textarea>
+      <textarea name="InLine" id="InLineId" rows=10 cols=100 autofocus ></textarea>
     </li>
+    <li><tt> 其它: </tt> 
+      <textarea name="InLine2" id="InLineId2" rows=10 cols=100 autofocus ></textarea>
+    </li>
+    <br>		
     <br>
         <li><tt><font color=white>*</font><font color=black> 重点: </font> </tt> 
 		<input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:20px"/></li>
@@ -175,7 +179,7 @@
   
   <!-- stdout logging //-->
   <p id="idCurrTime"></p>
-  <p id="idInfo"></p>
+  <p id="idInfo"></p>		
   <p id="StdOut"><StdOut></p>
   
   </body>
@@ -190,7 +194,7 @@
 	    if (g_iAddLogCount>0) {
 	        $(document).attr("title", "Add " + g_iAddLogCount.toString() + " logs " + funcGetCurrentHHMM());
 	    } else {
-		$(document).attr("title", "AddLog " + funcGetCurrentHHMM());
+					$(document).attr("title", "AddLog " + funcGetCurrentHHMM());
 	    }
     }, 999);
   </script>
