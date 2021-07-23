@@ -41,9 +41,12 @@
     <script>
 			function reset_input () {
 					$("#InLineId").attr("value","");
-					$("#InLineId2").attr("value","");				
 					$("#InLineId").focus();
 			}
+			function reset_input2 () {
+					$("#InLineId2").attr("value","");
+					$("#InLineId2").focus();
+			}	    
     </script>    
 	
     <script>
@@ -127,6 +130,7 @@
         });
 
         reset_input ();
+	reset_input2 ();
     }
 	    
     function FuncAddCrlf() {
@@ -169,7 +173,7 @@
       <!-- <input type="text" name="InLine" id="InLineId" size="60" autofocus /> -->
       <textarea name="InLine" id="InLineId" rows=10 cols=100 autofocus ></textarea>
     </li>
-    <li><tt><font color=white>*</font><font color=grey> 标题描述: </font></tt> 
+    <li><tt><font color=red>*</font> <a href="javascript:reset_input2();">标题描述</a>: </tt> 
       <textarea name="InLine2" id="InLineId2" rows=10 cols=100 autofocus ></textarea>
     </li>
     <br>
