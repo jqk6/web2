@@ -156,6 +156,18 @@
 	$("#InLineId").focus();  
     }
 
+    function FuncFormat2() {
+        var strLogging = $.trim(FormTheLogging.InLine2.value);
+        if (strLogging == "") {
+          $("#InLineId2").focus();
+          return;
+        }
+	strLogging = strLogging.replace(/\r/g, " ");
+	strLogging = strLogging.replace(/\n/g, " ");
+	$("#InLineId2").val(strLogging);
+	$("#InLineId2").focus();  
+    }
+
     </script>
   </head>
 
