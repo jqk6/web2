@@ -1126,6 +1126,10 @@
 		$("a").attr("target", "_blank");
 		// a 为所有a标签自动增加前缀、后缀空格 
 		// $("a").text(" " + $("a").text() + " "); -- 不能这样！这样是给所有a标签的所有文本！！！ 
+		$("a").each(function(){
+			$(this).text(" | " + $(this).text() + " | ");
+		});
+
 	}
 </script>
 </html>
