@@ -1122,8 +1122,10 @@
 		$(".xcolor_green").css("color", "green");
 		$(".xcolor_green").css("font-weight", "bold");
 		$(".xcolor_green").css("background-color", "yellow");
-		// a href 为所有a标签自动添加属性
+		// a 为所有a标签自动添加属性
 		$("a").attr("target", "_blank");
+		// a 为所有a标签自动增加前缀、后缀空格 
+		$("a").text(" " + $("a").text() + " ");
 	}
 </script>
 </html>
