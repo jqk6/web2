@@ -170,6 +170,26 @@
 	$("#InLineId2").select();
     }
 
+    function FuncFormat2x() {
+        var strLogging = $.trim(FormTheLogging.InLine2.value);
+        if (strLogging == "") {
+          $("#InLineId2").focus();
+          return;
+        }
+	strLogging = strLogging.replace(/\//g, " ");
+	strLogging = strLogging.replace(/\\/g, " ");
+	strLogging = strLogging.replace(/:/g, " ");
+	strLogging = strLogging.replace(/\*/g, " ");
+	strLogging = strLogging.replace(/\?/g, " ");
+	strLogging = strLogging.replace(/\"/g, " ");
+	strLogging = strLogging.replace(/</g, " ");
+	strLogging = strLogging.replace(/>/g, " ");
+	strLogging = strLogging.replace(/\|/g, " ");
+	$("#InLineId2").val(strLogging);
+	$("#InLineId2").focus();
+	$("#InLineId2").select();
+    }
+
     </script>
   </head>
 
@@ -206,8 +226,9 @@
         <li><tt><font color=white>*</font><font color=grey> 重点高亮: </font></tt> 
 		<input type="checkbox" name="InCheck" id="InCheckId" value="Yellow" style="font-size:20px"/> &nbsp;&nbsp;
 		<font color=grey>多行转单行:</font>&nbsp;&nbsp;
-		<input type="button" name="BtnFmt1" id="BtnFmt1Id" value="format-1" onclick="FuncFormat1(this)" style="font-size:15px"/> &nbsp;&nbsp;
-		<input type="button" name="BtnFmt2" id="BtnFmt2Id" value="format-2" onclick="FuncFormat2(this)" style="font-size:15px"/> &nbsp;&nbsp;
+		<input type="button" name="BtnFmt1" id="BtnFmt1Id" value="format-1" onclick="FuncFormat1(this)" style="font-size:14px"/> &nbsp;&nbsp;
+		<input type="button" name="BtnFmt2" id="BtnFmt2Id" value="format-2" onclick="FuncFormat2(this)" style="font-size:14px"/> &nbsp;&nbsp;
+		<input type="button" name="BtnFmt2x" id="BtnFmt2xId" value="format-2x" onclick="FuncFormat2x(this)" style="font-size:14px"/> &nbsp;&nbsp;
 	</li>
     <br>
 	<li><tt><font color=white>*</font><font color=grey> 添加按钮: </font></tt> 
