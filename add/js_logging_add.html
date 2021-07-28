@@ -185,6 +185,7 @@
 	strLogging = strLogging.replace(/</g, " ");
 	strLogging = strLogging.replace(/>/g, " ");
 	strLogging = strLogging.replace(/\|/g, " ");
+	strLogging = strLogging.replace(/\s+/g, " ");
 	$("#InLineId2").val(strLogging);
 	$("#InLineId2").focus();
 	$("#InLineId2").select();
