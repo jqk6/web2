@@ -23,7 +23,7 @@
 <!-- BUTTONS //-->
 <table>
 	<tr>
-		<td><input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px;"/></td>
+		<td><div id="idButtonDiv"></div></td>
 		<td><div id="idCurrTime"></div></td>
 	</tr>
 </table>
@@ -1275,6 +1275,9 @@
 	window.onload = function (){
 		g_iColorFulCount = 1;
 		console.log("window.onload");
+		
+		$("#idButtonDiv").append('<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px;"/>');
+		
 		$("#Btn1id").css("color", "#ff0000");
 	}
 	</script>
