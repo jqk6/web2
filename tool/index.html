@@ -1233,6 +1233,7 @@
 			g_iColorFulCount = 2;
 			$("#Btn1id").css("color", "#000000");
 			$("#Btn1id").val("Reload");
+			$("#Btn1id").hide();
 			// red
 			$(".x_red").css("color", "red");
 			$(".x_red").css("font-weight", "bold");
@@ -1253,9 +1254,6 @@
 				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
 				$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
 			});
-		} else {
-			g_iColorFulCount = 0;
-			window.location.reload();
 		}
 	}
 	window.onload = function (){
