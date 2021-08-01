@@ -1200,15 +1200,16 @@
 	}
 </script>
   <script>
+	var g_iTagACount = 0;	  
     var g_iTitleCharNo = 0;
     var g_strTitleCharAry = ['动','成','长'];
-    $("#idCurrTime").html("<font color=gray style=\"font-size:10px;\"><b>"+funcGetCurrentTime()+"</b></font>");
+    $("#idCurrTime").html("<font color=gray style=\"font-size:10px;\"><b>"+g_iTagACount.toString()+" "+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
 
 	    if (funcGetCurrentMinute() % 2==0) {
-		    $("#idCurrTime").html("<font color=grey style=\"font-size:10px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
+		    $("#idCurrTime").html("<font color=grey style=\"font-size:10px;\"><b>"+g_iTagACount.toString()+" "+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    } else {
-		    $("#idCurrTime").html("<font color=gray style=\"font-size:10px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
+		    $("#idCurrTime").html("<font color=gray style=\"font-size:10px;\"><b>"+g_iTagACount.toString()+" "+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    }
 	    
 	    // 标题
@@ -1267,6 +1268,7 @@
 			$("a").each(function(){
 				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
 				$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
+				g_iTagACount += 1;
 			});
 		}
 	}
