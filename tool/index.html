@@ -1229,8 +1229,8 @@
 	<script>
 	var g_iColorFulCount = 0;
 	function FuncColorful () {
-		if (g_iColorFulCount === 0) {
-			g_iColorFulCount = 1;
+		if (g_iColorFulCount === 1) {
+			g_iColorFulCount = 2;
 			$("#Btn1id").css("color", "#000000");
 			$("#Btn1id").val("Reload");
 			// red
@@ -1259,6 +1259,7 @@
 		}
 	}
 	window.onload = function (){
+		g_iColorFulCount = 1;
 		console.log("window.onload");
 		$("#Btn1id").css("color", "#ff0000");
 	}
