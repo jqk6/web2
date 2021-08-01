@@ -22,10 +22,10 @@
 <body>
 <!-- BUTTONS //-->
 <form name="FormButtons">
-	<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px"/> &nbsp;
+	<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px; VISIBILITY:hidden"/> &nbsp;
 </form>
 <!-- CURRENT_TIME //-->
-<!-- <p><div id="idCurrTime"></div></p> -->
+<p><div id="idCurrTime"></div></p>
 <hr>
 <!-- LOGGING //-->
 <p>
@@ -1225,7 +1225,8 @@
             background-color: Yellow;
         }
     </style>
-<script>
+	<script>
+	var g_iColorfulStat = 0;
 	function FuncColorful () {
 		// red
 		$(".x_red").css("color", "red");
@@ -1249,7 +1250,8 @@
 		});
 	}
 	window.onload = function (){
-		return;
+		$("#Btn1id").show();
+		g_iColorfulStat = 1;
 	}
-</script>
+	</script>
 </html>
