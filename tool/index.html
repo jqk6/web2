@@ -19,6 +19,10 @@
 	</script>
 </head>
 <body>
+<!-- BUTTONS //-->
+<form name="FormButtons">
+	<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:20px"/> &nbsp;
+</form>
 <!-- CURRENT_TIME //-->
 <p><div id="idCurrTime"></div></p>
 <hr>
@@ -1221,7 +1225,7 @@
         }
     </style>
 <script>
-	window.onload = function (){
+	function FuncColorful () {
 		// red
 		$(".x_red").css("color", "red");
 		$(".x_red").css("font-weight", "bold");
@@ -1242,7 +1246,9 @@
 			//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
 			$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
 		});
-
+	}
+	window.onload = function (){
+		return;
 	}
 </script>
 </html>
