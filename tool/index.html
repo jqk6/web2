@@ -22,7 +22,7 @@
 <body>
 <!-- BUTTONS //-->
 <form name="FormButtons">
-	<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px; VISIBILITY:hidden"/> &nbsp;
+	<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px;"/> &nbsp;
 </form>
 <!-- CURRENT_TIME //-->
 <p><div id="idCurrTime"></div></p>
@@ -1189,7 +1189,7 @@
     var g_strTitleCharAry = ['动','成','长'];
     $("#idCurrTime").html("<font color=gray style=\"font-size:20px;\"><b>"+funcGetCurrentTime()+"</b></font>");
     setInterval(function() {
-		$("#Btn1id").show();
+
 	    if (funcGetCurrentMinute() % 2==0) {
 		    $("#idCurrTime").html("<font color=red style=\"font-size:20px;\"><b>"+funcGetCurrentTime()+" " + g_strGoodWordsAry[g_iGoodWordNo]+"</b></font>");
 	    } else {
@@ -1226,30 +1226,34 @@
         }
     </style>
 	<script>
+	var g_iColorFulCount = 0;
 	function FuncColorful () {
-		// red
-		$(".x_red").css("color", "red");
-		$(".x_red").css("font-weight", "bold");
-		$(".x_red").css("background-color", "white");
-		// blue
-		$(".x_blue").css("color", "blue");
-		$(".x_blue").css("font-weight", "bold");
-		$(".x_blue").css("background-color", "aqua");
-		// green
-		$(".x_green").css("color", "green");
-		$(".x_green").css("font-weight", "bold");
-		$(".x_green").css("background-color", "yellow");
-		// a 为所有a标签自动添加属性
-		$("a").attr("target", "_blank");
-		// a 为所有a标签自动增加前缀、后缀空格 
-		// $("a").text(" " + $("a").text() + " "); -- 不能这样！这样是给所有a标签的所有文本！！！ 
-		$("a").each(function(){
-			//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
-			$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
-		});
+		if (g_iColorFulCount === 0) {
+			// red
+			$(".x_red").css("color", "red");
+			$(".x_red").css("font-weight", "bold");
+			$(".x_red").css("background-color", "white");
+			// blue
+			$(".x_blue").css("color", "blue");
+			$(".x_blue").css("font-weight", "bold");
+			$(".x_blue").css("background-color", "aqua");
+			// green
+			$(".x_green").css("color", "green");
+			$(".x_green").css("font-weight", "bold");
+			$(".x_green").css("background-color", "yellow");
+			// a 为所有a标签自动添加属性
+			$("a").attr("target", "_blank");
+			// a 为所有a标签自动增加前缀、后缀空格 
+			// $("a").text(" " + $("a").text() + " "); -- 不能这样！这样是给所有a标签的所有文本！！！ 
+			$("a").each(function(){
+				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
+				$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
+			});
+		}
+		g_iColorFulCount += 1;		
 	}
 	window.onload = function (){
-		$("#Btn1id").show();
+
 	}
 	</script>
 </html>
