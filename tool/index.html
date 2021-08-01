@@ -1229,6 +1229,7 @@
 	var g_iColorFulCount = 0;
 	function FuncColorful () {
 		if (g_iColorFulCount === 0) {
+			g_iColorFulCount = 1;
 			// red
 			$(".x_red").css("color", "red");
 			$(".x_red").css("font-weight", "bold");
@@ -1249,8 +1250,10 @@
 				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
 				$(this).after("&nbsp;&nbsp;"); // 在平级后边增加新标签
 			});
+		} else {
+			g_iColorFulCount = 0;
+			window.location.reload(true);
 		}
-		g_iColorFulCount += 1;		
 	}
 	window.onload = function (){
 
