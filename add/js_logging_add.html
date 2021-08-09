@@ -143,7 +143,7 @@
 	$("#InLineId").val(strLogging);
 	$("#InLineId").focus();    
     }
-	    
+	// 多行转单行
     function FuncFormat1() {
         var strLogging = $.trim(FormTheLogging.InLine.value);
         if (strLogging == "") {
@@ -156,7 +156,7 @@
 	$("#InLineId").focus();
 	$("#InLineId").select();
     }
-
+	// 多行转单行
     function FuncFormat2() {
         var strLogging = $.trim(FormTheLogging.InLine2.value);
         if (strLogging == "") {
@@ -169,7 +169,7 @@
 	$("#InLineId2").focus();
 	$("#InLineId2").select();
     }
-
+	// 删除非法文件名字符
     function FuncFormat2x() {
         var strLogging = $.trim(FormTheLogging.InLine2.value);
         if (strLogging == "") {
@@ -241,7 +241,9 @@
 		<font color=grey>多行转单行:</font>&nbsp;&nbsp;
 		<input type="button" name="BtnFmt1" id="BtnFmt1Id" value="format-1" onclick="FuncFormat1(this)" style="font-size:14px"/> &nbsp;&nbsp;
 		<input type="button" name="BtnFmt2" id="BtnFmt2Id" value="format-2" onclick="FuncFormat2(this)" style="font-size:14px"/> &nbsp;&nbsp;
+		<font color=grey>删除非法文件名字符:</font>&nbsp;&nbsp;
 		<input type="button" name="BtnFmt2x" id="BtnFmt2xId" value="format-2x" onclick="FuncFormat2x(this)" style="font-size:14px"/> &nbsp;&nbsp;
+		<font color=grey>删除空白字符:</font>&nbsp;&nbsp;
 		<input type="button" name="BtnFmt2y" id="BtnFmt2yId" value="format-2y(Remove Space)" onclick="FuncFormat2y(this)" style="font-size:14px"/> &nbsp;&nbsp;
 	</li>
     <br>
