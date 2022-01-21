@@ -2,32 +2,8 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <title>Log Loading...</title>
+    <title>clean</title>
     <!-- <link rel="stylesheet" type="text/css" href="../css/jqk6.css" /> -->
-    <style type="text/css">
-        li {
-            auto;
-            /*solid;*/
-        }
-        a:hover {
-            color: Red;
-        }        
-        span:hover {
-            color: Red;
-            background-color: GreenYellow;
-        }
-    </style>    
-    
-    <!-- 百度统计 //-->
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "https://hm.baidu.com/hm.js?0c07ad5a4199a93971be48044ea91bc0";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
     
     <!-- jQuery //-->
     <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
@@ -41,312 +17,16 @@
     </script>
     
   <script>
-  var g_iPageLoadedOK = 0;		  
-  var g_urlUniqAry = {};
-  var g_infoList = [];
-  var g_iUrlCount = 0; // 总记录数
-  var g_iPageCount = 0; // 总页数
-  var g_iCurrPageNo = 0; // 当前页号
-  var g_strLastLine = '';
-  var g_iRepeatLineCount = 0;
-  var g_strLineUniqAry = {};
-  var g_iNotNeighbourRepeatLineCount = 0;
+  var g_iPageLoadedOK = 0;
   </script>
-	  
-    <script>
-	function funcGetCurrentTime() {
-	    var date = new Date();//当前时间
-	    var month = funcZeroFill(date.getMonth() + 1);//月
-	    var day = funcZeroFill(date.getDate());//日
-	    var hour = funcZeroFill(date.getHours());//时
-	    var minute = funcZeroFill(date.getMinutes());//分
-	    var second = funcZeroFill(date.getSeconds());//秒
 
-	    //当前时间
-	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-	    return curTime;
-	}
-
-	function funcZeroFill(i){
-	    if (i >= 0 && i <= 9) {
-		return "0" + i;
-	    } else {
-		return i;
-	    }
-	}
-    </script>	  
-	  
-    <!-- Javascript get URL parameters //-->
-    <script language="javascript">
-    function GetUrlRequest() {
-      //获取当前URL中"?"符后的字串
-      var url = location.search; 
-       var theRequest = new Object();
-       if (url.indexOf("?") != -1) {
-          var str = url.substr(1);
-          strs = str.split("&");
-          for(var i = 0; i < strs.length; i ++) {
-             theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
-          } 
-       }
-       return theRequest;
-    }
-    </script>    
-
-    <!-- CHANGE LINE BACKGROUND COLOR -->
-    <script>
-    function FuncChangeColor (obj_id)
-    {
-        var TheLogging = Bmob.Object.extend("Logging");
-        var tQuery = new Bmob.Query(TheLogging);
-        tQuery.equalTo("objectId", obj_id);
-
-        tQuery.find({
-            success: function(results) 
-            {
-                for (var i = 0; i < results.length; i++) 
-                {
-                    var object = results[i];
-                    var strColor = object.get('strColor');
-                    
-                    if (strColor)
-                    {
-                        strColor = "";
-                        document.getElementById("aid_" + obj_id).style.background = "#FFFFFF";
-                        document.getElementById("bid_" + obj_id).style.background = "#FFFFFF";
-                    }
-                    else 
-                    {
-                        strColor = "Yellow";
-                        document.getElementById("aid_" + obj_id).style.background = "#FFFF00";
-                        document.getElementById("bid_" + obj_id).style.background = "#FFFF00";
-                    }
-
-                    object.fetchWhenSave(true);
-                    object.set('strColor', strColor);
-                    object.save(null, null);
-                }
-            },
-            error: function(error) 
-            {
-                document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-            }
-        });
-    }
-    </script>
-	  
-    <script>
-    function FuncDeleteIt (obj_id)
-    {
-        var TheLogging = Bmob.Object.extend("Logging");
-        var tQuery = new Bmob.Query(TheLogging);
-	    tQuery.get(obj_id, {
-	      success: function(object) {
-		object.destroy({
-		  success: function(deleteObject) {
-		    console.log("delete success");
-                    document.getElementById("aid_" + obj_id).style.background = "#CCCCCC";
-                    document.getElementById("bid_" + obj_id).style.background = "#CCCCCC";
-			  
-		    document.getElementById("aid_" + obj_id).innerHTML = "Removed";
-		    //document.getElementById("bid_" + obj_id).innerHTML = "Removed";
-		    document.getElementById("bid_" + obj_id).innerHTML = "<del>" + document.getElementById("bid_" + obj_id).innerHTML + "</del>";
-		  },
-		  error: function(deleteObject, error) {
-		    console.log("delete fail");			  
-		  }
-		});
-	      },
-	      error: function(object, error) {
-		console.log("query object fail");
-	      }
-	    });
-    }
-    </script>
-    
     <!-- Bmob Show Logging //-->
-    <script type="text/javascript">	
-	function funcGetNewText (strText) {
-		var strNew = '';
-		try {
-			var arrayOfLines = strText.match(/[^\r\n]+/g);
-			var ii=0;
-			for (ii=0; arrayOfLines && ii<arrayOfLines.length; ii++) {
-				var strLine = arrayOfLines[ii];
-				if (strLine.startsWith('http://') || strLine.startsWith('https://')) {
-					//strNew += strLine + '</br>';
-					//strNew += '[&nbsp;<a href="'+strLine+'" target=_blank>open</a>&nbsp;]</br>\n';
-					
-					// 提取域名部分
-					strUrl = strLine;
-                    			var strDomainLink = "";
-					var strHostName = "";
-                    			var strHost = strUrl.match(/https?:\/\/([^\/]+)\//i);
-                    			if (strHost && strHost.length > 0){
-                        			strHostName = strHost[1];
-                        			if (strHostName.indexOf ("www.") == 0) {
-                            				strHostName = strHostName.substr (4);
-                        			}
-                        			strDomainLink = " <a href=\"" + strHost[0] + "\" target=\"_blank\">" + strHostName + "</a>";
-						
-						strDomainLink in g_urlUniqAry || (g_urlUniqAry[strDomainLink] = strHostName);						
-                    			}
-					
-					// URL是否为网站首页，即xxx.com或www.xxx.com
-					strPortalInfo = '';
-					strTry1 = 'http://' + strHostName + '/';
-					strTry2 = 'https://' + strHostName + '/';
-					strTry3 = 'http://www.' + strHostName + '/';
-					strTry4 = 'https://www.' + strHostName + '/';
-					if (strUrl === strTry1 || strUrl === strTry2 || strUrl === strTry3 || strUrl === strTry4) {
-						strPortalInfo = '<font color=DeepPink><b>[Home]</b></font>';
-					}
-					
-					// 是否为pdf文件
-					var strFileInfo = '';
-					if (strUrl.endsWith('.pdf')) {
-						strFileInfo = ' <font color=red><b>[PDF]</b></font> ';
-					} else if (strUrl.endsWith('.ppt') || strUrl.endsWith('.pptx')) {
-						strFileInfo = ' <font color=red><b>[PPT]</b></font> ';
-					}
-					
-					// 是否为特殊网站
-					var strWebSiteInfo = '';
-					if (strUrl.indexOf('zhihu.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[知乎]</b></font> ';
-					} else if (strUrl.indexOf('weixin.qq.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[微信]</b></font> ';
-					} else if (strUrl.indexOf('github.io/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[Github Pages]</b></font> ';
-					} else if (strUrl.indexOf('github.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[Github]</b></font> ';
-					} else if (strUrl.indexOf('csdn.net/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[CSDN]</b></font> ';
-					} else if (strUrl.indexOf('stackoverflow.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[Stackoverflow]</b></font> ';
-					} else if (strUrl.indexOf('wikipedia.org/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[维基百科]</b></font> ';
-					} else if (strUrl.indexOf('cnblogs.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[博客园]</b></font> ';
-					} else if (strUrl.indexOf('jianshu.com/')>0) {
-						strWebSiteInfo = ' <font color=red><b>[简书]</b></font> ';
-					}
-					
-					strNew += '</br><font color=grey>[&nbsp;<a href="'+strLine+'" target=_blank>URL</a>&nbsp;]['+strDomainLink+']</font>'+strPortalInfo+strWebSiteInfo+strFileInfo+'</br>\n <font color=grey>'+ strLine +'</font></br>\n';
-				} else {
-					// 知乎特例：“(1 封私信) 如何在人多时说话克服紧张和头脑空白？ - 知乎”
-					if (strLine.startsWith("(")) {
-						var iFindEnd = strLine.indexOf(")");
-						var strFindNew = strLine.substr(iFindEnd+1,).trim();
-						if (strFindNew) {
-							strLine = strFindNew;
-						}
-					}
-					
-					strNew += '<b>' + strLine + '</b></br>';
-					
-					// 记录非URL行
-					if (strLine.trim()) {
-					  g_infoList.push(strLine.trim());
-					}
-				}
-			}
-		} catch (e) {
-			strNew = strText;
-			return strNew;
-		}
+    <script type="text/javascript">
 
-		return strNew;
-	}      
-      
     function FuncShowTheLogging () {
         var TheLogging = Bmob.Object.extend("Logging");
         var tQuery = new Bmob.Query(TheLogging);
 
-        // 获取当前URL参数
-        var tUrlRequest = new Object();
-        tUrlRequest = GetUrlRequest();
-        
-        var iSkip = tUrlRequest["skip"];
-        if (typeof(iSkip) == "undefined" || iSkip == "" || iSkip<1)
-        {
-            iSkip = 1;  // 最新一页
-        }
-        
-        var iRowCountInPage = tUrlRequest["rowcount"];
-        if (!iRowCountInPage || iRowCountInPage<1)
-            iRowCountInPage = 30; 
-
-        // 一页内的日志记录数
-        var iPageUrlCount = iRowCountInPage; 
-        
-        // 分页显示，显示页号
-        tQuery.count({
-          success: function(iUrlCount) {
-          
-	    			g_iUrlCount = iUrlCount; 
-		  
-            // 获得总URL记录数
-            var strPageBanner;
-            strPageBanner = "记录: " + iUrlCount + " 页数: ";
-            
-            // 获得页数
-            var iPageCount = parseInt (iUrlCount / iPageUrlCount);
-	    			g_iPageCount = iPageCount;
-            var iMorePageBegin = 19;
-            var bIsMorePage = false;
-            
-            for (var i=0; i<iPageCount; i++)
-            {
-                var iNo = i+1;
-                if (iNo != iSkip)
-                    strPageBanner += "<a href=\"./js_logging.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
-                else
-                    //strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
-                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
-
-                if (i==iMorePageBegin)
-                {
-                    if (iSkip<=iMorePageBegin+1)
-                        strPageBanner += "<span class='more_page' style=display:none>";
-                    else
-                        strPageBanner += "<span class='more_page' style=display:>";
-
-                    bIsMorePage = true;
-                }                 
-            }
-
-            // 判断页数是否整除，如果不是整除，还要多显示一页
-            if (iPageCount * iPageUrlCount < iUrlCount)
-            {
-								g_iPageCount += 1;
-                var iNo = (iPageCount+1);
-                if (iNo != iSkip)
-                    strPageBanner += "<a href=\"./js_logging.html?skip=" + iNo + "&rowcount=" + iRowCountInPage + "\">" + iNo + "</a> " ; 
-                else
-                    //strPageBanner += "<font size=5 color=red>" + iNo + "</font> " ; 
-                    strPageBanner += "<font size=6 color=red><a href=\"./js_logging.html?skip=" + iNo + "&rowcount=100\">" + iNo + "</a></font> " ;
-            }
-            
-            if (bIsMorePage)
-            {
-                strPageBanner += "</span>";
-                if (iSkip<=iMorePageBegin+1)
-                    strPageBanner += "<a href='javascript:$(\".more_page\").show(); $(\".more_link\").hide();' class='more_link'>更多...</a>";
-            }
-
-            // 输出显示 
-            document.getElementById("PagesHeader").innerHTML = strPageBanner + "<br>\r\n";
-            document.getElementById("PagesTailor").innerHTML = strPageBanner + "<br>\r\n";
-	    			$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Page list load OK.</br></b></font>" + $("#idInfo").html());
-	    			g_iPageLoadedOK +=1;
-          },
-          error: function(error) {
-	    			$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Page list load failed!</br></b></font>" + $("#idInfo").html());
-	    			g_iPageLoadedOK +=1;
-          }
-        });        
-        
         // 构造FONT SIZE
         var strFontSizeLeft  = "<font size=4>"
         if (window.screen.width < window.screen.height)
@@ -355,14 +35,12 @@
 
         // 排序，显示最新的Logging
         tQuery.descending("createdAt");
-        tQuery.limit (iPageUrlCount);
-        tQuery.skip ((iSkip-1)*iPageUrlCount);
+        tQuery.limit (1); // only the 1st line
         
         // 显示当前页内的Logging
         tQuery.find({
             success: function(results) {
-                document.getElementById("StdOut").innerHTML = "记录: " + results.length + "<hr>";
-                document.getElementById("StdOut").innerHTML += "<ol>";
+                document.getElementById("StdOut").innerHTML = "<p>";
 
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
@@ -372,48 +50,18 @@
                     if (!strLine)
                         continue;
 
-                    // 如何含有回车换行，则用pre，否则不用pre
-                    strLine = funcGetNewText(strLine);
-			
-		    // 发现不连续相邻重复的行
-		    strLine in g_strLineUniqAry || (g_strLineUniqAry[strLine] = 0);
-		    g_strLineUniqAry[strLine] += 1;
-			
-		    // 判断是否含有重复的记录
-		    if (g_strLineUniqAry[strLine] > 1) { // 发现重复的行
-			strColor = 'plum';
-			g_iNotNeighbourRepeatLineCount += 1;
-		    }
-			
-	   	    // 发现连续相邻重复的行（优先级高，覆盖不连续相邻重复的行的信息）
-		    if (g_strLastLine === ''){
-			    //
-		    } else if (strLine === g_strLastLine){
-			    strColor = 'silver';
-			    g_iRepeatLineCount += 1;
-		    } 
-			
-		    g_strLastLine = strLine;			
-			
 		    // 输出一行
                     document.getElementById("StdOut").innerHTML += 
-                        "<li>" +
-                        "<span id='aid_" + object.id + "' style='display:inline-block;width:100px;background-color:" + strColor + ";'><center><a href='javascript:FuncChangeColor(\"" + object.id+ "\");'>" + strCreateDate + "</a>&nbsp;</br></br><a href='javascript:FuncDeleteIt(\"" + object.id+ "\");'>delete</a></center></span>" +
-                        "<span id='bid_" + object.id + "' style='display:inline-block;width:1000px;background-color:" + strColor + ";'>" + strFontSizeLeft + strLine + strFontSizeRight + "</span>" +
-                        "</li><br>";
-
-                    // 每隔N行,空一行,便于阅读
-                    if (i>0 && i%5==4)
-                        document.getElementById("StdOut").innerHTML += "<hr>";                        
+                        "<span style='display:inline-block;width:1000px;'>" + strFontSizeLeft + strLine + strFontSizeRight + "</span><br>";
                  }
-                document.getElementById("StdOut").innerHTML += "</ol>";
-								$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Content load OK.</br></b></font>" + $("#idInfo").html());
-								g_iPageLoadedOK +=1;
+                document.getElementById("StdOut").innerHTML += "</p>";
+		$("#idInfo").html("<font color=red><b>OK</br></b></font>" + $("#idInfo").html());
+		g_iPageLoadedOK +=1;
             },
             error: function(error) {
                 document.getElementById("StdOut").innerHTML = "Query failed: " + error.code + " " + error.message;
-								$("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Content load failed!</br></b></font>" + $("#idInfo").html());
-								g_iPageLoadedOK +=1;
+		$("#idInfo").html("<font color=red><b> Content load failed!</br></b></font>" + $("#idInfo").html());
+		g_iPageLoadedOK +=1;
             }
         });       
     }
@@ -424,80 +72,15 @@
     <body>
 
     <!-- HEADER NAV BAR //-->
-    <hr id="idTop">
-    <table>
-        <tr>
-            <td>[<a href="../index.html">首页</a>]</td>
-            <td>[<a href="../add/js_main_add.html">添加</a>]</td>            
-            <td>[<a href="../add/js_main.html">网站</a>]</td>
-            <td>[<a href="../add/js_links_add_frame.html">添加</a>]</td>            
-            <td>[<a href="../add/js_links.html">文章</a>]</td>
-	    <td>[<a href="../add/js_logging_add.html"><b>添加</b></a>]</td>
-            <td bgcolor=Cyan>&nbsp;<font color=red>日志</font>&nbsp;</td>
-            <td>[<a href="../about.html">关于</a>]</td>
-	    <td><div id="idCurrTime"></div></td>
-        </tr>
-    </table>
-    <hr>
-
-    <!-- Pages Header //-->
-    <b id="PagesHeader"><PagesHeader></b>
     
     <!-- information //-->
     <p id="idInfo"></p>
-
-    <!-- information2 //-->
-    <p id="idInfo2"></p>
 	    
     <!-- stdout logging //-->
     <p id="StdOut"><StdOut></p>
     
-    <!-- Pages Tailor //-->
-    <b id="idTail">&nbsp;</b><b id="PagesTailor"><PagesTailor></b>
-    <hr>
-
-    <!-- url dict keys //-->
-    <p id="idUrlDict"></p>
-    <hr>
-	    
-    <!-- info line list //-->
-    <p id="idInfoLinePage"></p>
-    <hr>
-	    <b><a href="#idTop">Go to Top</a></b>&nbsp;&nbsp;
-	    <b><a href="#idTail">Go to Tail</a></b>
-
     <!-- RUN //-->
 	    
-  <script>
-    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
-    setInterval(function() {
-	    $("#idCurrTime").html("<font color=green><b>"+funcGetCurrentTime()+"</b></font>");
-	    if (g_iPageLoadedOK >= 2) {
-		    g_iPageLoadedOK = -1;
-		    $("#idInfo").html("");
-		    var iNo = 0;
-		    var strUrlPage = '';
-		    for (var skey in g_urlUniqAry) {
-					iNo += 1;
-					strUrlPage += "<font color=grey><b>No." + iNo.toString().padEnd(4,' ').replace(/\s/g,'&nbsp;') + "</b></font> <b>"+skey+"</b> </br>\n";
-		    }
-		    $("#idUrlDict").html(strUrlPage);
-		    
-		    // 非URL部分：
-		    var strLinePage = '<pre>';
-		    var ii;
-		    for (ii=0; ii<g_infoList.length; ii++){
-		      strLinePage += g_infoList[ii] + "\n";
-		    }
-		    strLinePage += "</pre>";
-		    $("#idInfoLinePage").html(strLinePage);
-		    		    
-		    // 标题
-		    $(document).attr("title", "P:" + g_iPageCount.toString() + "  L:" + g_iUrlCount.toString() + "  R:" + g_iRepeatLineCount.toString() + "  NNR:" + g_iNotNeighbourRepeatLineCount.toString());
-	    }
-    }, 999);
-  </script>
-
     <script type="text/javascript">
     $("#idInfo").html("<font color=red><b>"+funcGetCurrentTime()+" Start loading ...</b></font>");
     FuncShowTheLogging ();
