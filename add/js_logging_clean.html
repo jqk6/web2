@@ -55,7 +55,7 @@
                         strFontSizeLeft + strLine + strFontSizeRight;
                  }
                 document.getElementById("StdOut").innerHTML += "</p>";
-		$("#idInfo").html("<font color=red><b> </br></b></font>" + $("#idInfo").html());
+		$("#StdOut").html($("#StdOut").html());
 		g_iPageLoadedOK +=1;
             },
             error: function(error) {
