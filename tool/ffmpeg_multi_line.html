@@ -98,23 +98,6 @@
 			return;
 		}
 
-		// Windows7中，文件名不能包含的字符 \ / : * ? " < > |
-		tt = tt.replaceAll (" ", "_");
-		tt = tt.replaceAll ("\\", "_");
-		tt = tt.replaceAll ("/", "_");
-		tt = tt.replaceAll (":", "_");
-		tt = tt.replaceAll ("*", "_");
-		tt = tt.replaceAll ("?", "_");
-		tt = tt.replaceAll ("\"", "_");
-		tt = tt.replaceAll ("<", "_");
-		tt = tt.replaceAll (">", "_");
-		tt = tt.replaceAll ("|", "_");
-		tt = tt.replaceAll ("｜", "_");
-		var ii;
-		for (ii=0;ii<100;ii++){
-			tt = tt.replaceAll ("__", "_");
-		}
-
 		// 检查TITLE行数与URL行数是否相同，相同才是合法的。
 		if (ttAry.length != uuAry.length) {
 			console.log("ERROR: 多行输入的行数不一致，失败退出", ttAry.length, "!=", uuAry.length);
@@ -125,9 +108,11 @@
 			for (var ii=0; ii<ttAry.length; ii++) {
 				tt = ttAry[ii];
 				tt = tt.trim(); // 去掉每行TITLE的开头、结尾的空白
+				ttAry[ii] = tt;
 
 				uu = uuAry[ii];
 				uu = uu.trim(); // 去掉每行URL的开头、结尾的空白
+				uuAry[ii] = uu;
 
 				if (!(uu.startsWith('http://') || uu.startsWith('https://'))) {
 					isPassUrlCheck = 0;
@@ -146,6 +131,24 @@
 				tt = ttAry[ii];
 				uu = uuAry[ii];
 
+				var strOrigTitle = tt;
+
+				// Windows7中，文件名不能包含的字符 \ / : * ? " < > |
+				tt = tt.replaceAll (" ", "_");
+				tt = tt.replaceAll ("\\", "_");
+				tt = tt.replaceAll ("/", "_");
+				tt = tt.replaceAll (":", "_");
+				tt = tt.replaceAll ("*", "_");
+				tt = tt.replaceAll ("?", "_");
+				tt = tt.replaceAll ("\"", "_");
+				tt = tt.replaceAll ("<", "_");
+				tt = tt.replaceAll (">", "_");
+				tt = tt.replaceAll ("|", "_");
+				tt = tt.replaceAll ("｜", "_");
+				for (var iSpaceNo=0;iSpaceNo<100;iSpaceNo++){
+					tt = tt.replaceAll ("__", "_");
+				}
+							
 				////////////////////////////////////////////////////////////////////////
 				//////////////////////////// 同上边的单行处理 ////////////////////////////
 				////////////////////////////////////////////////////////////////////////
@@ -155,7 +158,7 @@
 				
 				// 输出结算结果
 				$("#idStdout").html(
-						"<i><b>TITLE:&nbsp;&nbsp;</b><font color=red>" + tt + "</font></i></br>\n" + 
+						"<i><b>TITLE:&nbsp;&nbsp;</b><font color=red>" + strOrigTitle + "</font></i></br>\n" + 
 						"<i><b>URL:&nbsp;&nbsp;</b>" + uu + "</i></br>\n" + 
 						"<b><font color=blue>" + strText + "</font></b></br>\n" + 
 						"<hr>\n" +
