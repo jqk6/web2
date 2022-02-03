@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?0c07ad5a4199a93971be48044ea91bc0";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>ffmpeg multi line</title>
+	<script type="text/javascript" src="./jquery-1.4.2.min.js"></script>
+	<script>
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 全局变量
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcFocus1() {
+		$("#idTitle").select();
+		$("#idTitle").focus();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcFocus2() {
+		$("#idUrl").select();
+		$("#idUrl").focus();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClear1() {
+		$("#idTitle").val("");
+		funcFocus1();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClear2() {
+		$("#idUrl").val("");
+		funcFocus2();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Generate FFmpeg
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcGenerateFFmpeg() {
+
+		var tt = $("#idTitle").val();
+		var strOrigTitle = tt;
+		tt = tt.trim();
+		if (tt.length === 0) {
+			funcFocus1();
+			return;
+		}
+
+		var uu = $("#idUrl").val();
+		uu = uu.trim();
+		if (uu.length === 0) {
+			funcFocus2();
+			return;
+		}
+
+		// 分割多行标题
+		ttAry = tt.split(/[(\r\n)\r\n]+/);
+		ttAry.forEach ((item,index) => {
+			item = item.trim(); // 将只含有空白的行也删掉
+			if (!item) {
+				ttAry.splice(index,1); //删除空项
+			}
+		})
+		
+		// 分割多行URL
+		uuAry = uu.split(/[(\r\n)\r\n]+/);
+		uuAry.forEach ((item,index) => {
+			item = item.trim(); // 将只含有空白的行也删掉
+			if (!item) {
+				uuAry.splice(index,1); //删除空项
+			}
+		})
+
+		if (ttAry.length <= 1 || uuAry.length <= 1) {
+			console.log("ERROR: 本页面只能处理多行情况，不处理单行情况");
+			return;
+		}
+
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}
+
+		// Windows7中，文件名不能包含的字符 \ / : * ? " < > |
+		tt = tt.replaceAll (" ", "_");
+		tt = tt.replaceAll ("\\", "_");
+		tt = tt.replaceAll ("/", "_");
+		tt = tt.replaceAll (":", "_");
+		tt = tt.replaceAll ("*", "_");
+		tt = tt.replaceAll ("?", "_");
+		tt = tt.replaceAll ("\"", "_");
+		tt = tt.replaceAll ("<", "_");
+		tt = tt.replaceAll (">", "_");
+		tt = tt.replaceAll ("|", "_");
+		tt = tt.replaceAll ("｜", "_");
+		var ii;
+		for (ii=0;ii<100;ii++){
+			tt = tt.replaceAll ("__", "_");
+		}
+
+		// 检查TITLE行数与URL行数是否相同，相同才是合法的。
+		if (ttAry.length != uuAry.length) {
+			console.log("ERROR: 多行输入的行数不一致，失败退出", ttAry.length, "!=", uuAry.length);
+			return; // 行数不一致，无法批量处理，退出
+		} else { // 行数一致
+			// 检查每一行的URL都需要以 http:// 或 https:// 开头才合法。
+			var isPassUrlCheck = 1;
+			for (var ii=0; ii<ttAry.length; ii++) {
+				tt = ttAry[ii];
+				tt = tt.trim(); // 去掉每行TITLE的开头、结尾的空白
+
+				uu = uuAry[ii];
+				uu = uu.trim(); // 去掉每行URL的开头、结尾的空白
+
+				if (!(uu.startsWith('http://') || uu.startsWith('https://'))) {
+					isPassUrlCheck = 0;
+					break;
+				}
+			} // _END_OF_FOR_
+
+			if (!isPassUrlCheck) {
+				console.log("ERROR: 存在不以http://或https://开头的URL行，失败退出");
+				funcFocus2();
+				return; // 存在不合法的URL行，失败退出
+			}
+
+			// 对每一行TITLE和对应的一行URL，构建成一行新的FFMPEG命令。从而生成多行FFMPEG命令。
+			for (var ii=0; ii<ttAry.length; ii++) {
+				tt = ttAry[ii];
+				uu = uuAry[ii];
+
+				////////////////////////////////////////////////////////////////////////
+				//////////////////////////// 同上边的单行处理 ////////////////////////////
+				////////////////////////////////////////////////////////////////////////
+
+				// ffmpeg -i https://xxx.xxx.org/media/audio/xxx.m3u8 -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 XXX.mp3
+				var strText = 'ffmpeg -i ' + uu + ' -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 \"'+tt+'\".mp3';
+				
+				// 输出结算结果
+				$("#idStdout").html(
+						"<i><b>TITLE:&nbsp;&nbsp;</b><font color=red>" + tt + "</font></i></br>\n" + 
+						"<i><b>URL:&nbsp;&nbsp;</b>" + uu + "</i></br>\n" + 
+						"<b><font color=blue>" + strText + "</font></b></br>\n" + 
+						"<hr>\n" +
+						$("#idStdout").html());
+
+				// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
+				localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+				if (localStorage.getItem("ffmpeg_strCommands") == null) {
+					localStorage.setItem("ffmpeg_strCommands", strText)
+				} else {
+					localStorage.setItem("ffmpeg_strCommands", strText + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+				}
+
+				////////////////////////////////////////////////////////////////////////
+				//////////////////////////// 同上边的单行处理 ////////////////////////////
+				////////////////////////////////////////////////////////////////////////
+
+			} // _END_OF_FOR_
+
+			// 成功构造多行FFMPEG命令，清空输入框
+			$("#idTitle").val("");
+			$("#idUrl").val("");
+			funcFocus1();
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Title Only
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcTitleOnly() {
+		var tt = $("#idTitle").val();
+		tt = tt.trim();
+		if (tt.length === 0) {
+			funcFocus1();
+			return;
+		}
+
+		var uu = $("#idUrl").val();
+		uu = uu.trim();
+		if (uu.length != 0) { // TEXT ONLY模式下，URL必须为空
+			funcFocus2();
+			return;
+		}
+
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}
+
+		// 输出结算结果
+		$("#idStdout").html(
+				"<font color=gray><i>TITLE:&nbsp;&nbsp;</i></font><font color=green><b>" + tt + "</b></font></br>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+
+		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
+		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+		if (localStorage.getItem("ffmpeg_strCommands") == null) {
+			localStorage.setItem("ffmpeg_strCommands", tt)
+		} else {
+			localStorage.setItem("ffmpeg_strCommands", tt + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+		}
+
+		$("#idTitle").val("");
+		$("#idUrl").val("");
+		funcFocus1();
+	}
+		
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Link Only
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcLinkOnly() {
+		var tt = $("#idTitle").val();
+		tt = tt.trim();
+		
+		var uu = $("#idUrl").val();
+		uu = uu.trim();
+		if (uu.length === 0) {
+			funcFocus2();
+			return;
+		}
+		
+		if (!(uu.startsWith('http://') || uu.startsWith('https://')))
+		{
+			funcFocus2();
+			return;
+		}
+		
+		if (!funcCheckWhetherMakePage($("#idStdout").html())){
+			return;
+		}		
+		
+		var strTitleLine = '';
+		if (tt){
+			strTitleLine = "<i><b><font color=grey>TITLE:&nbsp;&nbsp;</font></b></i><font color=red><b>" + tt + "</b></font></br>\n";
+		}
+		
+		// 输出结算结果
+		$("#idStdout").html(
+				strTitleLine + 
+				"<font color=gray><i>URL:&nbsp;&nbsp;</i></font><font color=red><b><a href=\""+uu+"\" target=_blank>" + uu + "</a></b></font></br>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+
+		// 将所有LOG保存在localStorage中，以免误操作或刷新丢失
+		localStorage.setItem("ffmpeg_idStdout", $("#idStdout").html());
+		if (tt) {
+			if (localStorage.getItem("ffmpeg_strCommands") == null) {
+				localStorage.setItem("ffmpeg_strCommands", tt)
+			} else {
+				localStorage.setItem("ffmpeg_strCommands", tt + "\n" + localStorage.getItem("ffmpeg_strCommands"))
+			}
+		}
+
+		$("#idTitle").val("");
+		$("#idUrl").val("");
+		funcFocus1();		
+	}		
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Make Page
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcMakePage() {
+
+		if (!localStorage.getItem("ffmpeg_strCommands")){
+			funcFocus1();
+			return;
+		}
+
+		$("#idStdout").html(
+				"<pre># MakePage_Begin #\n" + localStorage.getItem("ffmpeg_strCommands") + "\n# MagePage_End #</pre>\n" + 
+				"<hr>\n" +
+				$("#idStdout").html());
+
+		// 生成Clear Page链接（实际为按钮功能）
+		$("#idClearPage").html(
+			'<a href="javascript:void(0)" onclick="funcClearPage()"><b><font color=red>ClearPage</font></b></a>'
+			);
+
+		// 隐藏按钮
+		$("#idBtnMakePage").hide();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- 是否以MakePage页面开头
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcCheckWhetherMakePage(strInput) {
+		if (strInput.startsWith("<pre># MakePage_Begin #")) {
+			if (window.confirm("Do you want to add \"#MakePage...\" lines to output?")){
+				return true;
+			} else {
+				return false; // 不允许添加
+			}
+		}
+		return true;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Clear Page
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClearPage() {
+		// 刷新页面
+		window.location.reload();
+
+		// 显示按钮
+		$("#idBtnMakePage").show();
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 函数 -- Clear All Logs
+	/////////////////////////////////////////////////////////////////////////////////////////
+	function funcClearAllLogs() {
+		if ($("#idStdout").html()){
+			var answer = window.confirm("Remove all of the history ffmpeg commands!!!");
+			if (answer) {
+				$("#idStdout").html("");
+				localStorage.removeItem("ffmpeg_idStdout"); // 删除localStorage中的该项，注意不能用localStorage.clear()清空全部
+				localStorage.removeItem("ffmpeg_strCommands");
+				funcFocus1();
+			}
+		}
+	}
+
+	</script>
+	</head>
+	<body>
+		<!-- version //-->
+		<p><b>
+			FFmpeg (<font color=red>MultiLine</font>) &nbsp;&nbsp;&nbsp;
+			<a href="https://time.geekbang.org/resource?m=1&d=0&c=0&sort=1&order=desc" target=_blank>极客时间</a> &nbsp;&nbsp;&nbsp;
+			<a href="https://m.igetget.com/share/course/free/detail?id=nb9L2q1e3OxKBPNsdoJrgN8P0Rwo6B" target=_blank>得到头条(徐玲)</a> &nbsp;&nbsp;&nbsp;
+			<a href="https://dedao.cn/course/detail?id=5L9DznlwYyOVdwasGdKmbWABv0Zk4a" target=_blank>罗辑思维·启发俱乐部</a> &nbsp;&nbsp;&nbsp;
+			<a href="https://www.igetget.com/" target=_blank>得到课程</a> &nbsp;&nbsp;&nbsp;
+			<a href="https://dedao.cn/" target=_blank>得到搜索</a> &nbsp;&nbsp;&nbsp;
+		</b></p>
+		<hr>
+		<!-- FORM //-->
+		<form id="idForm1">
+		<table>
+			<tr>
+				<td><b> TITLE(s): </b></td>
+				<td><textarea id="idTitle" rows=10 cols=100 autofocus ></textarea></td>
+				<td><input id="idBtnClear1" type="button" value="Clear" onclick="funcClear1(this);" style="height:30px;"></td>
+			</tr>
+			<tr>
+				<td><b> URL(s): </b></td>
+				<td><textarea id="idUrl" rows=10 cols=100 autofocus ></textarea></td>
+				<td><input id="idBtnClear2" type="button" value="Clear" onclick="funcClear2(this);" style="height:30px;"></td>
+			</tr>
+		</table>
+		</br>
+		<!-- BUTTON //-->
+		<table>
+		<tr>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input id="idBtnGenerateFFmpeg" type="button" value="Generate FFmpeg" onclick="funcGenerateFFmpeg(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnTitleOnly" type="button" value="Title Only" onclick="funcTitleOnly(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnLinkOnly" type="button" value="Link Only" onclick="funcLinkOnly(this);" style="height:30px;"></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnMakePage" type="button" value="Make Page" onclick="funcMakePage(this);" style="height:30px;"></td>
+			<td><div id="idClearPage"></div></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input id="idBtnClearAllLogs" type="button" value="Clear All Logs" onclick="funcClearAllLogs(this);" style="height:30px;"></td>
+		</tr>
+		</table>
+		</form>
+		<hr>
+		<!-- LOGGING //-->
+		<p id="idStdout"></p>
+		<script>
+			// READY
+			$(document).ready(function() {
+				funcFocus1();
+				// 从localStorage中读出上次的LOG
+				$("#idStdout").html(localStorage.getItem("ffmpeg_idStdout"));
+			});	
+		</script>
+	</body>
+</html>
