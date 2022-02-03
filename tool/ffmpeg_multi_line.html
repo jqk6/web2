@@ -72,7 +72,7 @@
 		}
 
 		// 分割多行标题
-		ttAry = tt.split(/[(\r\n)\r\n]+/);
+		ttAry = tt.split(/[\r\n]+/);
 		ttAry.forEach ((item,index) => {
 			item = item.trim(); // 将只含有空白的行也删掉
 			if (!item) {
@@ -81,7 +81,7 @@
 		})
 		
 		// 分割多行URL
-		uuAry = uu.split(/[(\r\n)\r\n]+/);
+		uuAry = uu.split(/[\r\n]+/);
 		uuAry.forEach ((item,index) => {
 			item = item.trim(); // 将只含有空白的行也删掉
 			if (!item) {
