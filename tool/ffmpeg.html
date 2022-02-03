@@ -98,18 +98,6 @@
 			return;
 		}
 
-		// 检查是否为多行？如果是多行，则需要检查TITLE的行数，与URL的行数，需要相等才合法。
-		// 检查每一行的URL都需要以 http:// 或 https:// 开头才合法。
-		// 然后对每一行TITLE和对应的一行URL，构建成一行新的FFMPEG命令。从而生成多行FFMPEG命令。
-		ttAry = tt.split(/[(\r\n)\r\n]+/);
-		ttAry.forEach ((item,index) => {
-			if (!item) {
-				ttAry.splice(index,1); //删除空项
-			}
-		})
-		console.log ('hi')
-		sdfsfsdf
-
 		// ffmpeg -i https://xxx.xxx.org/media/audio/xxx.m3u8 -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 XXX.mp3
 		var strText = 'ffmpeg -i ' + uu + ' -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 \"'+tt+'\".mp3';
 		
