@@ -1,8 +1,41 @@
 <html>
-  <head>
-    <title>UniqLines</title>
-  </head>
-  <body>
-    
-  </body>
+<head>
+<title>uniq_lines</title>
+<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+function FuncUniq() {
+	var strUniqList = [];
+	var strGoodList = [];
+	var strText = $.trim(TextForm.TextArea.value);	
+	var strLineList = strText.split(/\r?\n/)
+	for (var ii = 0; ii < strLineList.length; ii++) {
+		var strLine = strLineList[ii].trim();
+		if (strLine.length == 0) {
+			continue;
+		}
+		strGoodList.push(strLine);
+	}	
+	for (var ii = 0; ii < strGoodList.length; ii++) {
+		strLine = strGoodList[ii];
+		if (strGoodList.indexOf(strLine) != ii) {
+			continue;
+		}
+		strUniqList.push(strLine);	
+	}
+	// console.log(strUniqList);
+	$("#StdOut").html("<hr>\n" + strUniqList.join('</br>') + "<hr>");	
+}
+</script>
+</head>
+<body>
+<form name="TextForm">
+<textarea name="TextArea" id="TextAreaId" rows=20 cols=100 wrap="off" autofocus ></textarea>
+</br>
+</br>
+<input type="button" name="UniqBtn" id="UniqBtnId" value="Uniq" onclick="FuncUniq(this)" style="font-size:40px"/>
+</br>
+</form>
+</br>
+<p id="StdOut"></p>
+</body>
 </html>
