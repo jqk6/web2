@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>uniq_lines</title>
+<title>uniq lines</title>
 <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
 <script type="text/javascript">
 function FuncUniq() {
@@ -23,9 +23,11 @@ function FuncUniq() {
 		strUniqList.push(strLine);	
 	}
 	// console.log(strUniqList);
-	$("#StdOut").html("<hr>\n" + strUniqList.join('</br>') + "<hr>");
+	$("#TextAreaId").val(strUniqList.join('\n'));
+	$("#PreId").text(strLineList.join('\n'));	
+	$("#StdOutId").html("<hr>\n" + strUniqList.join('</br>') + "<hr>");	
 	$("#TextAreaId").select();
-	$("#TextAreaId").focus();	
+	$("#TextAreaId").focus();
 }
 </script>
 </head>
@@ -37,7 +39,9 @@ function FuncUniq() {
 <input type="button" name="UniqBtn" id="UniqBtnId" value="Uniq" onclick="FuncUniq(this)" style="font-size:40px"/>
 </br>
 </form>
-</br>
-<p id="StdOut"></p>
+<hr>
+<pre id="PreId"></pre>
+<p id="StdOutId"></p>
 </body>
 </html>
+
