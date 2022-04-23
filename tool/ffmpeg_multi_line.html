@@ -154,7 +154,7 @@
 				////////////////////////////////////////////////////////////////////////
 
 				// ffmpeg -i https://xxx.xxx.org/media/audio/xxx.m3u8 -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 XXX.mp3
-				var strText = 'ffmpeg -i ' + uu + ' -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 \"'+tt+'\".mp3';
+				var strText = 'ffmpeg -i \"' + uu + '\" -c copy -vn -acodec libmp3lame -ac 2 -qscale:a 4 -ar 8000 \"'+tt+'\".mp3';
 				
 				// 输出结算结果
 				$("#idStdout").html(
