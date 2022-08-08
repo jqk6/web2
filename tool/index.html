@@ -3158,11 +3158,47 @@
 			});
 		}
 	}
+	function FuncColorful2 () {
+		if (g_iColorFulCount === 1) {
+			g_iColorFulCount = 2;
+			$("#Btn1id").css("color", "#000000");
+			$("#Btn1id").val("Reload");
+			$("#Btn1id").hide();
+			// red
+			$(".x_red").css("color", "black");
+			$(".x_red").css("font-weight", "bold");
+			$(".x_red").css("background-color", "lightpink");
+			// blue
+			$(".x_blue").css("color", "blue");
+			$(".x_blue").css("font-weight", "bold");
+			$(".x_blue").css("background-color", "aqua");
+			// yellow
+			$(".x_yellow").css("color", "black");
+			$(".x_yellow").css("font-weight", "bold");
+			$(".x_yellow").css("background-color", "yellow");
+			// green
+			$(".x_green").css("color", "black");
+			$(".x_green").css("font-weight", "bold");
+			$(".x_green").css("background-color", "lime");
+			// a 为所有a标签自动添加属性
+			$("a").attr("target", "_blank");
+			// a 为所有a标签自动增加前缀、后缀空格 
+			// $("a").text(" " + $("a").text() + " "); -- 不能这样！这样是给所有a标签的所有文本！！！ 
+			$("a").each(function(){
+				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
+				if ($(this).text()) {
+					$(this).after("&nbsp;&nbsp;</br>"); // 在平级后边增加新标签
+					g_iTagACount += 1;
+				}
+			});
+		}
+	}
 	window.onload = function (){
 		g_iColorFulCount = 1;
 		console.log("window.onload");
 		
 		$("#idButtonDiv").append('<input type="button" name="Btn1" id="Btn1id" value="Colorful" onclick="FuncColorful(this)" style="font-size:10px;"/>');
+		$("#idButtonDiv2").append('<input type="button" name="Btn2" id="Btn2id" value="Colorful2" onclick="FuncColorful2(this)" style="font-size:10px;"/>');
 		
 		$("#Btn1id").css("color", "#ff0000");
 	}
