@@ -24,9 +24,11 @@
 	    var hour = funcZeroFill(date.getHours());//时
 	    var minute = funcZeroFill(date.getMinutes());//分
 	    var second = funcZeroFill(date.getSeconds());//秒
+	    var weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	    var myweekday = weekdays[date.getDay()];
 
 	    //当前时间
-	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+	    var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second + " " + myweekday;
 	    return curTime;
 	}
 
