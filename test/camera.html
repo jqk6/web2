@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>调用摄像头拍照</title>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>调用摄像头拍照</h1>
+  <button id="capture-btn">拍照</button>
+  <video id="video-preview" autoplay></video>
+  <canvas id="canvas-preview"></canvas>
+
+  <script>
+    // 获取按钮和视频元素
+    const captureBtn = document.getElementById('capture-btn');
+    const videoPreview = document.getElementById('video-preview');
+    const canvasPreview = document.getElementById('canvas-preview');
+
+    // 获取摄像头权限并显示视频流
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        videoPreview.srcObject = stream;
+      })
+      .catch((error) => {
+        console.log('摄像头访问失败: ' + error);
+      });
+
+    // 拍照功能
+    captureBtn.addEventListener('click', () => {
+      // 将视频画面绘制到Canvas上
+      canvasPreview.getContext('2d').drawImage(videoPreview, 0, 0, canvasPreview.width, canvasPreview.height);
+
+      // 将Canvas图像转换为DataURL
+      const imgData = canvasPreview.toDataURL('image/png');
+
+      // 创建一个新的图像元素，并设置图像源为DataURL
+      const img = new Image();
+      img.src = imgData;
+
+      // 在页面中显示拍摄的图像
+      document.body.appendChild(img);
+
+      // 创建一个下载链接
+      const downloadLink = document.createElement('a');
+      downloadLink.href = imgData;
+      downloadLink.download = 'photo.png';
+      downloadLink.style.display = 'none';
+
+      // 将下载链接添加到页面中
+      document.body.appendChild(downloadLink);
+
+      // 模拟点击下载链接
+      downloadLink.click();
+
+      // 清理下载链接
+      document.body.removeChild(downloadLink);
+    });
+  </script>
+</body>
+</html>
+
