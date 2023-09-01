@@ -5237,7 +5237,7 @@
 			$("a").each(function(){
 				//$(this).text(" ` " + $(this).text() + " ` "); -- 效果不好！难看
 				if ($(this).text()) {
-					$(this).after("&nbsp;&nbsp;</br>"); // 在平级后边增加新标签
+					$(this).after("&nbsp;&nbsp;" + $(this).attr("href") + "&nbsp;&nbsp;</br>"); // 在平级后边增加新标签
 					g_iTagACount += 1;
 				}
 			});
