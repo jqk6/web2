@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>generate_links</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #FFFFFF;
+}
+td {
+	padding: 3;
+}
+</style>
+<script type="text/javascript" src="./jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+function funcClearInput() {
+	$("#idTextInput").val("");
+	$("#idTextInput").focus();
+}
+function funcClearOutput() {
+	$("#idTextOutput").val("");
+	$("#idTextOutput").focus();
+	$("#idStdout").html("");
+}
+function funcSelectInput() {
+	$("#idTextInput").select();
+	$("#idTextInput").focus();
+}
+function funcSelectOutput() {
+	$("#idTextOutput").select();
+	$("#idTextOutput").focus();
+}
+function funcGenerateWebSiteLinkImpl(strLineSuffix) {
+	funcClearOutput();
+	funcSelectOutput();
+
+	var tt = $("#idTextInput").val();
+	if (!tt) {
+		funcClearInput();
+		return;
+	}
+	tt = tt.trim();
+	if (!tt) {
+		funcClearInput();
+		return;
+	}
+
+	ttAry = tt.split(/[\r\n]+/);
+	ttAry.forEach ((item,index) => {
+		item = item.trim();
+		if (!item) {
+			ttAry.splice(index,1); // delete blank line
+		}
+	})
+
+	if (ttAry.length <= 0) {
+		funcClearInput();
+		return;
+	}
+
+	for (var ii=0; ii<ttAry.length; ii++) {
+		ss = ttAry[ii];
+		ss = ss.trim();
+		ttAry[ii] = ss;
+	}
+
+	var iLineNo = 0;
+	var strOutputTextPage = '';
+	var strOutputHtmlPage = '<table>\n';
+	strOutputHtmlPage += "<tr><th>No</th><th>title</th><th>url</th></tr>\n";
+	for (var ii=0; ii<ttAry.length; ii++) {
+		ss = ttAry[ii];
+		if (ss.indexOf('\t') > 0) {
+			// 只保留第一个制表符，将其它制表符替换为空格
+			var iFoundTabCount = 0;
+			var xx = '';
+			for (var jj=0; jj<ss.length; jj++) {
+				if (ss[jj] == '\t') {
+					iFoundTabCount ++;
+					if (iFoundTabCount == 1) {
+						xx += ss[jj];
+					} else {
+						xx += ' ';
+					}
+				} else {
+					xx += ss[jj];
+				}
+			}
+			iLineNo += 1;
+			ssAry = xx.split(/\t+/);
+			strUrl = ssAry[0];
+			strTitle = ssAry[1];
+			strOutputTextLine = "<a href=\"" + strUrl + "\">" + strTitle + "</a>" + strLineSuffix;
+			strOutputTextPage += strOutputTextLine + "\n";
+
+			strOutputHtmlLine = "<tr><td>"+iLineNo.toString()+"</td><td><b>"+strTitle+"</b></td><td><a href=\""+strUrl+"\" target=\"_blank\">"+strUrl+"</a></td></tr>\n";
+			strOutputHtmlPage += strOutputHtmlLine;
+		}
+	}
+	strOutputHtmlPage += "</table>\n";
+	$("#idStdout").html(strOutputHtmlPage);
+
+	$("#idTextOutput").val(strOutputTextPage);
+	funcSelectOutput();
+}
+function funcGenerateWebSiteLink() {
+	funcGenerateWebSiteLinkImpl ("");
+}
+function funcGenerateArticleLink() {
+	funcGenerateWebSiteLinkImpl ("<br>");
+}
+</script>
+</head>
+<body>
+<hr>
+INPUT EXAMPLE LINE FORMAT : &lt;URL&gt; + &lt;TAB&gt; + &lt;DESC&gt;
+<pre>
+https://astro.build/	Astro
+https://devtoys.app/	DevToys
+https://www.etsy.com/	Etsy shop
+</pre>
+<hr>
+&nbsp;
+<input id="idBtnSelectInput" type="button" value="Select Input" onclick="funcSelectInput(this);" style="height:50px;">
+&nbsp;
+<input id="idBtnGen1" type="button" value="Generate Web Link" onclick="funcGenerateWebSiteLink(this);" style="height:50px;">
+&nbsp;
+<input id="idBtnGen2" type="button" value="Generate Web Link + </br>" onclick="funcGenerateArticleLink(this);" style="height:50px;">
+&nbsp;
+<input id="idBtnSelectOutput" type="button" value="Select Output" onclick="funcSelectOutput(this);" style="height:50px;">
+&nbsp;
+<input id="idBtnClearOutput" type="button" value="Clear Output" onclick="funcClearOutput(this);" style="height:50px;">
+&nbsp;
+<hr>
+<form>
+<textarea id="idTextInput" rows=12 cols=120 autofocus ></textarea>
+</br>OUTPUT: </br>
+<textarea id="idTextOutput" rows=12 cols=120 autofocus ></textarea>
+</form>
+<hr>
+<p id="idStdout"></p>
+</body>
+</html>
