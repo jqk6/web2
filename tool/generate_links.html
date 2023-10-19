@@ -32,6 +32,10 @@ function funcSelectOutput() {
 	$("#idTextOutput").select();
 	$("#idTextOutput").focus();
 }
+function funcInputAppendTabChar() {
+	$("#idTextInput").val($("#idTextInput").val() + "\t");
+	$("#idTextInput").focus();
+}
 function funcGenerateWebSiteLinkImpl(strLineSuffix) {
 	funcClearOutput();
 	funcSelectOutput();
@@ -124,6 +128,8 @@ https://www.etsy.com/	Etsy shop
 <hr>
 &nbsp;
 <input id="idBtnSelectInput" type="button" value="Select Input" onclick="funcSelectInput(this);" style="height:50px;">
+&nbsp;
+<input id="idBtnInputAppendTabChar" type="button" value="Append Tab Char" onclick="funcInputAppendTabChar(this);" style="height:50px;">
 &nbsp;
 <input id="idBtnGen1" type="button" value="Generate Web Link" onclick="funcGenerateWebSiteLink(this);" style="height:50px;">
 &nbsp;
