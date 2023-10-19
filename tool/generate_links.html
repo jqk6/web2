@@ -36,6 +36,10 @@ function funcInputAppendTabChar() {
 	$("#idTextInput").val($("#idTextInput").val() + "\t");
 	$("#idTextInput").focus();
 }
+function funcInputAppendCRLF() {
+	$("#idTextInput").val($("#idTextInput").val() + "\r\n");
+	$("#idTextInput").focus();
+}
 function funcGenerateWebSiteLinkImpl(strLineSuffix) {
 	funcClearOutput();
 	funcSelectOutput();
@@ -127,24 +131,31 @@ https://www.etsy.com/	Etsy shop
 </pre>
 <hr>
 &nbsp;
-<input id="idBtnSelectInput" type="button" value="Select Input" onclick="funcSelectInput(this);" style="height:50px;">
+<input id="idBtnSelectInput" type="button" value="Select Input" onclick="funcSelectInput(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnInputAppendTabChar" type="button" value="Append Tab Char" onclick="funcInputAppendTabChar(this);" style="height:50px;">
+<input id="idBtnInputAppendTabChar" type="button" value="Append TAB" onclick="funcInputAppendTabChar(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnGen1" type="button" value="Generate Web Link" onclick="funcGenerateWebSiteLink(this);" style="height:50px;">
+<input id="idBtnInputAppendCrLfChar" type="button" value="Append CRLF" onclick="funcInputAppendCRLF(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnGen2" type="button" value="Generate Web Link + </br>" onclick="funcGenerateArticleLink(this);" style="height:50px;">
+<input id="idBtnGen1" type="button" value="Generate Web Link" onclick="funcGenerateWebSiteLink(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnSelectOutput" type="button" value="Select Output" onclick="funcSelectOutput(this);" style="height:50px;">
+<input id="idBtnGen2" type="button" value="Generate Web Link + </br>" onclick="funcGenerateArticleLink(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnClearOutput" type="button" value="Clear Output" onclick="funcClearOutput(this);" style="height:50px;">
+<input id="idBtnSelectOutput" type="button" value="Select Output" onclick="funcSelectOutput(this);" style="height:30px;">
+&nbsp;
+<input id="idBtnClearOutput" type="button" value="Clear Output" onclick="funcClearOutput(this);" style="height:30px;">
 &nbsp;
 <hr>
 <form>
-<textarea id="idTextInput" rows=12 cols=120 autofocus ></textarea>
-</br>OUTPUT: </br>
-<textarea id="idTextOutput" rows=12 cols=120 autofocus ></textarea>
+<textarea id="idTextInput" rows=10 cols=120 autofocus ></textarea>
+<hr>
+OUTPUT:<br>
+<textarea id="idTextOutput" rows=10 cols=120 autofocus readonly style="background-color: F1F1F1;"></textarea>
 </form>
+<hr>
+&nbsp; COMMIT :
+&nbsp; <a href="https://github.com/jqk6/web2/edit/master/tool/index.html" target="_blank">tool[E]</a> &nbsp;
+&nbsp; <a href="https://github.com/jqk6/web2/edit/master/res/index.html" target="_blank">res[E]</a> &nbsp;
 <hr>
 <p id="idStdout"></p>
 </body>
