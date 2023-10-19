@@ -15,6 +15,8 @@ td {
 </style>
 <script type="text/javascript" src="./jquery-1.4.2.min.js"></script>
 <script type="text/javascript">
+var g_iAppendTabCount = 0;
+var g_iAppendCrLfCount = 0;
 function funcClearInput() {
 	$("#idTextInput").val("");
 	$("#idTextInput").focus();
@@ -33,10 +35,14 @@ function funcSelectOutput() {
 	$("#idTextOutput").focus();
 }
 function funcInputAppendTabChar() {
+	g_iAppendTabCount += 1;
+	$("#idSpanTabInfo").html(g_iAppendTabCount.toString());
 	$("#idTextInput").val($("#idTextInput").val() + "\t");
 	$("#idTextInput").focus();
 }
 function funcInputAppendCRLF() {
+	g_iAppendCrLfCount += 1;
+	$("#idSpanCrLfInfo").html(g_iAppendCrLfCount.toString());
 	$("#idTextInput").val($("#idTextInput").val() + "\r\n");
 	$("#idTextInput").focus();
 }
@@ -133,13 +139,17 @@ https://www.etsy.com/	Etsy shop
 &nbsp;
 <input id="idBtnSelectInput" type="button" value="Select Input" onclick="funcSelectInput(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnInputAppendTabChar" type="button" value="Append TAB" onclick="funcInputAppendTabChar(this);" style="height:30px;">
+<input id="idBtnInputAppendTabChar" type="button" value="Append TAB" onclick="funcInputAppendTabChar(this);" style="height:30px;font-weight: bold;">
+&nbsp;
+<span id="idSpanTabInfo"></span>
 &nbsp;
 <input id="idBtnInputAppendCrLfChar" type="button" value="Append CRLF" onclick="funcInputAppendCRLF(this);" style="height:30px;">
 &nbsp;
-<input id="idBtnGen1" type="button" value="Generate Web Link" onclick="funcGenerateWebSiteLink(this);" style="height:30px;">
+<span id="idSpanCrLfInfo"></span>
 &nbsp;
-<input id="idBtnGen2" type="button" value="Generate Web Link + </br>" onclick="funcGenerateArticleLink(this);" style="height:30px;">
+<input id="idBtnGen1" type="button" value="Generate Site Link" onclick="funcGenerateWebSiteLink(this);" style="height:30px;background-color: #AAFFAA;">
+&nbsp;
+<input id="idBtnGen2" type="button" value="Generate Page Link + </br>" onclick="funcGenerateArticleLink(this);" style="height:30px;background-color: #AAFFFF;">
 &nbsp;
 <input id="idBtnSelectOutput" type="button" value="Select Output" onclick="funcSelectOutput(this);" style="height:30px;">
 &nbsp;
@@ -150,7 +160,7 @@ https://www.etsy.com/	Etsy shop
 <textarea id="idTextInput" rows=10 cols=120 autofocus ></textarea>
 <hr>
 OUTPUT:<br>
-<textarea id="idTextOutput" rows=10 cols=120 autofocus readonly style="background-color: F1F1F1;"></textarea>
+<textarea id="idTextOutput" rows=10 cols=120 autofocus readonly style="background-color: #F1F1F1;"></textarea>
 </form>
 <hr>
 &nbsp; COMMIT :
