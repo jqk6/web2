@@ -47,6 +47,12 @@ function funcInputAppendCRLF() {
 	$("#idTextInput").focus();
 }
 function funcGenerateWebSiteLinkImpl(strLineSuffix) {
+	$("#idSpanEditSite").html("E");
+	$("#idSpanEditPage").html("E");
+	$("#idSpanEditSite").css("color","black");
+	$("#idSpanEditPage").css("color","black");
+	$("#idSpanEditSite").css("font-weight","");
+	$("#idSpanEditPage").css("font-weight","");
 	funcClearOutput();
 	funcSelectOutput();
 
@@ -121,9 +127,15 @@ function funcGenerateWebSiteLinkImpl(strLineSuffix) {
 }
 function funcGenerateWebSiteLink() {
 	funcGenerateWebSiteLinkImpl ("");
+	$("#idSpanEditSite").html("Edit");
+	$("#idSpanEditSite").css("color","red");
+	$("#idSpanEditSite").css("font-weight","bold");
 }
 function funcGenerateArticleLink() {
 	funcGenerateWebSiteLinkImpl ("<br>");
+	$("#idSpanEditPage").html("Edit");
+	$("#idSpanEditPage").css("color","red");
+	$("#idSpanEditPage").css("font-weight","bold");
 }
 </script>
 </head>
@@ -166,8 +178,8 @@ OUTPUT:<br>
 </form>
 <hr>
 &nbsp; COMMIT : &nbsp;
-<span style="background-color: #AAFFAA;">Site:</span> <a href="https://github.com/jqk6/web2/edit/master/tool/index.html" target="_blank">[E]</a> => <a href="https://jqk6.github.io/web2/tool/" target="_blank">tool</a> &nbsp;
-<span style="background-color: #AAFFFF;">Page:</span> <a href="https://github.com/jqk6/web2/edit/master/res/index.html" target="_blank">[E]</a> => <a href="https://jqk6.github.io/web2/res/" target="_blank">res</a> &nbsp;
+<span style="background-color: #AAFFAA;">Site:</span> <a href="https://github.com/jqk6/web2/edit/master/tool/index.html" target="_blank">[<span id="idSpanEditSite">E</span>]</a> => <a href="https://jqk6.github.io/web2/tool/" target="_blank">tool</a> &nbsp;
+<span style="background-color: #AAFFFF;">Page:</span> <a href="https://github.com/jqk6/web2/edit/master/res/index.html" target="_blank">[<span id="idSpanEditPage">E</span>]</a> => <a href="https://jqk6.github.io/web2/res/" target="_blank">res</a> &nbsp;
 <span style="background-color: #DDDDDD;">This:</span> <a href="https://github.com/jqk6/web2/edit/master/tool/generate_links.html" target="_blank">[E]</a>&nbsp;
 <hr>
 <p id="idStdout"></p>
