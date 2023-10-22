@@ -25,6 +25,7 @@ function funcClearOutput() {
 	$("#idTextOutput").val("");
 	$("#idTextOutput").focus();
 	$("#idStdout").html("");
+	funcResetEditInfo();
 }
 function funcSelectInput() {
 	$("#idTextInput").select();
@@ -46,13 +47,18 @@ function funcInputAppendCRLF() {
 	$("#idTextInput").val($("#idTextInput").val() + "\r\n");
 	$("#idTextInput").focus();
 }
-function funcGenerateWebSiteLinkImpl(strLineSuffix) {
+function funcResetEditInfo() {
 	$("#idSpanEditSite").html("E");
 	$("#idSpanEditPage").html("E");
 	$("#idSpanEditSite").css("color","black");
 	$("#idSpanEditPage").css("color","black");
 	$("#idSpanEditSite").css("font-weight","");
 	$("#idSpanEditPage").css("font-weight","");
+	$("#idSpanEditSite").css("font-size","");
+	$("#idSpanEditPage").css("font-size","");	
+}
+function funcGenerateWebSiteLinkImpl(strLineSuffix) {
+	funcResetEditInfo();
 	funcClearOutput();
 	funcSelectOutput();
 
@@ -130,12 +136,14 @@ function funcGenerateWebSiteLink() {
 	$("#idSpanEditSite").html("Edit");
 	$("#idSpanEditSite").css("color","red");
 	$("#idSpanEditSite").css("font-weight","bold");
+	$("#idSpanEditSite").css("font-size","32");
 }
 function funcGenerateArticleLink() {
 	funcGenerateWebSiteLinkImpl ("<br>");
 	$("#idSpanEditPage").html("Edit");
 	$("#idSpanEditPage").css("color","red");
 	$("#idSpanEditPage").css("font-weight","bold");
+	$("#idSpanEditPage").css("font-size","32");
 }
 </script>
 </head>
