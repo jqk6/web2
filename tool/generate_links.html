@@ -40,12 +40,18 @@ function funcInputAppendTabChar() {
 	$("#idSpanTabInfo").html(g_iAppendTabCount.toString());
 	$("#idTextInput").val($("#idTextInput").val() + "\t");
 	$("#idTextInput").focus();
+
+	$("#idSpanTabInfo").css("color","red");
+	$("#idSpanCrLfInfo").css("color","black");
 }
 function funcInputAppendCRLF() {
 	g_iAppendCrLfCount += 1;
 	$("#idSpanCrLfInfo").html(g_iAppendCrLfCount.toString());
 	$("#idTextInput").val($("#idTextInput").val() + "\r\n");
 	$("#idTextInput").focus();
+
+	$("#idSpanTabInfo").css("color","black");
+	$("#idSpanCrLfInfo").css("color","red");
 }
 function funcResetEditInfo() {
 	$("#idSpanEditSite").html("E");
@@ -166,7 +172,7 @@ https://www.etsy.com/	Etsy shop (example)
 &nbsp;
 <input id="idBtnInputAppendCrLfChar" type="button" value="Append CRLF" onclick="funcInputAppendCRLF(this);" style="height:30px;">
 &nbsp;
-<span id="idSpanCrLfInfo"></span>
+<b><span id="idSpanCrLfInfo"></span></b>
 &nbsp;
 <input id="idBtnGen1" type="button" value="Generate Site Link" onclick="funcGenerateWebSiteLink(this);" style="height:30px;background-color: #AAFFAA; font-weight: bold;">
 &nbsp;
