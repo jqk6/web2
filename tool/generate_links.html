@@ -123,7 +123,13 @@ function funcGenerateWebSiteLinkImpl(strLineSuffix) {
 			iLineNo += 1;
 			ssAry = xx.split(/\t+/);
 			strUrl = ssAry[0];
+			if (strUrl) {
+				strUrl = strUrl.trim();
+			}
 			strTitle = ssAry[1];
+			if (strTitle) {
+				strTitle = strTitle.trim();
+			}
 			strOutputTextLine = "<a href=\"" + strUrl + "\">" + strTitle + "</a>" + strLineSuffix;
 			strOutputTextPage += strOutputTextLine + "\n";
 
