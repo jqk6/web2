@@ -38,7 +38,7 @@ function funcSelectOutput() {
 function funcInputAppendTabChar() {
 	g_iAppendTabCount += 1;
 	$("#idSpanTabInfo").html(g_iAppendTabCount.toString());
-	$("#idTextInput").val($("#idTextInput").val() + "\t");
+	$("#idTextInput").val($("#idTextInput").val().trim() + "\t");
 	$("#idTextInput").focus();
 
 	$("#idSpanTabInfo").css("color","red");
@@ -47,7 +47,7 @@ function funcInputAppendTabChar() {
 function funcInputAppendCRLF() {
 	g_iAppendCrLfCount += 1;
 	$("#idSpanCrLfInfo").html(g_iAppendCrLfCount.toString());
-	$("#idTextInput").val($("#idTextInput").val() + "\r\n");
+	$("#idTextInput").val($("#idTextInput").val().trim() + "\r\n");
 	$("#idTextInput").focus();
 
 	$("#idSpanTabInfo").css("color","black");
