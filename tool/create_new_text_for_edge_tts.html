@@ -11,7 +11,7 @@ window.onload = function() {
 
 function generateNewPage() {
     var inputText = document.getElementById('inputText').value;
-    var newPageContent = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>New Page</title></head><body><pre>' + inputText + '</pre></body></html>';
+    var newPageContent = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>New Page</title></head><body>' + inputText + '</body></html>';
     document.open();
     document.write(newPageContent);
     document.close();
