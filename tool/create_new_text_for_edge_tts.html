@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生成新页面</title>
+<script>
+window.onload = function() {
+    document.getElementById('inputText').focus();
+};
+
+function generateNewPage() {
+    var inputText = document.getElementById('inputText').value;
+    var newPageContent = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>New Page</title></head><body>' + inputText + '</body></html>';
+    document.open();
+    document.write(newPageContent);
+    document.close();
+}
+</script>
+</head>
+<body>
+<h1>生成新页面</h1>
+<textarea id="inputText" rows="4" cols="50" placeholder="输入文字"></textarea><br>
+<button onclick="generateNewPage()">提交</button>
+</body>
+</html>
+
